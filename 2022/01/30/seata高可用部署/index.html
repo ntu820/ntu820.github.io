@@ -1,0 +1,471 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ntu820">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="准备工作 部署nacos 部署mysql  部署server端 创建数据库（seata）及表,以mysql为例 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556-- -------------------------------- The s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="seata高可用部署">
+<meta property="og:url" content="http://example.com/2022/01/30/seata%E9%AB%98%E5%8F%AF%E7%94%A8%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:site_name" content="NTU820的小窝">
+<meta property="og:description" content="准备工作 部署nacos 部署mysql  部署server端 创建数据库（seata）及表,以mysql为例 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556-- -------------------------------- The s">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/seata%E9%AB%98%E5%8F%AF%E7%94%A8%E9%83%A8%E7%BD%B2/seata.png">
+<meta property="article:published_time" content="2022-01-30T02:02:54.000Z">
+<meta property="article:modified_time" content="2022-01-30T02:10:01.293Z">
+<meta property="article:author" content="ntu820">
+<meta property="article:tag" content="seata">
+<meta property="article:tag" content="分布式事务">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/seata%E9%AB%98%E5%8F%AF%E7%94%A8%E9%83%A8%E7%BD%B2/seata.png">
+  
+  
+  <title>seata高可用部署 - NTU820的小窝</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>NTU820的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="seata高可用部署">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-30 10:02" pubdate>
+        2022年1月30日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      41 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">seata高可用部署</h1>
+            
+            <div class="markdown-body">
+              <h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><ul>
+<li>部署nacos</li>
+<li>部署mysql</li>
+</ul>
+<h4 id="部署server端"><a href="#部署server端" class="headerlink" title="部署server端"></a>部署server端</h4><ul>
+<li><p>创建数据库（seata）及表,以mysql为例</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></div></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- -------------------------------- The script used when storeMode is &#x27;db&#x27; --------------------------------</span><br><span class="hljs-comment">-- the table to store GlobalSession data</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> `global_table`<br>(<br>    `xid`                       <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">128</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>    `transaction_id`            <span class="hljs-type">BIGINT</span>,<br>    `status`                    TINYINT      <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>    `application_id`            <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">32</span>),<br>    `transaction_service_group` <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">32</span>),<br>    `transaction_name`          <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">128</span>),<br>    `timeout`                   <span class="hljs-type">INT</span>,<br>    `begin_time`                <span class="hljs-type">BIGINT</span>,<br>    `application_data`          <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">2000</span>),<br>    `gmt_create`                DATETIME,<br>    `gmt_modified`              DATETIME,<br>    <span class="hljs-keyword">PRIMARY</span> KEY (`xid`),<br>    KEY `idx_gmt_modified_status` (`gmt_modified`, `status`),<br>    KEY `idx_transaction_id` (`transaction_id`)<br>) ENGINE <span class="hljs-operator">=</span> InnoDB<br>  <span class="hljs-keyword">DEFAULT</span> CHARSET <span class="hljs-operator">=</span> utf8;<br><br><span class="hljs-comment">-- the table to store BranchSession data</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> `branch_table`<br>(<br>    `branch_id`         <span class="hljs-type">BIGINT</span>       <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>    `xid`               <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">128</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>    `transaction_id`    <span class="hljs-type">BIGINT</span>,<br>    `resource_group_id` <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">32</span>),<br>    `resource_id`       <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">256</span>),<br>    `branch_type`       <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">8</span>),<br>    `status`            TINYINT,<br>    `client_id`         <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">64</span>),<br>    `application_data`  <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">2000</span>),<br>    `gmt_create`        DATETIME(<span class="hljs-number">6</span>),<br>    `gmt_modified`      DATETIME(<span class="hljs-number">6</span>),<br>    <span class="hljs-keyword">PRIMARY</span> KEY (`branch_id`),<br>    KEY `idx_xid` (`xid`)<br>) ENGINE <span class="hljs-operator">=</span> InnoDB<br>  <span class="hljs-keyword">DEFAULT</span> CHARSET <span class="hljs-operator">=</span> utf8;<br><br><span class="hljs-comment">-- the table to store lock data</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> `lock_table`<br>(<br>    `row_key`        <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">128</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>    `xid`            <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">128</span>),<br>    `transaction_id` <span class="hljs-type">BIGINT</span>,<br>    `branch_id`      <span class="hljs-type">BIGINT</span>       <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>    `resource_id`    <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">256</span>),<br>    `table_name`     <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">32</span>),<br>    `pk`             <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">36</span>),<br>    `gmt_create`     DATETIME,<br>    `gmt_modified`   DATETIME,<br>    <span class="hljs-keyword">PRIMARY</span> KEY (`row_key`),<br>    KEY `idx_branch_id` (`branch_id`)<br>) ENGINE <span class="hljs-operator">=</span> InnoDB<br>  <span class="hljs-keyword">DEFAULT</span> CHARSET <span class="hljs-operator">=</span> utf8;<br></code></pre></td></tr></table></figure></li>
+<li><p>client端，业务数据库需要添加undo_log表，以mysql为例</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- for AT mode you must to init this sql for you business database. the seata server not need it.</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> `undo_log`<br>(<br>    `branch_id`     <span class="hljs-type">BIGINT</span>       <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> COMMENT <span class="hljs-string">&#x27;branch transaction id&#x27;</span>,<br>    `xid`           <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">128</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> COMMENT <span class="hljs-string">&#x27;global transaction id&#x27;</span>,<br>    `context`       <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">128</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> COMMENT <span class="hljs-string">&#x27;undo_log context,such as serialization&#x27;</span>,<br>    `rollback_info` LONGBLOB     <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> COMMENT <span class="hljs-string">&#x27;rollback info&#x27;</span>,<br>    `log_status`    <span class="hljs-type">INT</span>(<span class="hljs-number">11</span>)      <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> COMMENT <span class="hljs-string">&#x27;0normal status,1defense status&#x27;</span>,<br>    `log_created`   DATETIME(<span class="hljs-number">6</span>)  <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> COMMENT <span class="hljs-string">&#x27;create datetime&#x27;</span>,<br>    `log_modified`  DATETIME(<span class="hljs-number">6</span>)  <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> COMMENT <span class="hljs-string">&#x27;modify datetime&#x27;</span>,<br>    <span class="hljs-keyword">UNIQUE</span> KEY `ux_undo_log` (`xid`, `branch_id`)<br>) ENGINE <span class="hljs-operator">=</span> InnoDB<br>  AUTO_INCREMENT <span class="hljs-operator">=</span> <span class="hljs-number">1</span><br>  <span class="hljs-keyword">DEFAULT</span> CHARSET <span class="hljs-operator">=</span> utf8 COMMENT <span class="hljs-operator">=</span><span class="hljs-string">&#x27;AT transaction mode undo table&#x27;</span>;<br></code></pre></td></tr></table></figure></li>
+<li><p>添加配置到nacos配置中心，使用官方的的脚本将默认的配置文件导入nacos</p>
+</li>
+<li><p>修改配置，主要是数据库的连接配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">store.mode=db<br>store.db.datasource=druid<br>store.db.dbType=mysql<br>store.db.driverClassName=com.mysql.jdbc.Driver<br>store.db.url=jdbc:mysql://192.168.199.2:30060/seata?useUnicode=true<br>store.db.user=root<br>store.db.password=123456<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="部署到K8S"><a href="#部署到K8S" class="headerlink" title="部署到K8S"></a>部署到K8S</h4><ul>
+<li><p>seata-ha-deploy.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">seata-ha-server</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">app.kubernetes.io/name:</span> <span class="hljs-string">seata-ha-server</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">NodePort</span><br>  <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">8091</span><br>      <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>      <span class="hljs-attr">name:</span> <span class="hljs-string">http</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">app.kubernetes.io/name:</span> <span class="hljs-string">seata-ha-server</span><br><br><span class="hljs-meta">---</span><br><span class="hljs-meta"></span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">StatefulSet</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">seata-ha-server</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">app.kubernetes.io/name:</span> <span class="hljs-string">seata-ha-server</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">serviceName:</span> <span class="hljs-string">seata-ha-server</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">app.kubernetes.io/name:</span> <span class="hljs-string">seata-ha-server</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app.kubernetes.io/name:</span> <span class="hljs-string">seata-ha-server</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">imagePullSecrets:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">default-harbor-secret</span><br>      <span class="hljs-attr">containers:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">seata-ha-server</span><br>          <span class="hljs-attr">image:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.182</span><span class="hljs-number">.187</span><span class="hljs-string">:81/library/seata-server:1.4.2</span><br>          <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">IfNotPresent</span><br>          <span class="hljs-attr">env:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">SEATA_CONFIG_NAME</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-string">file:/root/seata-config/registry</span><br>          <span class="hljs-attr">ports:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">http</span><br>              <span class="hljs-attr">containerPort:</span> <span class="hljs-number">8091</span><br>              <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>          <span class="hljs-attr">volumeMounts:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">seata-config</span><br>              <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/root/seata-config</span><br>      <span class="hljs-attr">volumes:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">seata-config</span><br>          <span class="hljs-attr">configMap:</span><br>            <span class="hljs-attr">name:</span> <span class="hljs-string">seata-ha-server-config</span><br><br><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">seata-ha-server-config</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span><br><span class="hljs-attr">data:</span><br>  <span class="hljs-attr">registry.conf:</span> <span class="hljs-string">|</span><br><span class="hljs-string">    registry &#123;</span><br><span class="hljs-string">        type = &quot;nacos&quot;</span><br><span class="hljs-string">        nacos &#123;</span><br><span class="hljs-string">          application = &quot;seata-server&quot;</span><br><span class="hljs-string">          serverAddr = &quot;192.168.186.79:8849&quot;</span><br><span class="hljs-string">          group = &quot;SEATA_GROUP&quot;</span><br><span class="hljs-string">          namespace = &quot;87eb1383-a697-439a-a40f-52a071b4cc6b&quot;</span><br><span class="hljs-string">          cluster = &quot;default&quot;</span><br><span class="hljs-string">          username = &quot;nacos&quot;</span><br><span class="hljs-string">          password = &quot;nacos&quot;</span><br><span class="hljs-string">        &#125;</span><br><span class="hljs-string">    &#125;</span><br><span class="hljs-string">    config &#123;</span><br><span class="hljs-string">      type = &quot;nacos&quot;</span><br><span class="hljs-string">      nacos &#123;</span><br><span class="hljs-string">        serverAddr = &quot;192.168.186.79:8849&quot;</span><br><span class="hljs-string">        namespace = &quot;87eb1383-a697-439a-a40f-52a071b4cc6b&quot;</span><br><span class="hljs-string">        group = &quot;SEATA_GROUP&quot;</span><br><span class="hljs-string">        username = &quot;nacos&quot;</span><br><span class="hljs-string">        password = &quot;nacos&quot;</span><br><span class="hljs-string">      &#125;</span><br><span class="hljs-string">    &#125;</span><br><span class="hljs-string"></span><br></code></pre></td></tr></table></figure></li>
+<li><p>查看部署情况</p>
+<p>1、应该会有3个pod运行，查看日志，可以看到已经连接数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">11</span>:<span class="hljs-number">22</span>:<span class="hljs-number">25.586</span>  INFO --- [                     main] io.seata.server.Server                   : The server is running in container.<br><span class="hljs-number">11</span>:<span class="hljs-number">22</span>:<span class="hljs-number">25.599</span>  INFO --- [                     main] io.seata.config.FileConfiguration        : The file name of the operation is file:/root/seata-config/registry<br><span class="hljs-number">11</span>:<span class="hljs-number">22</span>:<span class="hljs-number">25.606</span>  INFO --- [                     main] io.seata.config.FileConfiguration        : The configuration file used is /root/seata-config/registry.conf<br><span class="hljs-number">11</span>:<span class="hljs-number">22</span>:<span class="hljs-number">27.127</span>  INFO --- [                     main] com.alibaba.druid.pool.DruidDataSource   : &#123;dataSource-<span class="hljs-number">1</span>&#125; inited<br><span class="hljs-number">11</span>:<span class="hljs-number">22</span>:<span class="hljs-number">27.367</span>  INFO --- [                     main] i.s.core.rpc.netty.NettyServerBootstrap  : Server started, listen port: <span class="hljs-number">8091</span><br></code></pre></td></tr></table></figure>
+
+<p>2、去nacos中查看，应该会有3个服务。</p>
+<p><img src="/img/seata%E9%AB%98%E5%8F%AF%E7%94%A8%E9%83%A8%E7%BD%B2/20210720193847.png" srcset="/img/loading.gif" lazyload alt="seata"></p>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/seata/">seata</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/seata/">seata</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">分布式事务</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/30/windocker/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">在windows上部署docker实战</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/30/nacos%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/">
+                        <span class="hidden-mobile">nacos集群安装</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

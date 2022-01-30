@@ -1,0 +1,472 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ntu820">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="目前在windows上部署docker方式有两种。第一：采用虚拟机进行部署；第二：采用Hyper-V虚拟技术进行部署。微软自windows server2016开始将docker集成进系统。目前支持docker in windows部署方式的系统有：win10、windwos server2016&#x2F;2019。本文采用Hyper-V方式进行docker部署。 主板开启虚拟化，系统安装Hyper-V的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在windows上部署docker实战">
+<meta property="og:url" content="http://example.com/2022/01/30/windocker/index.html">
+<meta property="og:site_name" content="NTU820的小窝">
+<meta property="og:description" content="目前在windows上部署docker方式有两种。第一：采用虚拟机进行部署；第二：采用Hyper-V虚拟技术进行部署。微软自windows server2016开始将docker集成进系统。目前支持docker in windows部署方式的系统有：win10、windwos server2016&#x2F;2019。本文采用Hyper-V方式进行docker部署。 主板开启虚拟化，系统安装Hyper-V的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/windocker/windocker.jpg">
+<meta property="article:published_time" content="2022-01-30T02:13:31.000Z">
+<meta property="article:modified_time" content="2022-01-30T02:38:48.559Z">
+<meta property="article:author" content="ntu820">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="windows">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/windocker/windocker.jpg">
+  
+  
+  <title>在windows上部署docker实战 - NTU820的小窝</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>NTU820的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="在windows上部署docker实战">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-30 10:13" pubdate>
+        2022年1月30日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      10 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">在windows上部署docker实战</h1>
+            
+            <div class="markdown-body">
+              <p>目前在windows上部署docker方式有两种。第一：采用虚拟机进行部署；第二：采用Hyper-V虚拟技术进行部署。微软自windows server2016开始将docker集成进系统。目前支持docker in windows部署方式的系统有：win10、windwos server2016/2019。本文采用Hyper-V方式进行docker部署。</p>
+<h4 id="主板开启虚拟化，系统安装Hyper-V的windows更新。"><a href="#主板开启虚拟化，系统安装Hyper-V的windows更新。" class="headerlink" title="主板开启虚拟化，系统安装Hyper-V的windows更新。"></a>主板开启虚拟化，系统安装Hyper-V的windows更新。</h4><p>打开windows更新。将Hyper-V全部选中。</p>
+<p><img src="/img/windocker/%E5%9B%BE%E7%89%871.png" srcset="/img/loading.gif" lazyload alt="hyper"></p>
+<h4 id="安装docker-desktop"><a href="#安装docker-desktop" class="headerlink" title="安装docker desktop"></a>安装docker desktop</h4><p>下载地址：<a target="_blank" rel="noopener" href="https://download.docker.com/win/stable/Docker%20Desktop%20Installer.exe">https://download.docker.com/win/stable/Docker%20Desktop%20Installer.exe</a><br><img src="/img/windocker/%E5%9B%BE%E7%89%872.png" srcset="/img/loading.gif" lazyload alt="dockerdesktop"></p>
+<p>出现此图标，代表docker安装成功。</p>
+<h4 id="切换windows镜像模式"><a href="#切换windows镜像模式" class="headerlink" title="切换windows镜像模式"></a>切换windows镜像模式</h4><p>由于我们需要安装运行基于windows的容器与镜像，所有在安装完后，右击图标，将docker的运行方式改位“windows containers”。</p>
+<p><img src="/img/windocker/%E5%9B%BE%E7%89%873.png" srcset="/img/loading.gif" lazyload alt="windocker"></p>
+<h4 id="简单配置"><a href="#简单配置" class="headerlink" title="简单配置"></a>简单配置</h4><p>对docker进行一些配置，以达到更好的效果。【如果能科学上网，请忽略此步】</p>
+<p><img src="/img/windocker/%E5%9B%BE%E7%89%874.png" srcset="/img/loading.gif" lazyload alt="配置"></p>
+<h4 id="拉取windowsserver的镜像"><a href="#拉取windowsserver的镜像" class="headerlink" title="拉取windowsserver的镜像"></a>拉取windowsserver的镜像</h4><figure class="highlight sh"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs sh">docker pull mcr.microsoft.com/windows/servercore:ltsc2019<br>docker pull mcr.microsoft.com/windows/nanoserver:1903<br></code></pre></td></tr></table></figure>
+<p>注意：windows的docker容器拉取镜像时，镜像的tag必须要osversion的版本必须与镜像版本对应。<br>查看系统版本信息：systeminfo</p>
+<p><img src="/img/windocker/%E5%9B%BE%E7%89%875.png" srcset="/img/loading.gif" lazyload alt="系统版本"></p>
+<p><img src="/img/windocker/%E5%9B%BE%E7%89%876.png" srcset="/img/loading.gif" lazyload alt="找到对应镜像"></p>
+<p>拉取的镜像比较大需要耐心等待。</p>
+<p><img src="/img/windocker/%E5%9B%BE%E7%89%877.png" srcset="/img/loading.gif" lazyload alt="拉取镜像"></p>
+<h4 id="运行windows原生镜像"><a href="#运行windows原生镜像" class="headerlink" title="运行windows原生镜像"></a>运行windows原生镜像</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker run -it mcr.microsoft.com/windows/nanoserver:1903 cmd.exe<br></code></pre></td></tr></table></figure>
+<p>运行后会进入容器内部。盘符会进入C盘位置。退出后，使用docker ps会发现容器也退出了，此时，输入docker start 容器ID。重新启动容器，发现容器正常启动。</p>
+<h4 id="测试镜像"><a href="#测试镜像" class="headerlink" title="测试镜像"></a>测试镜像</h4><p>在windwos容器中部署python环境</p>
+<ul>
+<li>首先停止windows容器，docker stop 容器ID</li>
+<li>使用docker cp命令，将本地宿主机上的文件拷贝进windows容器中。由于容器中不包含GUI，所以这里直接将python的免安装文件复制进容器。<code>docker cp D:\develop\python37 容器ID:\C:\Users</code></li>
+<li>docker start 容器ID</li>
+<li>docker exec -it 容器ID cmd.exe 进入容器内部</li>
+<li>进入C盘下面的Users文件夹。发现python文件夹已经拷贝进来。<img src="/img/windocker/%E5%9B%BE%E7%89%878.png" srcset="/img/loading.gif" lazyload alt="python"></li>
+<li>验证python环境，进入pyhon37文件夹，运行python命令，发现可以进入。<img src="/img/windocker/%E5%9B%BE%E7%89%879.png" srcset="/img/loading.gif" lazyload alt="python"></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/docker/">docker</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/docker/">docker</a>
+                    
+                      <a class="hover-with-bg" href="/tags/windows/">windows</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/30/yapi/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">私有化部署yapi</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/30/seata%E9%AB%98%E5%8F%AF%E7%94%A8%E9%83%A8%E7%BD%B2/">
+                        <span class="hidden-mobile">seata高可用部署</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

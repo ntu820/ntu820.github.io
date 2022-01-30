@@ -1,0 +1,475 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ntu820">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="redis6 集群安装gcc升级安装redis6最主要的一点是要用GCC5以上，而CentOS6.9的GCC版本为4.8.x, 所以安装之前必须升级GCC。 123yum -y install gcc tclyum -y install centos-release-sclyum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis6集群安装">
+<meta property="og:url" content="http://example.com/2022/01/29/redis6%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="NTU820的小窝">
+<meta property="og:description" content="redis6 集群安装gcc升级安装redis6最主要的一点是要用GCC5以上，而CentOS6.9的GCC版本为4.8.x, 所以安装之前必须升级GCC。 123yum -y install gcc tclyum -y install centos-release-sclyum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/redis6%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/redis.jpg">
+<meta property="article:published_time" content="2022-01-29T08:09:33.000Z">
+<meta property="article:modified_time" content="2022-01-29T08:20:08.835Z">
+<meta property="article:author" content="ntu820">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/redis6%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/redis.jpg">
+  
+  
+  <title>redis6集群安装 - NTU820的小窝</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>NTU820的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="redis6集群安装">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-29 16:09" pubdate>
+        2022年1月29日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">redis6集群安装</h1>
+            
+            <div class="markdown-body">
+              <h2 id="redis6-集群安装"><a href="#redis6-集群安装" class="headerlink" title="redis6 集群安装"></a>redis6 集群安装</h2><h3 id="gcc升级"><a href="#gcc升级" class="headerlink" title="gcc升级"></a>gcc升级</h3><p>安装redis6最主要的一点是要用GCC5以上，而CentOS6.9的GCC版本为4.8.x, 所以安装之前必须升级GCC。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs shell">yum -y install gcc tcl<br>yum -y install centos-release-scl<br>yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils<br></code></pre></td></tr></table></figure>
+
+<p>启用gcc</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;source /opt/rh/devtoolset-9/enable&quot;</span> &gt;&gt; /etc/profile<br></code></pre></td></tr></table></figure>
+
+<h3 id="下载、安装"><a href="#下载、安装" class="headerlink" title="下载、安装"></a>下载、安装</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-built_in">cd</span> /opt<br>wget https://download.redis.io/releases/redis-6.2.6.tar.gz<br>tar -xvf redis-6.2.6.tar.gz<br><span class="hljs-built_in">cd</span> redis-6.2.6<br>make MALLOC=libc<br>make install PREFIX=/usr/<span class="hljs-built_in">local</span>/redis<br></code></pre></td></tr></table></figure>
+
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">mkdir -p /usr/<span class="hljs-built_in">local</span>/redis/run<br>mkdir -p /usr/<span class="hljs-built_in">local</span>/redis/<span class="hljs-built_in">log</span><br>mkdir -p /usr/<span class="hljs-built_in">local</span>/redis/data/7000<br>mkdir -p /usr/<span class="hljs-built_in">local</span>/redis/conf<br></code></pre></td></tr></table></figure>
+
+<p>设置redis配置文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">cp /opt/redis-6.0.9/redis.conf /usr/<span class="hljs-built_in">local</span>/redis/conf/redis_7000.conf<br>vi /usr/<span class="hljs-built_in">local</span>/redis/conf/redis_7000.conf<br></code></pre></td></tr></table></figure>
+
+<p>文件配置内容</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-built_in">bind</span> 192.168.146.199   <span class="hljs-comment">#添加本机的ip</span><br>port 7000  <span class="hljs-comment">#端口　　</span><br>pidfile /usr/<span class="hljs-built_in">local</span>/redis/run/redis_7000.pid   <span class="hljs-comment">#pid存储目录</span><br>logfile /usr/<span class="hljs-built_in">local</span>/redis/<span class="hljs-built_in">log</span>/redis_7000.log   <span class="hljs-comment">#日志存储目录</span><br>dir /usr/<span class="hljs-built_in">local</span>/redis/data/7000                <span class="hljs-comment">#数据存储目录，目录要提前创建好</span><br>cluster-enabled yes  <span class="hljs-comment">#开启集群</span><br>cluster-config-file nodes-7000.conf   <span class="hljs-comment">#集群节点配置文件，这个文件是不能手动编辑的。确保每一个集群节点的配置文件不通</span><br>cluster-node-timeout 15000   <span class="hljs-comment">#集群节点的超时时间，单位：ms，超时后集群会认为该节点失败</span><br>appendonly yes  <span class="hljs-comment">#持久化</span><br>daemonize yes   <span class="hljs-comment">#守护进程</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="建立不通的端口实例"><a href="#建立不通的端口实例" class="headerlink" title="建立不通的端口实例"></a>建立不通的端口实例</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">cp /usr/<span class="hljs-built_in">local</span>/redis/conf/redis_7000.conf /usr/<span class="hljs-built_in">local</span>/redis/conf/redis_7001.conf<br>mkdir -p /usr/<span class="hljs-built_in">local</span>/redis/data/7001<br>vi /usr/<span class="hljs-built_in">local</span>/redis/conf/redis_7001.conf <span class="hljs-comment"># 配置文件和上述一样，只是端口不同</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="制作启动文件"><a href="#制作启动文件" class="headerlink" title="制作启动文件"></a>制作启动文件</h3><p>启动脚本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">vi cluster_start.sh<br>./redis-server ../conf/redis_7000.conf<br>./redis-server ../conf/redis_7001.conf<br>chmod +x cluster_start.sh<br></code></pre></td></tr></table></figure>
+
+<p>关闭脚本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">vi cluster_shutdown.sh<br>pgrep redis-server | xargs -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">kill</span> -9<br>chmod +x cluster_shutdown.sh<br></code></pre></td></tr></table></figure>
+
+<h3 id="创建集群"><a href="#创建集群" class="headerlink" title="创建集群"></a>创建集群</h3><p>建立集群前需先启动各个节点的redis服务，并在其中一个redis服务器中执行以下指令建立集群。在5.0之后，可以直接使用redis-cli直接创建集群。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">redis-cli --cluster create 192.168.146.199:7000 192.168.146.200:7000 192.168.146.201:7000 192.168.146.199:7001 192.168.146.200:7001 192.168.146.201:7001 --cluster-replicas 1<br></code></pre></td></tr></table></figure>
+
+<p>–cluster-replicas 1 参数表示希望每个主服务器都有一个从服务器，这里则代表3主3从，前3个代表3个master，后3个代表3个slave。</p>
+<p>通过该方式创建的带有从节点的机器不能够自己手动指定主节点，redis集群会尽量把主从服务器分配在不同机器上。</p>
+<h3 id="查看集群状态"><a href="#查看集群状态" class="headerlink" title="查看集群状态"></a>查看集群状态</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">redis-cli -c -h 192.168.146.199 -p 7000 cluster info<br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/redis/">redis</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/linux/">linux</a>
+                    
+                      <a class="hover-with-bg" href="/tags/redis/">redis</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/30/docker-ce%E5%AE%89%E8%A3%85/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">docker-ce安装</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/29/centos7%E5%AE%89%E8%A3%85nginx/">
+                        <span class="hidden-mobile">centos7安装nginx</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
