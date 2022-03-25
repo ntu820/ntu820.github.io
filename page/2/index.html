@@ -18,8 +18,8 @@
   
     <meta name="description" content="记录everythings">
 <meta property="og:type" content="website">
-<meta property="og:title" content="分类 - nginx">
-<meta property="og:url" content="http://example.com/categories/nginx/index.html">
+<meta property="og:title" content="NTU820的小窝">
+<meta property="og:url" content="http://example.com/page/2/index.html">
 <meta property="og:site_name" content="NTU820的小窝">
 <meta property="og:description" content="记录everythings">
 <meta property="og:locale" content="zh_CN">
@@ -27,7 +27,7 @@
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>分类 - nginx - NTU820的小窝</title>
+  <title>NTU820的小窝</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -57,7 +57,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -153,18 +153,22 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/bg/index_01.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="分类 - nginx">
+            <span class="h2" id="subtitle" title="直到她永久沉睡的那一天，世界啊，请你一定不要终结。">
               
             </span>
 
             
           </div>
 
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
           
         </div>
       </div>
@@ -175,36 +179,76 @@
     
       <div class="container nopadding-x-md">
         <div class="py-5" id="board"
-          >
+          style=margin-top:0>
           
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">共计 2 篇文章</p>
-  <hr>
-  
-  
+
+  <div class="row mx-auto index-card">
     
-      
-      <p class="h5">2022</p>
     
-    <a href="/2022/03/25/ngcfg/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Nginx常用配置</span>
-      <time style="float: right;">03-25</time>
-    </a>
-  
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/01/29/%E6%9B%B4%E6%96%B0kubeadm%E8%AF%81%E4%B9%A6/" target="_self">
+          <img src="/img/k8s.jpg" srcset="/img/loading.gif" lazyload alt="更新kubeadm证书">
+        </a>
+      </div>
     
-    <a href="/2022/01/29/centos7%E5%AE%89%E8%A3%85nginx/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">centos7安装nginx</span>
-      <time style="float: right;">01-29</time>
-    </a>
-  
-</div>
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/01/29/%E6%9B%B4%E6%96%B0kubeadm%E8%AF%81%E4%B9%A6/" target="_self">
+          更新kubeadm证书
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/01/29/%E6%9B%B4%E6%96%B0kubeadm%E8%AF%81%E4%B9%A6/" target="_self">
+          
+          1. 续期k8s证书使用kubeadm搭建的k8s集群默认的kubectl只有一年有效期。 步骤 备份当前k8s证书1cp -r &#x2F;etc&#x2F;kubernetes &#x2F;etc&#x2F;kubernetes.bak 查看过期时间1kubeadm alpha certs check-expiration 更新证书12345kubeadm alpha certs renew allsystemctl restart
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-01-29 10:07" pubdate>
+              2022-01-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/kubernetes/">kubernetes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/kubernetes/">kubernetes</a>
+            
+              <a href="/tags/kubeadm/">kubeadm</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
 
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </span>
+  </nav>
 
 
 
@@ -307,7 +351,34 @@
       var typing = Fluid.plugins.typing;
       var title = document.getElementById('subtitle').title;
       
-        typing(title);
+      jQuery.ajax({
+        type: 'GET',
+        url: 'https://v1.hitokoto.cn/',
+        headers: {},
+        dataType: 'json',
+        success: function(result) {
+          var text;
+          if (result) {
+            var keys = 'hitokoto'.split(',');
+            if (result instanceof Array) {
+              result = result[0];
+            }
+            for (const k of keys) {
+              var value = result[k];
+              if (typeof value === 'string') {
+                text = value;
+                break;
+              } else if (value instanceof Object) {
+                result = value;
+              }
+            }
+          }
+          text ? typing(text) : typing(title);
+        },
+        error: function() {
+          typing(title);
+        }
+      })
       
     })(window, document);
   </script>
