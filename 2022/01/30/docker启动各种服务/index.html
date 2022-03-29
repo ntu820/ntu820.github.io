@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/container.jpg">
 <meta property="article:published_time" content="2022-01-30T01:39:44.000Z">
-<meta property="article:modified_time" content="2022-01-30T01:41:50.552Z">
+<meta property="article:modified_time" content="2022-03-28T09:23:14.423Z">
 <meta property="article:author" content="ntu820">
 <meta property="article:tag" content="docker">
 <meta property="article:tag" content="container">
@@ -201,7 +201,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.1k 字
+      6.6k 字
     </span>
   
 
@@ -210,7 +210,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      51 分钟
+      56 分钟
     </span>
   
 
@@ -284,6 +284,19 @@
 <p>15675，mqtt的ws端口</p>
 <hr>
 <h3 id="启动traefik"><a href="#启动traefik" class="headerlink" title="启动traefik"></a>启动traefik</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker run --name traefik2 -d -p 8080:8080 -p 80:80 -v <span class="hljs-variable">$PWD</span>/traefik.yml:/etc/traefik/traefik.yml -v /var/run/docker.sock:/var/run/docker.sock traefik:v2.4.8<br></code></pre></td></tr></table></figure>
+
+<h3 id="启动MongoDB"><a href="#启动MongoDB" class="headerlink" title="启动MongoDB"></a>启动MongoDB</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker run --name mongo -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin -v /data/mongodb:/data/db -p 27017:27017 -d mongo:5.0<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">version:</span> <span class="hljs-string">&#x27;3.1&#x27;</span><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">mongo:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">mongo</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">MONGO_INITDB_ROOT_USERNAME:</span> <span class="hljs-string">root</span><br>      <span class="hljs-attr">MONGO_INITDB_ROOT_PASSWORD:</span> <span class="hljs-string">example</span><br>  <span class="hljs-attr">mongo-express:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">mongo-express</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">8081</span><span class="hljs-string">:8081</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">ME_CONFIG_MONGODB_ADMINUSERNAME:</span> <span class="hljs-string">root</span><br>      <span class="hljs-attr">ME_CONFIG_MONGODB_ADMINPASSWORD:</span> <span class="hljs-string">example</span><br>      <span class="hljs-attr">ME_CONFIG_MONGODB_URL:</span> <span class="hljs-string">mongodb://root:example@mongo:27017/</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
 
             </div>
             <hr>
