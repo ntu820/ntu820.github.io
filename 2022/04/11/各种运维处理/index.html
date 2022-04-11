@@ -16,24 +16,23 @@
   <meta name="author" content="ntu820">
   <meta name="keywords" content="">
   
-    <meta name="description" content="下载sonarqube社区版下载：https:&#x2F;&#x2F;binaries.sonarsource.com&#x2F;Distribution&#x2F;sonarqube&#x2F;sonarqube-8.9.7.52159.zip sonarqube从7.9开始已经不支持mysql了，所以需要提前安装jdk和pg。 本次环境前提：    序号 环境 版本    1 jdk 14   2 postgresql 14   3 sona">
+    <meta name="description" content="kubectl操作 批量操作12# 批量删除kube-system空间下状态为“驱逐”的podkubectl get pod -n kube-system|grep Evicted|awk &amp;#x27;&amp;#123;print$1&amp;#125;&amp;#x27;|xargs kubectl delete pod -n kube-system 批量操作说明，所有批量操作都可以采用此方案   使用命令查询出需要">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux7.9安装sonarqube-8.9.7">
-<meta property="og:url" content="http://example.com/2022/03/31/%E5%AE%89%E8%A3%85sonarquber-8-9-7/index.html">
+<meta property="og:title" content="各种运维处理">
+<meta property="og:url" content="http://example.com/2022/04/11/%E5%90%84%E7%A7%8D%E8%BF%90%E7%BB%B4%E5%A4%84%E7%90%86/index.html">
 <meta property="og:site_name" content="NTU820的小窝">
-<meta property="og:description" content="下载sonarqube社区版下载：https:&#x2F;&#x2F;binaries.sonarsource.com&#x2F;Distribution&#x2F;sonarqube&#x2F;sonarqube-8.9.7.52159.zip sonarqube从7.9开始已经不支持mysql了，所以需要提前安装jdk和pg。 本次环境前提：    序号 环境 版本    1 jdk 14   2 postgresql 14   3 sona">
+<meta property="og:description" content="kubectl操作 批量操作12# 批量删除kube-system空间下状态为“驱逐”的podkubectl get pod -n kube-system|grep Evicted|awk &amp;#x27;&amp;#123;print$1&amp;#125;&amp;#x27;|xargs kubectl delete pod -n kube-system 批量操作说明，所有批量操作都可以采用此方案   使用命令查询出需要">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/%E5%AE%89%E8%A3%85sonarquber/sonarqube.png">
-<meta property="article:published_time" content="2022-03-31T12:33:10.000Z">
-<meta property="article:modified_time" content="2022-03-31T14:25:40.216Z">
+<meta property="og:image" content="http://example.com/img/%E5%90%84%E7%A7%8D%E8%BF%90%E7%BB%B4%E5%A4%84%E7%90%86/%E8%BF%90%E7%BB%B4.png">
+<meta property="article:published_time" content="2022-04-11T02:19:24.000Z">
+<meta property="article:modified_time" content="2022-04-11T02:35:44.165Z">
 <meta property="article:author" content="ntu820">
-<meta property="article:tag" content="linux">
-<meta property="article:tag" content="sonarqube">
+<meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/%E5%AE%89%E8%A3%85sonarquber/sonarqube.png">
+<meta name="twitter:image" content="http://example.com/img/%E5%90%84%E7%A7%8D%E8%BF%90%E7%BB%B4%E5%A4%84%E7%90%86/%E8%BF%90%E7%BB%B4.png">
   
   
-  <title>Linux7.9安装sonarqube-8.9.7 - NTU820的小窝</title>
+  <title>各种运维处理 - NTU820的小窝</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -179,7 +178,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Linux7.9安装sonarqube-8.9.7">
+            <span class="h2" id="subtitle" title="各种运维处理">
               
             </span>
 
@@ -189,8 +188,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-03-31 20:33" pubdate>
-        2022年3月31日 晚上
+      <time datetime="2022-04-11 10:19" pubdate>
+        2022年4月11日 上午
       </time>
     </span>
   
@@ -200,7 +199,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.6k 字
+      1.5k 字
     </span>
   
 
@@ -209,7 +208,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14 分钟
+      13 分钟
     </span>
   
 
@@ -238,62 +237,28 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Linux7.9安装sonarqube-8.9.7</h1>
+            <h1 style="display: none">各种运维处理</h1>
             
             <div class="markdown-body">
-              <h3 id="下载sonarqube"><a href="#下载sonarqube" class="headerlink" title="下载sonarqube"></a>下载sonarqube</h3><p>社区版下载：<a target="_blank" rel="noopener" href="https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.7.52159.zip">https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.7.52159.zip</a></p>
-<p>sonarqube从7.9开始已经不支持mysql了，所以需要提前安装jdk和pg。</p>
-<p>本次环境前提：</p>
-<table>
-<thead>
-<tr>
-<th>序号</th>
-<th>环境</th>
-<th>版本</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>jdk</td>
-<td>14</td>
-</tr>
-<tr>
-<td>2</td>
-<td>postgresql</td>
-<td>14</td>
-</tr>
-<tr>
-<td>3</td>
-<td>sonarqube</td>
-<td>8.9.7</td>
-</tr>
-</tbody></table>
-<h3 id="新建sqonarqube数据库"><a href="#新建sqonarqube数据库" class="headerlink" title="新建sqonarqube数据库"></a>新建sqonarqube数据库</h3><figure class="highlight sh"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment">#创建sonar数据库</span><br>create database sonar;<br><span class="hljs-comment">#创建sonar用户</span><br>create user sonar;<br><span class="hljs-comment">#设置sonar用户密码(否则会导致连不上数据库)</span><br>alter user sonar with password <span class="hljs-string">&#x27;postgres&#x27;</span>;<br><span class="hljs-comment">#给sonar授权</span><br>alter role sonar createdb;<br>alter role sonar superuser;<br>alter role sonar createrole;    <br><span class="hljs-comment">#更改sonar数据库拥有者(这一步是必须的，否则会sonarqube会连接失败)</span><br>alter database sonar owner to sonar；<br></code></pre></td></tr></table></figure>
-
-<h3 id="修改系统配置"><a href="#修改系统配置" class="headerlink" title="修改系统配置"></a>修改系统配置</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs sh">vi /etc/sysctl.conf<br><span class="hljs-comment"># 在文件末尾添加如下</span><br>vm.max_map_count=262144<br>fs.file-max=65536<br><span class="hljs-comment"># 生效</span><br>/sbin/sysctl -p<br><br>vi /etc/profile<br><span class="hljs-comment"># 在文件末尾添加如下</span><br><span class="hljs-built_in">ulimit</span> -n 65536<br><span class="hljs-comment"># 生效</span><br><span class="hljs-built_in">source</span> /etc/profile<br></code></pre></td></tr></table></figure>
-
-<h3 id="创建sonar用户"><a href="#创建sonar用户" class="headerlink" title="创建sonar用户"></a>创建sonar用户</h3><p>因为sonarquber无法使用<code>root</code>用户启动</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 添加用户</span><br>useradd sonar<br><span class="hljs-comment"># 设置密码</span><br>passwd sonar<br><span class="hljs-comment"># 分配权限</span><br>chown -R sonar:sonar /usr/<span class="hljs-built_in">local</span>/sonarqube-8.9.7<br></code></pre></td></tr></table></figure>
-
-<h3 id="配置数据库连接和ES"><a href="#配置数据库连接和ES" class="headerlink" title="配置数据库连接和ES"></a>配置数据库连接和ES</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">vi /usr/<span class="hljs-built_in">local</span>/sonarqube-8.9.7/conf/sonar.properties<br></code></pre></td></tr></table></figure>
-
-<p><img src="/img/%E5%AE%89%E8%A3%85sonarquber/sonardb.png" srcset="/img/loading.gif" lazyload alt="sonardb"></p>
-<p><img src="/img/%E5%AE%89%E8%A3%85sonarquber/sonarhost.png" srcset="/img/loading.gif" lazyload alt="sonarhost"></p>
-<p>默认情况下，Elasticsearch数据存储在$ SONARQUBE-HOME / data中，但不建议将其用于生产实例。相反，您应该将此数据存储在其他位置，最好是在具有快速I / O的专用卷中。除了保持可接受的性能外，这样做还可以简化SonarQube的升级</p>
-<p><img src="/img/%E5%AE%89%E8%A3%85sonarquber/sonares.png" srcset="/img/loading.gif" lazyload alt="sonares"></p>
-<h3 id="创建必要的目录、权限"><a href="#创建必要的目录、权限" class="headerlink" title="创建必要的目录、权限"></a>创建必要的目录、权限</h3><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">mkdir</span> -p /<span class="hljs-class"><span class="hljs-keyword">data</span>/sonarqube/<span class="hljs-keyword">data</span></span><br><span class="hljs-title">mkdir</span> -p /<span class="hljs-class"><span class="hljs-keyword">data</span>/sonarqube/temp</span><br><span class="hljs-title">chown</span> -<span class="hljs-type">R</span> sonar:sonar /<span class="hljs-class"><span class="hljs-keyword">data</span>/sonarqube</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="安装sonar-scanner扫描器"><a href="#安装sonar-scanner扫描器" class="headerlink" title="安装sonar-scanner扫描器"></a>安装sonar-scanner扫描器</h3><p>下载地址：<a target="_blank" rel="noopener" href="https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip">https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip</a></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 解压，放到/usr/local下</span><br>unzip sonar-scanner-cli-4.7.0.2747-linux.zip<br>vi /usr/<span class="hljs-built_in">local</span>/sonar-scanner-4.7.0.2747-linux/conf/sonar-scanner.properties<br></code></pre></td></tr></table></figure>
-
-<p><img src="/img/%E5%AE%89%E8%A3%85sonarquber/sonarscanner.png" srcset="/img/loading.gif" lazyload alt="sonarscanner"></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 创建软连接，将sonar-scanner改为全局即可使用</span><br>ln -s /usr/<span class="hljs-built_in">local</span>/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner /usr/bin/sonar-scanner<br></code></pre></td></tr></table></figure>
-
-<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><p><font color='red' size='12px'>sonarqube必须以非<code>root</code>用户权限</font></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">su - sonar<br>/usr/<span class="hljs-built_in">local</span>/sonarqube-8.9.7/bin/linux-x86-64/sonar.sh start<br></code></pre></td></tr></table></figure>
-
-<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>登录<code>http://[IP]:9000</code>，看到登录页面即为成功。初始账密：<code>admin/admin</code></p>
-<p><img src="/img/%E5%AE%89%E8%A3%85sonarquber/sonarsucc.png" srcset="/img/loading.gif" lazyload alt="登陆页面"></p>
+              <h3 id="kubectl操作"><a href="#kubectl操作" class="headerlink" title="kubectl操作"></a>kubectl操作</h3><ol>
+<li>批量操作<figure class="highlight vim"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs vim"># 批量删除kube-<span class="hljs-built_in">system</span>空间下状态为“驱逐”的pod<br>kubectl <span class="hljs-built_in">get</span> pod -n kube-<span class="hljs-built_in">system</span>|<span class="hljs-keyword">grep</span> Evicted|awk <span class="hljs-string">&#x27;&#123;print$1&#125;&#x27;</span>|xargs kubectl <span class="hljs-keyword">delete</span> pod -n kube-<span class="hljs-built_in">system</span><br></code></pre></td></tr></table></figure>
+批量操作说明，所有批量操作都可以采用此方案<br></li>
+</ol>
+<ul>
+<li>使用命令查询出需要批量操作的内容</li>
+<li>使用 <code>awk</code> 打印出内容的标识</li>
+<li>使用 <code>xargs</code> 进行命令的拼接</li>
+</ul>
+<ol start="2">
+<li>产生集群管理员的密钥<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">adm_account</span>=<span class="hljs-string">&quot;k8s-dash-admin&quot;</span><br><br><span class="hljs-comment"># 产生sa</span><br>kubectl create serviceaccount <span class="hljs-variable">$&#123;adm_account&#125;</span> -n kube-system<br><br><span class="hljs-comment"># 产生集群角色绑定</span><br>kubectl create clusterrolebinding <span class="hljs-variable">$&#123;adm_account&#125;</span> <span class="hljs-attribute">--clusterrole</span>=cluster-admin <span class="hljs-attribute">--serviceaccount</span>=kube-system:$&#123;adm_account&#125;<br><br><span class="hljs-comment"># 查看密钥</span><br>kubectl -n kube-system describe secrets $(kubectl -n kube-system <span class="hljs-builtin-name">get</span><span class="hljs-built_in"> secret </span>| grep <span class="hljs-variable">$&#123;adm_account&#125;</span> | awk <span class="hljs-string">&#x27;&#123;print $1&#125;&#x27;</span>)<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="docker操作"><a href="#docker操作" class="headerlink" title="docker操作"></a>docker操作</h3><ol>
+<li>解决overlay2空间越来越大问题<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-comment"># 进入目录</span><br><span class="hljs-keyword">cd</span> <span class="hljs-keyword">cd</span> <span class="hljs-string">/var/lib/docker/overlay2</span><br><span class="hljs-comment"># 查看文件大小</span><br>du -h <span class="hljs-params">--max-depth=1</span><br><span class="hljs-comment"># 查看占用空间的pid，以及对应的容器名称</span><br>docker ps -q | xargs docker inspect <span class="hljs-params">--format</span> &#x27;&#123;&#123;<span class="hljs-string">.State.Pid</span>&#125;&#125;, &#123;&#123;<span class="hljs-string">.Name</span>&#125;&#125;, &#123;&#123;<span class="hljs-string">.GraphDriver.Data.WorkDir</span>&#125;&#125;&#x27; | grep <span class="hljs-string">&quot;[overlay2的文件名称]&quot;</span><br><span class="hljs-comment"># 解决方法（会删除对应的容器和对应镜像）</span><br>docker stop [容器名称] &amp;&amp; docker rm [容器名称] &amp;&amp; docker rmi [镜像id]<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="curl操作"><a href="#curl操作" class="headerlink" title="curl操作"></a>curl操作</h3><ol>
+<li>发送get请求<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">curl [-X <span class="hljs-builtin-name">GET</span>] <span class="hljs-string">&quot;http://127.0.0.1/api/ztgt-mdm/getMdmInfo/deptInfo&quot;</span><br></code></pre></td></tr></table></figure></li>
+<li>发送post请求<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">curl</span> -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> -H <span class="hljs-string">&quot;serviceCode: 1052125D01&quot;</span> -H <span class="hljs-string">&quot;sourceCode: 1052&quot;</span> -H <span class="hljs-string">&quot;requestId: fc7deb67-6168-4d70-9c22-cbdd16a99f28&quot;</span> -X POST -d &#x27;&#123;<span class="hljs-string">&quot;COMPID&quot;</span>:<span class="hljs-string">&quot;1339&quot;</span>,<span class="hljs-string">&quot;PROJECTNO&quot;</span>:<span class="hljs-string">&quot;NTGC20201015&quot;</span>,<span class="hljs-string">&quot;AMT&quot;</span>:<span class="hljs-number">0</span>,<span class="hljs-string">&quot;TYPE&quot;</span>:<span class="hljs-string">&quot;GC&quot;</span>,<span class="hljs-string">&quot;PROJECTNAME&quot;</span>:<span class="hljs-string">&quot;加油点（柴油）单元&quot;</span>&#125;&#x27; <span class="hljs-string">&quot;http://esb-pre.zt.net.cn:18080/esb/comm/api&quot;</span><br></code></pre></td></tr></table></figure></li>
+</ol>
 
             </div>
             <hr>
@@ -303,7 +268,11 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/sonarqube/">sonarqube</a>
+                      <a class="hover-with-bg" href="/categories/linux/">linux</a>
+                    
+                      <a class="hover-with-bg" href="/categories/linux/kubectl/">kubectl</a>
+                    
+                      <a class="hover-with-bg" href="/categories/linux/kubectl/docker/">docker</a>
                     
                   </div>
                 
@@ -311,9 +280,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/linux/">linux</a>
-                    
-                      <a class="hover-with-bg" href="/tags/sonarqube/">sonarqube</a>
+                      <a class="hover-with-bg" href="/tags/%E8%BF%90%E7%BB%B4/">运维</a>
                     
                   </div>
                 
@@ -324,18 +291,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/04/11/%E5%90%84%E7%A7%8D%E8%BF%90%E7%BB%B4%E5%A4%84%E7%90%86/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">各种运维处理</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/31/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85postgresql%E7%9A%8414%E7%89%88%E6%9C%AC/">
-                        <span class="hidden-mobile">Linux7.9离线安装postgresql的14版本</span>
+                      <a href="/2022/03/31/%E5%AE%89%E8%A3%85sonarquber-8-9-7/">
+                        <span class="hidden-mobile">Linux7.9安装sonarqube-8.9.7</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
