@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>NFS服务搭建</title>
+    <link href="/2022/05/19/NFS%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA/"/>
+    <url>/2022/05/19/NFS%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Centos7安装及配置-NFS-服务器"><a href="#Centos7安装及配置-NFS-服务器" class="headerlink" title="Centos7安装及配置 NFS 服务器"></a>Centos7安装及配置 NFS 服务器</h2><h3 id="步骤-1：安装-NFS-服务器-NFS-kernel-server"><a href="#步骤-1：安装-NFS-服务器-NFS-kernel-server" class="headerlink" title="步骤 1：安装 NFS 服务器 (NFS kernel server)"></a>步骤 1：安装 NFS 服务器 (NFS kernel server)</h3><p>若要设置服务器机器，就必须在机器上安装 NFS 服务器。</p><ol><li>安装 NFS 服务器。<figure class="highlight sh"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs sh">yum -y install nfs-utils rpcbind<br></code></pre></td></tr></table></figure></li></ol><h3 id="步骤-2：创建输出目录"><a href="#步骤-2：创建输出目录" class="headerlink" title="步骤 2：创建输出目录"></a>步骤 2：创建输出目录</h3><p>NFS 客户端将在服务器机器上挂载一个目录，该目录已由 NFS 服务器输出。</p><ol><li>运行以下命令来指定挂载文件夹名称<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">mkdir -p /home/zjnfs<br>chmod -R a+w /home/zjnfs<br></code></pre></td></tr></table></figure></li></ol><h3 id="步骤-3：授予客户端机器访问-NFS-服务器的权限"><a href="#步骤-3：授予客户端机器访问-NFS-服务器的权限" class="headerlink" title="步骤 3：授予客户端机器访问 NFS 服务器的权限"></a>步骤 3：授予客户端机器访问 NFS 服务器的权限</h3><ol><li><p>运行以下命令：</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">vi /etc/exports<br></code></pre></td></tr></table></figure></li><li><p>将客户端信息添加到文件中。</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">/home/zjnfs *(rw,sync,no_root_squash)<br></code></pre></td></tr></table></figure></li></ol><h3 id="步骤4：启动服务"><a href="#步骤4：启动服务" class="headerlink" title="步骤4：启动服务"></a>步骤4：启动服务</h3><ol><li><p>启动</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">systemctl start rpcbind<br>systemctl start nfs<br></code></pre></td></tr></table></figure></li></ol><h3 id="步骤-4：应用配置"><a href="#步骤-4：应用配置" class="headerlink" title="步骤 4：应用配置"></a>步骤 4：应用配置</h3><ol><li><p>运行以下命令输出共享目录。</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">exportfs -arv<br></code></pre></td></tr></table></figure></li></ol><h3 id="使用showmount命令测试NFS输出目录状态"><a href="#使用showmount命令测试NFS输出目录状态" class="headerlink" title="使用showmount命令测试NFS输出目录状态"></a>使用showmount命令测试NFS输出目录状态</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">showmount -e<br><span class="hljs-comment"># 客户端测试</span><br>showmount -e [NFS服务器IP]<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>NFS</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>NFS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>maven常用操作</title>
     <link href="/2022/05/07/maven%E6%93%8D%E4%BD%9C/"/>
     <url>/2022/05/07/maven%E6%93%8D%E4%BD%9C/</url>
