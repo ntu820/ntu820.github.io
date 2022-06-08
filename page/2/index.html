@@ -1,0 +1,847 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ntu820">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="记录everythings">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NTU820的小窝">
+<meta property="og:url" content="http://example.com/page/2/index.html">
+<meta property="og:site_name" content="NTU820的小窝">
+<meta property="og:description" content="记录everythings">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="ntu820">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>NTU820的小窝</title>
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>NTU820的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/index_01.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="直到她永久沉睡的那一天，世界啊，请你一定不要终结。">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/01/30/yapi/" target="_self">
+          <img src="/img/yapi/yapi.png" srcset="/img/loading.gif" lazyload alt="私有化部署yapi">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/01/30/yapi/" target="_self">
+          私有化部署yapi
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/01/30/yapi/" target="_self">
+          
+          安装nodejs环境# 下载 wget https:&#x2F;&#x2F;nodejs.org&#x2F;dist&#x2F;v10.16.0&#x2F;node-v10.16.0-linux-x64.tar.xz  # 解压 tar -xvf node-v10.16.0-linux-x64.tar.xz  #创建软连接 ln -s ~&#x2F;node-v10.16.0-linux-x64&amp;
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-01-30 10:43" pubdate>
+              2022-01-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/yapi/">yapi</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/node/">node</a>
+            
+              <a href="/tags/yapi/">yapi</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/01/30/windocker/" target="_self">
+          <img src="/img/windocker/windocker.jpg" srcset="/img/loading.gif" lazyload alt="在windows上部署docker实战">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/01/30/windocker/" target="_self">
+          在windows上部署docker实战
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/01/30/windocker/" target="_self">
+          
+          目前在windows上部署docker方式有两种。第一：采用虚拟机进行部署；第二：采用Hyper-V虚拟技术进行部署。微软自windows server2016开始将docker集成进系统。目前支持docker in windows部署方式的系统有：win10、windwos server2016&#x2F;2019。本文采用Hyper-V方式进行docker部署。 主板开启虚拟化，系统安装Hyper-V的
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-01-30 10:13" pubdate>
+              2022-01-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/docker/">docker</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/docker/">docker</a>
+            
+              <a href="/tags/windows/">windows</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/01/30/seata%E9%AB%98%E5%8F%AF%E7%94%A8%E9%83%A8%E7%BD%B2/" target="_self">
+          <img src="/img/seata%E9%AB%98%E5%8F%AF%E7%94%A8%E9%83%A8%E7%BD%B2/seata.png" srcset="/img/loading.gif" lazyload alt="seata高可用部署">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/01/30/seata%E9%AB%98%E5%8F%AF%E7%94%A8%E9%83%A8%E7%BD%B2/" target="_self">
+          seata高可用部署
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/01/30/seata%E9%AB%98%E5%8F%AF%E7%94%A8%E9%83%A8%E7%BD%B2/" target="_self">
+          
+          准备工作 部署nacos 部署mysql  部署server端 创建数据库（seata）及表,以mysql为例 -- -------------------------------- The script used when storeMode is &#39;db&#39; -------------------------------- -- the table to store GlobalSession
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-01-30 10:02" pubdate>
+              2022-01-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/seata/">seata</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/seata/">seata</a>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">分布式事务</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/01/30/nacos%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" target="_self">
+          <img src="/img/nacos%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/nacos.jpg" srcset="/img/loading.gif" lazyload alt="nacos集群安装">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/01/30/nacos%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" target="_self">
+          nacos集群安装
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/01/30/nacos%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" target="_self">
+          
+          1. 在线安装mysql5.7 安装步骤  # 获取mysql yum源 yum install -y wget &amp;&amp; wget https:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;mysql57-community-release-el7-9.noarch.rpm # 安装yum源 rpm -ivh mysql57-community-re
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-01-30 09:54" pubdate>
+              2022-01-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/nacos/">nacos</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/mysql/">mysql</a>
+            
+              <a href="/tags/nacos/">nacos</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/01/30/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/" target="_self">
+          <img src="/img/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/container.jpg" srcset="/img/loading.gif" lazyload alt="docker启动各种服务">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/01/30/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/" target="_self">
+          docker启动各种服务
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/01/30/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/" target="_self">
+          
+          启动activemqdocker run --name&#x3D;&#39;activemq&#39; -d \ -e &#39;ACTIVEMQ_CONFIG_NAME&#x3D;amqp-srv1&#39; \ -e &#39;ACTIVEMQ_CONFIG_DEFAULTACCOUNT&#x3D;false&#39; \ -e &#39;ACTIVEMQ_ADMIN_LOGIN&#x3D;a
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-01-30 09:39" pubdate>
+              2022-01-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/docker/">docker</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/docker/">docker</a>
+            
+              <a href="/tags/container/">container</a>
+            
+              <a href="/tags/%E5%AE%B9%E5%99%A8/">容器</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/01/30/docker-ce%E5%AE%89%E8%A3%85/" target="_self">
+          <img src="/img/docker-ce%E5%AE%89%E8%A3%85/docker.jpg" srcset="/img/loading.gif" lazyload alt="docker-ce安装">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/01/30/docker-ce%E5%AE%89%E8%A3%85/" target="_self">
+          docker-ce安装
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/01/30/docker-ce%E5%AE%89%E8%A3%85/" target="_self">
+          
+          卸载原有docker及缓存 卸载 yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine 清缓存将docker的缓存，包括镜像、图片、网络等删除。docker默认位置：&#x2F;var&#x2F;lib
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-01-30 09:12" pubdate>
+              2022-01-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/docker/">docker</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/docker/">docker</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/01/29/redis6%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" target="_self">
+          <img src="/img/redis6%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/redis.jpg" srcset="/img/loading.gif" lazyload alt="redis6集群安装">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/01/29/redis6%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" target="_self">
+          redis6集群安装
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/01/29/redis6%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" target="_self">
+          
+          redis6 集群安装gcc升级安装redis6最主要的一点是要用GCC5以上，而CentOS6.9的GCC版本为4.8.x, 所以安装之前必须升级GCC。 yum -y install gcc tcl yum -y install centos-release-scl yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-01-29 16:09" pubdate>
+              2022-01-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/redis/">redis</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/linux/">linux</a>
+            
+              <a href="/tags/redis/">redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/01/29/centos7%E5%AE%89%E8%A3%85nginx/" target="_self">
+          <img src="/img/centos7%E5%AE%89%E8%A3%85nginx/nginx.jpg" srcset="/img/loading.gif" lazyload alt="centos7安装nginx">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/01/29/centos7%E5%AE%89%E8%A3%85nginx/" target="_self">
+          centos7安装nginx
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/01/29/centos7%E5%AE%89%E8%A3%85nginx/" target="_self">
+          
+          Centos7安装nginx安装依赖包yum install -y gcc automake autoconf libtool make yum install -y gcc-c++ yum install -y pcre pcre-devel yum install -y zlib zlib-devel yum install -y openssl openssl-devel  下载nginx安
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-01-29 16:00" pubdate>
+              2022-01-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/nginx/">nginx</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/linux/">linux</a>
+            
+              <a href="/tags/nginx/">nginx</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/01/29/%E6%9B%B4%E6%96%B0kubeadm%E8%AF%81%E4%B9%A6/" target="_self">
+          <img src="/img/k8s.jpg" srcset="/img/loading.gif" lazyload alt="更新kubeadm证书">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/01/29/%E6%9B%B4%E6%96%B0kubeadm%E8%AF%81%E4%B9%A6/" target="_self">
+          更新kubeadm证书
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/01/29/%E6%9B%B4%E6%96%B0kubeadm%E8%AF%81%E4%B9%A6/" target="_self">
+          
+          1. 续期k8s证书使用kubeadm搭建的k8s集群默认的kubectl只有一年有效期。 步骤 备份当前k8s证书cp -r &#x2F;etc&#x2F;kubernetes &#x2F;etc&#x2F;kubernetes.bak 查看过期时间kubeadm alpha certs check-expiration 更新证书kubeadm alpha certs renew all  sy
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-01-29 10:07" pubdate>
+              2022-01-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/kubernetes/">kubernetes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/kubernetes/">kubernetes</a>
+            
+              <a href="/tags/kubeadm/">kubeadm</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      jQuery.ajax({
+        type: 'GET',
+        url: 'https://v1.hitokoto.cn/',
+        headers: {},
+        dataType: 'json',
+        success: function(result) {
+          var text;
+          if (result) {
+            var keys = 'hitokoto'.split(',');
+            if (result instanceof Array) {
+              result = result[0];
+            }
+            for (const k of keys) {
+              var value = result[k];
+              if (typeof value === 'string') {
+                text = value;
+                break;
+              } else if (value instanceof Object) {
+                result = value;
+              }
+            }
+          }
+          text ? typing(text) : typing(title);
+        },
+        error: function() {
+          typing(title);
+        }
+      })
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
