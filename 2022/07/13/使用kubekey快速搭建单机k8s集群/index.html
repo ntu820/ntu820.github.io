@@ -1,0 +1,624 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ntu820">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="使用kubekey安装kubernetes集群 参考文档：https:&#x2F;&#x2F;v3-1.docs.kubesphere.io&#x2F;zh&#x2F;docs&#x2F;installing-on-linux&#x2F;introduction&#x2F;multioverview&#x2F;  1. 确认版本   docker kubernetes kubesphere    20.10.8 v1.19.8 v3.1.1             2. 需要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用kubekey快速搭建单机k8s集群">
+<meta property="og:url" content="http://example.com/2022/07/13/%E4%BD%BF%E7%94%A8kubekey%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%8D%95%E6%9C%BAk8s%E9%9B%86%E7%BE%A4/index.html">
+<meta property="og:site_name" content="NTU820的小窝">
+<meta property="og:description" content="使用kubekey安装kubernetes集群 参考文档：https:&#x2F;&#x2F;v3-1.docs.kubesphere.io&#x2F;zh&#x2F;docs&#x2F;installing-on-linux&#x2F;introduction&#x2F;multioverview&#x2F;  1. 确认版本   docker kubernetes kubesphere    20.10.8 v1.19.8 v3.1.1             2. 需要">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E6%9B%B4%E6%96%B0kubeadm%E8%AF%81%E4%B9%A6/kubeadm.jpg">
+<meta property="article:published_time" content="2022-07-13T06:52:28.000Z">
+<meta property="article:modified_time" content="2022-07-13T09:19:00.675Z">
+<meta property="article:author" content="ntu820">
+<meta property="article:tag" content="kubernetes">
+<meta property="article:tag" content="kubekey">
+<meta property="article:tag" content="kubesphere">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/%E6%9B%B4%E6%96%B0kubeadm%E8%AF%81%E4%B9%A6/kubeadm.jpg">
+  
+  
+  <title>使用kubekey快速搭建单机k8s集群 - NTU820的小窝</title>
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>NTU820的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="使用kubekey快速搭建单机k8s集群">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-07-13 14:52" pubdate>
+        2022年7月13日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      6.4k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      53 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">使用kubekey快速搭建单机k8s集群</h1>
+            
+            <div class="markdown-body">
+              <h2 id="使用kubekey安装kubernetes集群"><a href="#使用kubekey安装kubernetes集群" class="headerlink" title="使用kubekey安装kubernetes集群"></a>使用kubekey安装kubernetes集群</h2><blockquote>
+<p>参考文档：<a target="_blank" rel="noopener" href="https://v3-1.docs.kubesphere.io/zh/docs/installing-on-linux/introduction/multioverview/">https://v3-1.docs.kubesphere.io/zh/docs/installing-on-linux/introduction/multioverview/</a></p>
+</blockquote>
+<h3 id="1-确认版本"><a href="#1-确认版本" class="headerlink" title="1. 确认版本"></a>1. 确认版本</h3><table>
+<thead>
+<tr>
+<th>docker</th>
+<th>kubernetes</th>
+<th>kubesphere</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>20.10.8</td>
+<td>v1.19.8</td>
+<td>v3.1.1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="2-需要的镜像包，可提前准备"><a href="#2-需要的镜像包，可提前准备" class="headerlink" title="2. 需要的镜像包，可提前准备"></a>2. 需要的镜像包，可提前准备</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># master节点上的images
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;node:v3.20.0 &gt; 1.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;pod2daemon-flexvol:v3.20.0 &gt; 2.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;cni:v3.20.0 &gt; 3.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;kube-controllers:v3.20.0 &gt; 4.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;ks-controller-manager:v3.1.1 &gt; 5.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;ks-apiserver:v3.1.1 &gt; 6.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;ks-console:v3.1.1 &gt; 7.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;kube-apiserver:v1.19.8 &gt; 8.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;kube-proxy:v1.19.8 &gt; 9.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;kube-controller-manager:v1.19.8 &gt; 10.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;kube-scheduler:v1.19.8 &gt; 11.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;kube-rbac-proxy:v0.8.0 &gt; 12.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;openldap:1.3.0 &gt; 13.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;k8s-dns-node-cache:1.15.12 &gt; 14.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;coredns:1.6.9 &gt; 15.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;pause:3.2 &gt; 16.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;node-exporter:v0.18.1 &gt; 17.tar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 工作节点上images，开启devops、metrics_server
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;node:v3.20.0 &gt; 1.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;pod2daemon-flexvol:v3.20.0 &gt; 2.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;cni:v3.20.0 &gt; 3.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;kube-controllers:v3.20.0 &gt; 4.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;coredns:1.6.9 &gt; 17.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;pause:3.2 &gt; 18.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;kube-proxy:v1.19.8 &gt; 9.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;ks-installer:v3.1.1 &gt; 5.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;notification-manager:v1.0.0 &gt; 6.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;prometheus:v2.26.0 &gt; 7.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;nfs-subdir-external-provisioner:v4.0.2 &gt; 8.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;s2ioperator:v3.1.0 &gt; 10.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;kube-rbac-proxy:v0.8.0 &gt; 11.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;prometheus-config-reloader:v0.42.1 &gt; 12.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;prometheus-operator:v0.42.1 &gt; 13.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;alertmanager:v0.21.0 &gt; 14.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;kube-state-metrics:v1.9.7 &gt; 15.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;k8s-dns-node-cache:1.15.12 &gt; 16.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;configmap-reload:v0.3.0 &gt; 19.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;mc:RELEASE.2019-08-07T23-14-43Z &gt; 20.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;node-exporter:v0.18.1 &gt; 21.tar
+docker save registry.cn-beijing.aliyuncs.com&#x2F;kubesphereio&#x2F;defaultbackend-amd64:1.4 &gt; 22.tar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h3 id="1-初始化系统"><a href="#1-初始化系统" class="headerlink" title="1. 初始化系统"></a>1. 初始化系统</h3><p>最好使用纯净的linux系统，本次使用<code>CentOS Linux release 7.9.2009 (Core)</code></p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># osinit.sh 为自己的脚本文件
+sh osinit.sh [主机名]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+
+<h3 id="2-安装NFS服务作为默认存储"><a href="#2-安装NFS服务作为默认存储" class="headerlink" title="2. 安装NFS服务作为默认存储"></a>2. 安装NFS服务作为默认存储</h3><blockquote>
+<p>参考《NFS服务搭建》博客内容</p>
+</blockquote>
+<p>设置nfs作为存储的配置文件</p>
+<div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">nfs</span><span class="token punctuation">:</span>
+  <span class="token key atrule">server</span><span class="token punctuation">:</span> <span class="token string">"172.27.8.31"</span>
+  <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"/nfsdata/hak8s"</span>
+<span class="token key atrule">storageClass</span><span class="token punctuation">:</span>
+  <span class="token key atrule">defaultClass</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h3 id="3-安装docker"><a href="#3-安装docker" class="headerlink" title="3. 安装docker"></a>3. 安装docker</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># install_docker.sh自己的脚本
+sh install_docker.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+
+<h3 id="4-下载或者使用固定kubekey"><a href="#4-下载或者使用固定kubekey" class="headerlink" title="4. 下载或者使用固定kubekey"></a>4. 下载或者使用固定kubekey</h3><p>先执行以下命令以确保您从正确的区域下载 KubeKey</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">export KKZONE&#x3D;cn<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<p>执行以下命令下载 KubeKey</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">curl -sfL https:&#x2F;&#x2F;get-kk.kubesphere.io | VERSION&#x3D;v1.1.1 sh -<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<p>为<code>kk</code>添加可执行权限</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">chmod +x kk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<h3 id="5-创建配置文件"><a href="#5-创建配置文件" class="headerlink" title="5. 创建配置文件"></a>5. 创建配置文件</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">.&#x2F;kk create config --with-kubernetes v1.19.8 --with-kubesphere v3.1.1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<h3 id="6-编辑配置文件"><a href="#6-编辑配置文件" class="headerlink" title="6. 编辑配置文件"></a>6. 编辑配置文件</h3><p>主要是设置主机、etcd、master、worker</p>
+<div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token punctuation">&#123;</span><span class="token key atrule">name</span><span class="token punctuation">:</span> master<span class="token punctuation">,</span> <span class="token key atrule">address</span><span class="token punctuation">:</span> x.x.x.x<span class="token punctuation">,</span> <span class="token key atrule">internalAddress</span><span class="token punctuation">:</span> x.x.x.x<span class="token punctuation">,</span> <span class="token key atrule">user</span><span class="token punctuation">:</span> XXX<span class="token punctuation">,</span> <span class="token key atrule">password</span><span class="token punctuation">:</span> XXX<span class="token punctuation">&#125;</span>
+  <span class="token punctuation">-</span> <span class="token punctuation">&#123;</span><span class="token key atrule">name</span><span class="token punctuation">:</span> node1<span class="token punctuation">,</span> <span class="token key atrule">address</span><span class="token punctuation">:</span> x.x.x.x<span class="token punctuation">,</span> <span class="token key atrule">internalAddress</span><span class="token punctuation">:</span> x.x.x.x<span class="token punctuation">,</span> <span class="token key atrule">user</span><span class="token punctuation">:</span> XXX<span class="token punctuation">,</span> <span class="token key atrule">password</span><span class="token punctuation">:</span> XXX<span class="token punctuation">&#125;</span>
+  <span class="token punctuation">-</span> <span class="token punctuation">&#123;</span><span class="token key atrule">name</span><span class="token punctuation">:</span> node2<span class="token punctuation">,</span> <span class="token key atrule">address</span><span class="token punctuation">:</span> x.x.x.x<span class="token punctuation">,</span> <span class="token key atrule">internalAddress</span><span class="token punctuation">:</span> x.x.x.x<span class="token punctuation">,</span> <span class="token key atrule">user</span><span class="token punctuation">:</span> XXX<span class="token punctuation">,</span> <span class="token key atrule">password</span><span class="token punctuation">:</span> XXX<span class="token punctuation">&#125;</span>
+  <span class="token key atrule">roleGroups</span><span class="token punctuation">:</span>
+    <span class="token key atrule">etcd</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> master
+    <span class="token key atrule">master</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> master
+    <span class="token key atrule">worker</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> node1
+    <span class="token punctuation">-</span> node2
+  <span class="token key atrule">controlPlaneEndpoint</span><span class="token punctuation">:</span>
+    <span class="token comment">##Internal loadbalancer for apiservers</span>
+    <span class="token comment">#internalLoadbalancer: haproxy</span>
+
+    <span class="token key atrule">domain</span><span class="token punctuation">:</span> lb.hak8s.local
+    <span class="token key atrule">address</span><span class="token punctuation">:</span> <span class="token string">""</span>
+    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">6443</span>
+  <span class="token key atrule">kubernetes</span><span class="token punctuation">:</span>
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> v1.19.8
+    <span class="token key atrule">clusterName</span><span class="token punctuation">:</span> cluster.local
+  <span class="token key atrule">network</span><span class="token punctuation">:</span>
+    <span class="token key atrule">plugin</span><span class="token punctuation">:</span> calico
+    <span class="token key atrule">kubePodsCIDR</span><span class="token punctuation">:</span> 10.233.64.0/18
+    <span class="token key atrule">kubeServiceCIDR</span><span class="token punctuation">:</span> 10.233.0.0/18
+  <span class="token key atrule">registry</span><span class="token punctuation">:</span>
+    <span class="token key atrule">registryMirrors</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"https://registry.cn-hangzhou.aliyuncs.com"</span><span class="token punctuation">,</span><span class="token string">"https://j54517kd.mirror.aliyuncs.com"</span><span class="token punctuation">,</span><span class="token string">"http://f1361db2.m.daocloud.io"</span><span class="token punctuation">,</span><span class="token string">"https://mirror.ccs.tencentyun.com"</span><span class="token punctuation">,</span><span class="token string">"http://hub-mirror.c.163.com"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">insecureRegistries</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"192.168.182.187:81"</span><span class="token punctuation">]</span>
+  <span class="token key atrule">addons</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client
+    <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kube<span class="token punctuation">-</span>system
+    <span class="token key atrule">sources</span><span class="token punctuation">:</span>
+      <span class="token key atrule">chart</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client<span class="token punctuation">-</span>provisioner
+        <span class="token key atrule">repo</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//charts.kubesphere.io/main
+        <span class="token key atrule">valuesFile</span><span class="token punctuation">:</span> /root/nfs<span class="token punctuation">-</span>client.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h3 id="7-使用配置文件创建集群"><a href="#7-使用配置文件创建集群" class="headerlink" title="7. 使用配置文件创建集群"></a>7. 使用配置文件创建集群</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">.&#x2F;kk create cluster -f config-sample.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<h3 id="8-验证"><a href="#8-验证" class="headerlink" title="8. 验证"></a>8. 验证</h3><p>看到此段输出即为成功</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">#####################################################
+###              Welcome to KubeSphere!           ###
+#####################################################
+
+Console: http:&#x2F;&#x2F;192.168.0.2:30880
+Account: admin
+Password: P@88w0rd
+
+NOTES：
+  1. After you log into the console, please check the
+     monitoring status of service components in
+     the &quot;Cluster Management&quot;. If any service is not
+     ready, please wait patiently until all components
+     are up and running.
+  2. Please change the default password after login.
+
+#####################################################
+https:&#x2F;&#x2F;kubesphere.io             20xx-xx-xx xx:xx:xx
+#####################################################
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<blockquote>
+<p>PS：启用自动补全</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">yum install -y bash-completion
+
+echo &#39;source &lt;(kubectl completion bash)&#39; &gt;&gt;~&#x2F;.bashrc
+
+kubectl completion bash &gt;&#x2F;etc&#x2F;bash_completion.d&#x2F;kubectl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/kubernetes/">kubernetes</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/kubernetes/">kubernetes</a>
+                    
+                      <a class="hover-with-bg" href="/tags/kubekey/">kubekey</a>
+                    
+                      <a class="hover-with-bg" href="/tags/kubesphere/">kubesphere</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/06/28/%E5%8D%95%E6%9C%BAESB%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+                        <span class="hidden-mobile">ESB单机环境搭建</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.3.1/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
