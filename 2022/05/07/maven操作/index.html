@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/maven%E6%93%8D%E4%BD%9C/maven1.jpg">
 <meta property="article:published_time" content="2022-05-07T04:30:46.000Z">
-<meta property="article:modified_time" content="2022-06-08T09:50:05.056Z">
+<meta property="article:modified_time" content="2022-08-25T03:15:21.112Z">
 <meta property="article:author" content="ntu820">
 <meta property="article:tag" content="maven">
 <meta name="twitter:card" content="summary_large_image">
@@ -207,7 +207,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.4k 字
+      5.3k 字
     </span>
   
 
@@ -393,13 +393,13 @@ OS name: &quot;windows 10&quot;, version: &quot;10.0&quot;, arch: &quot;amd64&qu
 <li>命令上传</li>
 </ul>
 <div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mvn deploy:deploy-file \ # 上传操作
-    -DgroupId&#x3D;[com.zhenai.dakehu] \ # groupid
-    -DartifactId&#x3D;[dakehu-commons] \ # artifactid
-    -Dversion&#x3D;[1.0.0-SNAPSHOT] \ # 版本
+    -DgroupId&#x3D;[com.hmifo] \ # groupid
+    -DartifactId&#x3D;[XXX] \ # artifactid
+    -Dversion&#x3D;[1.0.0] \ # 版本
     -Dpacckaging&#x3D;jar \ # 格式
-    -Dfile&#x3D;[dakehu-commons-1.0.0-SNAPSHOT.jar] \ # 文件名称
-    -DrepositoryId&#x3D;[aven-snapshots] \ # 仓库id，和私服配置的必须一致
-    -Durl&#x3D;p[ttp:&#x2F;&#x2F;112.124.33.150:8081&#x2F;repository&#x2F;maven-snapshots&#x2F; # 私服地址<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+    -Dfile&#x3D;[XXX.jar] \ # 文件名称
+    -DrepositoryId&#x3D;[ztgt-release] \ # 仓库id，和私服配置的必须一致
+    -Durl&#x3D;[http:&#x2F;&#x2F;192.168.182.187:82&#x2F;repository&#x2F;maven-ztgt&#x2F;] # 私服地址<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <ul>
 <li>idea上传</li>
