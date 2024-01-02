@@ -45,7 +45,15 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github-gist.min.css" />
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
     
   
 
@@ -70,7 +78,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -200,7 +208,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.6k 字
+      1.8k 字
     </span>
   
 
@@ -209,7 +217,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14 分钟
+      15 分钟
     </span>
   
 
@@ -268,29 +276,62 @@
 <td>8.9.7</td>
 </tr>
 </tbody></table>
-<h3 id="新建sqonarqube数据库"><a href="#新建sqonarqube数据库" class="headerlink" title="新建sqonarqube数据库"></a>新建sqonarqube数据库</h3><figure class="highlight sh"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment">#创建sonar数据库</span><br>create database sonar;<br><span class="hljs-comment">#创建sonar用户</span><br>create user sonar;<br><span class="hljs-comment">#设置sonar用户密码(否则会导致连不上数据库)</span><br>alter user sonar with password <span class="hljs-string">&#x27;postgres&#x27;</span>;<br><span class="hljs-comment">#给sonar授权</span><br>alter role sonar createdb;<br>alter role sonar superuser;<br>alter role sonar createrole;    <br><span class="hljs-comment">#更改sonar数据库拥有者(这一步是必须的，否则会sonarqube会连接失败)</span><br>alter database sonar owner to sonar；<br></code></pre></td></tr></table></figure>
+<h3 id="新建sqonarqube数据库"><a href="#新建sqonarqube数据库" class="headerlink" title="新建sqonarqube数据库"></a>新建sqonarqube数据库</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">#创建sonar数据库
+create database sonar;
+#创建sonar用户
+create user sonar;
+#设置sonar用户密码(否则会导致连不上数据库)
+alter user sonar with password &#39;postgres&#39;;
+#给sonar授权
+alter role sonar createdb;
+alter role sonar superuser;
+alter role sonar createrole;    
+#更改sonar数据库拥有者(这一步是必须的，否则会sonarqube会连接失败)
+alter database sonar owner to sonar；<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<h3 id="修改系统配置"><a href="#修改系统配置" class="headerlink" title="修改系统配置"></a>修改系统配置</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs sh">vi /etc/sysctl.conf<br><span class="hljs-comment"># 在文件末尾添加如下</span><br>vm.max_map_count=262144<br>fs.file-max=65536<br><span class="hljs-comment"># 生效</span><br>/sbin/sysctl -p<br><br>vi /etc/profile<br><span class="hljs-comment"># 在文件末尾添加如下</span><br><span class="hljs-built_in">ulimit</span> -n 65536<br><span class="hljs-comment"># 生效</span><br><span class="hljs-built_in">source</span> /etc/profile<br></code></pre></td></tr></table></figure>
+<h3 id="修改系统配置"><a href="#修改系统配置" class="headerlink" title="修改系统配置"></a>修改系统配置</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">vi &#x2F;etc&#x2F;sysctl.conf
+# 在文件末尾添加如下
+vm.max_map_count&#x3D;262144
+fs.file-max&#x3D;65536
+# 生效
+&#x2F;sbin&#x2F;sysctl -p
+
+vi &#x2F;etc&#x2F;profile
+# 在文件末尾添加如下
+ulimit -n 65536
+# 生效
+source &#x2F;etc&#x2F;profile<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h3 id="创建sonar用户"><a href="#创建sonar用户" class="headerlink" title="创建sonar用户"></a>创建sonar用户</h3><p>因为sonarquber无法使用<code>root</code>用户启动</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 添加用户</span><br>useradd sonar<br><span class="hljs-comment"># 设置密码</span><br>passwd sonar<br><span class="hljs-comment"># 分配权限</span><br>chown -R sonar:sonar /usr/<span class="hljs-built_in">local</span>/sonarqube-8.9.7<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 添加用户
+useradd sonar
+# 设置密码
+passwd sonar
+# 分配权限
+chown -R sonar:sonar &#x2F;usr&#x2F;local&#x2F;sonarqube-8.9.7<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<h3 id="配置数据库连接和ES"><a href="#配置数据库连接和ES" class="headerlink" title="配置数据库连接和ES"></a>配置数据库连接和ES</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">vi /usr/<span class="hljs-built_in">local</span>/sonarqube-8.9.7/conf/sonar.properties<br></code></pre></td></tr></table></figure>
+<h3 id="配置数据库连接和ES"><a href="#配置数据库连接和ES" class="headerlink" title="配置数据库连接和ES"></a>配置数据库连接和ES</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">vi &#x2F;usr&#x2F;local&#x2F;sonarqube-8.9.7&#x2F;conf&#x2F;sonar.properties<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <p><img src="/img/%E5%AE%89%E8%A3%85sonarquber/sonardb.png" srcset="/img/loading.gif" lazyload alt="sonardb"></p>
 <p><img src="/img/%E5%AE%89%E8%A3%85sonarquber/sonarhost.png" srcset="/img/loading.gif" lazyload alt="sonarhost"></p>
 <p>默认情况下，Elasticsearch数据存储在$ SONARQUBE-HOME / data中，但不建议将其用于生产实例。相反，您应该将此数据存储在其他位置，最好是在具有快速I / O的专用卷中。除了保持可接受的性能外，这样做还可以简化SonarQube的升级</p>
 <p><img src="/img/%E5%AE%89%E8%A3%85sonarquber/sonares.png" srcset="/img/loading.gif" lazyload alt="sonares"></p>
-<h3 id="创建必要的目录、权限"><a href="#创建必要的目录、权限" class="headerlink" title="创建必要的目录、权限"></a>创建必要的目录、权限</h3><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">mkdir</span> -p /<span class="hljs-class"><span class="hljs-keyword">data</span>/sonarqube/<span class="hljs-keyword">data</span></span><br><span class="hljs-title">mkdir</span> -p /<span class="hljs-class"><span class="hljs-keyword">data</span>/sonarqube/temp</span><br><span class="hljs-title">chown</span> -<span class="hljs-type">R</span> sonar:sonar /<span class="hljs-class"><span class="hljs-keyword">data</span>/sonarqube</span><br></code></pre></td></tr></table></figure>
+<h3 id="创建必要的目录、权限"><a href="#创建必要的目录、权限" class="headerlink" title="创建必要的目录、权限"></a>创建必要的目录、权限</h3><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">mkdir -p &#x2F;data&#x2F;sonarqube&#x2F;data
+mkdir -p &#x2F;data&#x2F;sonarqube&#x2F;temp
+chown -R sonar:sonar &#x2F;data&#x2F;sonarqube<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
 
 <h3 id="安装sonar-scanner扫描器"><a href="#安装sonar-scanner扫描器" class="headerlink" title="安装sonar-scanner扫描器"></a>安装sonar-scanner扫描器</h3><p>下载地址：<a target="_blank" rel="noopener" href="https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip">https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip</a></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 解压，放到/usr/local下</span><br>unzip sonar-scanner-cli-4.7.0.2747-linux.zip<br>vi /usr/<span class="hljs-built_in">local</span>/sonar-scanner-4.7.0.2747-linux/conf/sonar-scanner.properties<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 解压，放到&#x2F;usr&#x2F;local下
+unzip sonar-scanner-cli-4.7.0.2747-linux.zip
+vi &#x2F;usr&#x2F;local&#x2F;sonar-scanner-4.7.0.2747-linux&#x2F;conf&#x2F;sonar-scanner.properties<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
 
 <p><img src="/img/%E5%AE%89%E8%A3%85sonarquber/sonarscanner.png" srcset="/img/loading.gif" lazyload alt="sonarscanner"></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 创建软连接，将sonar-scanner改为全局即可使用</span><br>ln -s /usr/<span class="hljs-built_in">local</span>/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner /usr/bin/sonar-scanner<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 创建软连接，将sonar-scanner改为全局即可使用
+ln -s &#x2F;usr&#x2F;local&#x2F;sonar-scanner-4.7.0.2747-linux&#x2F;bin&#x2F;sonar-scanner &#x2F;usr&#x2F;bin&#x2F;sonar-scanner<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
 
 <h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><p><font color='red' size='12px'>sonarqube必须以非<code>root</code>用户权限</font></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">su - sonar<br>/usr/<span class="hljs-built_in">local</span>/sonarqube-8.9.7/bin/linux-x86-64/sonar.sh start<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">su - sonar
+&#x2F;usr&#x2F;local&#x2F;sonarqube-8.9.7&#x2F;bin&#x2F;linux-x86-64&#x2F;sonar.sh start<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
 
 <h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>登录<code>http://[IP]:9000</code>，看到登录页面即为成功。初始账密：<code>admin/admin</code></p>
 <p><img src="/img/%E5%AE%89%E8%A3%85sonarquber/sonarsucc.png" srcset="/img/loading.gif" lazyload alt="登陆页面"></p>
@@ -445,6 +486,8 @@
 
 
   
+    
+  
 
 
 
@@ -486,30 +529,6 @@
 
 
 
-
-
-  
-    <!-- Baidu Analytics -->
-    <script defer>
-      var _hmt = _hmt || [];
-      (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?12a3171756132afa5f5f7bc08ae8d6c2";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
 
 

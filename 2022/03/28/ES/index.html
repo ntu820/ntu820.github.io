@@ -45,7 +45,15 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github-gist.min.css" />
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
     
   
 
@@ -70,7 +78,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -200,7 +208,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.2k 字
+      3.7k 字
     </span>
   
 
@@ -209,7 +217,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      44 分钟
+      31 分钟
     </span>
   
 
@@ -246,65 +254,242 @@
 <li><p>新建索引</p>
 <p><strong>PUT</strong> <code>http://192.168.186.34:9200/[索引名称]?pretty</code></p>
 <p>返回结果：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><pre><code class="hljs json">&#123;<br>	<span class="hljs-attr">&quot;acknowledged&quot;</span>: <span class="hljs-literal">true</span>,<br>	<span class="hljs-attr">&quot;shards_acknowledged&quot;</span>: <span class="hljs-literal">true</span>,<br>	<span class="hljs-attr">&quot;index&quot;</span>: <span class="hljs-string">&quot;esb01&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+	<span class="token property">"acknowledged"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+	<span class="token property">"shards_acknowledged"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+	<span class="token property">"index"</span><span class="token operator">:</span> <span class="token string">"esb01"</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 <li><p>查询所有[指定索引名称]索引</p>
 <p><strong>GET</strong> <code>http://192.168.186.34:9200/_cat/indices/[指定查看索引名称]?v</code></p>
 <p>返回结果：</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs tex">health status index          uuid                   pri rep docs.count docs.deleted store.size pri.store.size<br>yellow open   esb01          YGAh5h<span class="hljs-built_in">_</span>kRoCsPloXy-izxg   1   1          0            0       208b           208b<br>yellow open   esb1           oQKqdAQXShCJuMOzVdfs7A   1   1          2            0     11.6kb         11.6kb<br>yellow open   esb            -b6<span class="hljs-built_in">_</span>v24FRS2tp9y-ohdouw   1   1     156566            0     68.8mb         68.8mb<br>yellow open   esb-2022-03-28 PSwgzv8rR3iZcPOxbZuPTw   1   1         88            0    205.9kb        205.9kb<br>green  open   .kibana<span class="hljs-built_in">_</span>1      UF0<span class="hljs-built_in">_</span>tkz0QjChT-ToRowqUQ   1   0       1479           40    336.4kb        336.4kb<br>yellow open   t1             uXd6GoLyQpK82YkagbO<span class="hljs-built_in">_</span>ag   1   1          2            0     11.7kb         11.7kb<br>yellow open   t2             tvbutoedSNWYxmy6TTFhTw   1   1          2            0     11.7kb         11.7kb<br>yellow open   esb-2022-03-26 i8e4g<span class="hljs-built_in">_</span>0fTzqFtn-OYN27pA   1   1       4762            0      2.6mb          2.6mb<br>yellow open   esb-2022-03-27 wrm87nSJT-K-pRFG0oofXg   1   1        576            0    705.6kb        705.6kb<br>yellow open   t3             -nBkF1RzRxWUOlYVExZhTw   1   1          1            0      5.9kb          5.9kb<br><br></code></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-tex" data-language="tex"><code class="language-tex">health status index          uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+yellow open   esb01          YGAh5h_kRoCsPloXy-izxg   1   1          0            0       208b           208b
+yellow open   esb1           oQKqdAQXShCJuMOzVdfs7A   1   1          2            0     11.6kb         11.6kb
+yellow open   esb            -b6_v24FRS2tp9y-ohdouw   1   1     156566            0     68.8mb         68.8mb
+yellow open   esb-2022-03-28 PSwgzv8rR3iZcPOxbZuPTw   1   1         88            0    205.9kb        205.9kb
+green  open   .kibana_1      UF0_tkz0QjChT-ToRowqUQ   1   0       1479           40    336.4kb        336.4kb
+yellow open   t1             uXd6GoLyQpK82YkagbO_ag   1   1          2            0     11.7kb         11.7kb
+yellow open   t2             tvbutoedSNWYxmy6TTFhTw   1   1          2            0     11.7kb         11.7kb
+yellow open   esb-2022-03-26 i8e4g_0fTzqFtn-OYN27pA   1   1       4762            0      2.6mb          2.6mb
+yellow open   esb-2022-03-27 wrm87nSJT-K-pRFG0oofXg   1   1        576            0    705.6kb        705.6kb
+yellow open   t3             -nBkF1RzRxWUOlYVExZhTw   1   1          1            0      5.9kb          5.9kb
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 <li><p>查询索引默认索引配置</p>
 <p><strong>GET</strong> <code>http://192.168.186.34:9200/[索引名称]/_mapping?pretty</code></p>
 <p>返回结果：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>	<span class="hljs-attr">&quot;esb-2022-03-27&quot;</span>: &#123;<br>		<span class="hljs-attr">&quot;mappings&quot;</span>: &#123;<br>			<span class="hljs-attr">&quot;properties&quot;</span>: &#123;<br>				<span class="hljs-attr">&quot;data&quot;</span>: &#123;<br>					<span class="hljs-attr">&quot;properties&quot;</span>: &#123;<br>						<span class="hljs-attr">&quot;ACCTDATE&quot;</span>: &#123;<br>							<span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;text&quot;</span>,<br>							<span class="hljs-attr">&quot;fields&quot;</span>: &#123;<br>								<span class="hljs-attr">&quot;keyword&quot;</span>: &#123;<br>									<span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;keyword&quot;</span>,<br>									<span class="hljs-attr">&quot;ignore_above&quot;</span>: <span class="hljs-number">256</span><br>								&#125;<br>							&#125;<br>						&#125;<br>					&#125;	<br>				<span class="hljs-string">&quot;requestId&quot;</span>: &#123;<br>					<span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;text&quot;</span>,<br>					<span class="hljs-attr">&quot;fields&quot;</span>: &#123;<br>						<span class="hljs-attr">&quot;keyword&quot;</span>: &#123;<br>							<span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;keyword&quot;</span>,<br>							<span class="hljs-attr">&quot;ignore_above&quot;</span>: <span class="hljs-number">256</span><br>						&#125;<br>					&#125;<br>				&#125;,<br>				<span class="hljs-attr">&quot;serviceCode&quot;</span>: &#123;<br>					<span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;text&quot;</span>,<br>					<span class="hljs-attr">&quot;fields&quot;</span>: &#123;<br>						<span class="hljs-attr">&quot;keyword&quot;</span>: &#123;<br>							<span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;keyword&quot;</span>,<br>							<span class="hljs-attr">&quot;ignore_above&quot;</span>: <span class="hljs-number">256</span><br>						&#125;<br>					&#125;<br>				&#125;<br>			&#125;<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+	<span class="token property">"esb-2022-03-27"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+		<span class="token property">"mappings"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+			<span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+				<span class="token property">"data"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+					<span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+						<span class="token property">"ACCTDATE"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+							<span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"text"</span><span class="token punctuation">,</span>
+							<span class="token property">"fields"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+								<span class="token property">"keyword"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+									<span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"keyword"</span><span class="token punctuation">,</span>
+									<span class="token property">"ignore_above"</span><span class="token operator">:</span> <span class="token number">256</span>
+								<span class="token punctuation">&#125;</span>
+							<span class="token punctuation">&#125;</span>
+						<span class="token punctuation">&#125;</span>
+					<span class="token punctuation">&#125;</span>	
+				<span class="token property">"requestId"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+					<span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"text"</span><span class="token punctuation">,</span>
+					<span class="token property">"fields"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+						<span class="token property">"keyword"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+							<span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"keyword"</span><span class="token punctuation">,</span>
+							<span class="token property">"ignore_above"</span><span class="token operator">:</span> <span class="token number">256</span>
+						<span class="token punctuation">&#125;</span>
+					<span class="token punctuation">&#125;</span>
+				<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+				<span class="token property">"serviceCode"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+					<span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"text"</span><span class="token punctuation">,</span>
+					<span class="token property">"fields"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+						<span class="token property">"keyword"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+							<span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"keyword"</span><span class="token punctuation">,</span>
+							<span class="token property">"ignore_above"</span><span class="token operator">:</span> <span class="token number">256</span>
+						<span class="token punctuation">&#125;</span>
+					<span class="token punctuation">&#125;</span>
+				<span class="token punctuation">&#125;</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 <li><p>新增数据</p>
 <p><strong>POST</strong> <code>http://192.168.186.34:9200/[索引名称]/[type，一般为json/doc]?pretty</code></p>
 <p>请求Body：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>	<span class="hljs-attr">&quot;transTime&quot;</span>: <span class="hljs-number">1648373786067</span>,<br>	<span class="hljs-attr">&quot;data&quot;</span>: &#123;<br>		<span class="hljs-attr">&quot;pass&quot;</span>: <span class="hljs-string">&quot;1111111111&quot;</span>,<br>		<span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;11111111&quot;</span><br>	&#125;,<br>	<span class="hljs-attr">&quot;serviceCode&quot;</span>: <span class="hljs-string">&quot;1090109102&quot;</span>,<br>	<span class="hljs-attr">&quot;requestId&quot;</span>: <span class="hljs-string">&quot;aeb9adf2-618f-4c6b-a965-5bea4698e893&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+	<span class="token property">"transTime"</span><span class="token operator">:</span> <span class="token number">1648373786067</span><span class="token punctuation">,</span>
+	<span class="token property">"data"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+		<span class="token property">"pass"</span><span class="token operator">:</span> <span class="token string">"1111111111"</span><span class="token punctuation">,</span>
+		<span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"11111111"</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+	<span class="token property">"serviceCode"</span><span class="token operator">:</span> <span class="token string">"1090109102"</span><span class="token punctuation">,</span>
+	<span class="token property">"requestId"</span><span class="token operator">:</span> <span class="token string">"aeb9adf2-618f-4c6b-a965-5bea4698e893"</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>返回结果：（以json为例）</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>	<span class="hljs-attr">&quot;_index&quot;</span>: <span class="hljs-string">&quot;esb-2022-03-27&quot;</span>,<br>	<span class="hljs-attr">&quot;_type&quot;</span>: <span class="hljs-string">&quot;json&quot;</span>,<br>	<span class="hljs-attr">&quot;_id&quot;</span>: <span class="hljs-string">&quot;h_XCyn8Bthbf_40jLeF_&quot;</span>,<br>	<span class="hljs-attr">&quot;_version&quot;</span>: <span class="hljs-number">1</span>,<br>	<span class="hljs-attr">&quot;result&quot;</span>: <span class="hljs-string">&quot;created&quot;</span>,<br>	<span class="hljs-attr">&quot;_shards&quot;</span>: &#123;<br>		<span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">2</span>,<br>		<span class="hljs-attr">&quot;successful&quot;</span>: <span class="hljs-number">1</span>,<br>		<span class="hljs-attr">&quot;failed&quot;</span>: <span class="hljs-number">0</span><br>	&#125;,<br>	<span class="hljs-attr">&quot;_seq_no&quot;</span>: <span class="hljs-number">535</span>,<br>	<span class="hljs-attr">&quot;_primary_term&quot;</span>: <span class="hljs-number">1</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+	<span class="token property">"_index"</span><span class="token operator">:</span> <span class="token string">"esb-2022-03-27"</span><span class="token punctuation">,</span>
+	<span class="token property">"_type"</span><span class="token operator">:</span> <span class="token string">"json"</span><span class="token punctuation">,</span>
+	<span class="token property">"_id"</span><span class="token operator">:</span> <span class="token string">"h_XCyn8Bthbf_40jLeF_"</span><span class="token punctuation">,</span>
+	<span class="token property">"_version"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+	<span class="token property">"result"</span><span class="token operator">:</span> <span class="token string">"created"</span><span class="token punctuation">,</span>
+	<span class="token property">"_shards"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+		<span class="token property">"total"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+		<span class="token property">"successful"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+		<span class="token property">"failed"</span><span class="token operator">:</span> <span class="token number">0</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+	<span class="token property">"_seq_no"</span><span class="token operator">:</span> <span class="token number">535</span><span class="token punctuation">,</span>
+	<span class="token property">"_primary_term"</span><span class="token operator">:</span> <span class="token number">1</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 <li><p>查询数据</p>
 <p><strong>GET</strong> <code>http://192.168.186.34:9200/[索引名称，支持通配符，可实现多个索引一起查询]/_search?pretty=true</code></p>
 <p>请求Body：</p>
 <ul>
 <li>查询所有数据</li>
 </ul>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;query&quot;</span>:&#123;<br>        <span class="hljs-attr">&quot;match_all&quot;</span>:&#123;<br><br>        &#125;<br>    &#125;,<br>    <span class="hljs-attr">&quot;from&quot;</span>:<span class="hljs-number">0</span>,<br>    <span class="hljs-attr">&quot;size&quot;</span>:<span class="hljs-number">20</span>,<br>    <span class="hljs-attr">&quot;sort&quot;</span>:[<br>        &#123;<br>            <span class="hljs-attr">&quot;_seq_no&quot;</span>:&#123;<br>                <span class="hljs-attr">&quot;order&quot;</span>:<span class="hljs-string">&quot;desc&quot;</span><br>            &#125;<br>        &#125;<br>    ]<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"query"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+        <span class="token property">"match_all"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token property">"from"</span><span class="token operator">:</span><span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"size"</span><span class="token operator">:</span><span class="token number">20</span><span class="token punctuation">,</span>
+    <span class="token property">"sort"</span><span class="token operator">:</span><span class="token punctuation">[</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token property">"_seq_no"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+                <span class="token property">"order"</span><span class="token operator">:</span><span class="token string">"desc"</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <ul>
 <li>根据某个字段查询（精确）</li>
 </ul>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>	<span class="hljs-attr">&quot;query&quot;</span>: &#123;<br>		<span class="hljs-attr">&quot;bool&quot;</span>: &#123;<br>			<span class="hljs-attr">&quot;must&quot;</span>: [&#123;<br>			    <span class="hljs-attr">&quot;match_phrase[match]&quot;</span>:&#123;<br>			        <span class="hljs-attr">&quot;[serviceCode，查询的某个字段]&quot;</span>:<span class="hljs-string">&quot;test001&quot;</span><br>			    &#125;<br>			&#125;]<br>		&#125;<br>	&#125;,<br>	<span class="hljs-attr">&quot;sort&quot;</span>: [<br>		&#123;<br>			<span class="hljs-attr">&quot;_seq_no&quot;</span>: &#123;<br>				<span class="hljs-attr">&quot;order&quot;</span>: <span class="hljs-string">&quot;desc&quot;</span><br>			&#125;<br>		&#125;<br>	],<br>	<span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-number">0</span>,<br>	<span class="hljs-attr">&quot;size&quot;</span>: <span class="hljs-number">20</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+	<span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+		<span class="token property">"bool"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+			<span class="token property">"must"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>
+			    <span class="token property">"match_phrase[match]"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+			        <span class="token property">"[serviceCode，查询的某个字段]"</span><span class="token operator">:</span><span class="token string">"test001"</span>
+			    <span class="token punctuation">&#125;</span>
+			<span class="token punctuation">&#125;</span><span class="token punctuation">]</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+	<span class="token property">"sort"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+		<span class="token punctuation">&#123;</span>
+			<span class="token property">"_seq_no"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+				<span class="token property">"order"</span><span class="token operator">:</span> <span class="token string">"desc"</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">]</span><span class="token punctuation">,</span>
+	<span class="token property">"from"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+	<span class="token property">"size"</span><span class="token operator">:</span> <span class="token number">20</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <ul>
 <li>查询某个字段是否存在</li>
 </ul>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>	<span class="hljs-attr">&quot;query&quot;</span>: &#123;<br>		<span class="hljs-attr">&quot;bool&quot;</span>: &#123;<br>			<span class="hljs-attr">&quot;must&quot;</span>: [&#123;<br>			    <span class="hljs-attr">&quot;exists&quot;</span>:&#123;<br>			        <span class="hljs-attr">&quot;field&quot;</span>:<span class="hljs-string">&quot;[字段名称]&quot;</span><br>			    &#125;<br>			&#125;]<br>		&#125;<br>	&#125;,<br>	<span class="hljs-attr">&quot;sort&quot;</span>: [<br>		&#123;<br>			<span class="hljs-attr">&quot;_seq_no&quot;</span>: &#123;<br>				<span class="hljs-attr">&quot;order&quot;</span>: <span class="hljs-string">&quot;desc&quot;</span><br>			&#125;<br>		&#125;<br>	],<br>	<span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-number">0</span>,<br>	<span class="hljs-attr">&quot;size&quot;</span>: <span class="hljs-number">20</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+	<span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+		<span class="token property">"bool"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+			<span class="token property">"must"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>
+			    <span class="token property">"exists"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+			        <span class="token property">"field"</span><span class="token operator">:</span><span class="token string">"[字段名称]"</span>
+			    <span class="token punctuation">&#125;</span>
+			<span class="token punctuation">&#125;</span><span class="token punctuation">]</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+	<span class="token property">"sort"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+		<span class="token punctuation">&#123;</span>
+			<span class="token property">"_seq_no"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+				<span class="token property">"order"</span><span class="token operator">:</span> <span class="token string">"desc"</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">]</span><span class="token punctuation">,</span>
+	<span class="token property">"from"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+	<span class="token property">"size"</span><span class="token operator">:</span> <span class="token number">20</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <ul>
 <li>检索某个值</li>
 </ul>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>	<span class="hljs-attr">&quot;query&quot;</span>: &#123;<br>		<span class="hljs-attr">&quot;simple_query_string&quot;</span>: &#123;<br>			<span class="hljs-attr">&quot;query&quot;</span>: <span class="hljs-string">&quot;[具体值]&quot;</span>,<br>			<span class="hljs-attr">&quot;default_operator&quot;</span>: <span class="hljs-string">&quot;and&quot;</span><br>		&#125;<br>	&#125;,<br>	<span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-number">0</span>,<br>	<span class="hljs-attr">&quot;size&quot;</span>: <span class="hljs-number">20</span>,<br>	<span class="hljs-attr">&quot;sort&quot;</span>: [<br>		&#123;<br>			<span class="hljs-attr">&quot;_seq_no&quot;</span>: &#123;<br>				<span class="hljs-attr">&quot;order&quot;</span>: <span class="hljs-string">&quot;desc&quot;</span><br>			&#125;<br>		&#125;<br>	]<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+	<span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+		<span class="token property">"simple_query_string"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+			<span class="token property">"query"</span><span class="token operator">:</span> <span class="token string">"[具体值]"</span><span class="token punctuation">,</span>
+			<span class="token property">"default_operator"</span><span class="token operator">:</span> <span class="token string">"and"</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+	<span class="token property">"from"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+	<span class="token property">"size"</span><span class="token operator">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
+	<span class="token property">"sort"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+		<span class="token punctuation">&#123;</span>
+			<span class="token property">"_seq_no"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+				<span class="token property">"order"</span><span class="token operator">:</span> <span class="token string">"desc"</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <ul>
 <li>多条件查询</li>
 </ul>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>	<span class="hljs-attr">&quot;query&quot;</span>: &#123;<br>		<span class="hljs-attr">&quot;bool&quot;</span>: &#123;<br>			<span class="hljs-attr">&quot;must&quot;</span>: [<br>				&#123;<br>					<span class="hljs-attr">&quot;match_phrase&quot;</span>: &#123;<br>						<span class="hljs-attr">&quot;serviceCode&quot;</span>: <span class="hljs-string">&quot;1090109102&quot;</span><br>					&#125;<br>				&#125;,<br>				&#123;<br>					<span class="hljs-attr">&quot;exists&quot;</span>: &#123;<br>						<span class="hljs-attr">&quot;field&quot;</span>: <span class="hljs-string">&quot;data.name&quot;</span><br>					&#125;<br>				&#125;<br>			]<br>		&#125;<br>	&#125;,<br>	<span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-number">0</span>,<br>	<span class="hljs-attr">&quot;size&quot;</span>: <span class="hljs-number">20</span>,<br>	<span class="hljs-attr">&quot;sort&quot;</span>: [<br>		&#123;<br>			<span class="hljs-attr">&quot;_seq_no&quot;</span>: &#123;<br>				<span class="hljs-attr">&quot;order&quot;</span>: <span class="hljs-string">&quot;desc&quot;</span><br>			&#125;<br>		&#125;<br>	]<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+	<span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+		<span class="token property">"bool"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+			<span class="token property">"must"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+				<span class="token punctuation">&#123;</span>
+					<span class="token property">"match_phrase"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+						<span class="token property">"serviceCode"</span><span class="token operator">:</span> <span class="token string">"1090109102"</span>
+					<span class="token punctuation">&#125;</span>
+				<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+				<span class="token punctuation">&#123;</span>
+					<span class="token property">"exists"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+						<span class="token property">"field"</span><span class="token operator">:</span> <span class="token string">"data.name"</span>
+					<span class="token punctuation">&#125;</span>
+				<span class="token punctuation">&#125;</span>
+			<span class="token punctuation">]</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+	<span class="token property">"from"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+	<span class="token property">"size"</span><span class="token operator">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
+	<span class="token property">"sort"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+		<span class="token punctuation">&#123;</span>
+			<span class="token property">"_seq_no"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+				<span class="token property">"order"</span><span class="token operator">:</span> <span class="token string">"desc"</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <ul>
 <li>范围查询</li>
 </ul>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;query&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;range&quot;</span>: &#123;<br>      <span class="hljs-attr">&quot;[transTime,范围字段]&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;gte&quot;</span>: <span class="hljs-number">1648426657334</span>,<br>        <span class="hljs-attr">&quot;lte&quot;</span>: <span class="hljs-number">1648430679534</span><br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"range"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"[transTime,范围字段]"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"gte"</span><span class="token operator">:</span> <span class="token number">1648426657334</span><span class="token punctuation">,</span>
+        <span class="token property">"lte"</span><span class="token operator">:</span> <span class="token number">1648430679534</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 </ol>
 <h3 id="实际应用示例，以ESB消息检索为例"><a href="#实际应用示例，以ESB消息检索为例" class="headerlink" title="实际应用示例，以ESB消息检索为例"></a>实际应用示例，以ESB消息检索为例</h3><p><img src="/img/ES/es%E6%B6%88%E6%81%AF%E6%A3%80%E7%B4%A2.png" srcset="/img/loading.gif" lazyload alt="es消息检索"></p>
 <ul>
 <li><p>查询所有消息</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">  <br></code></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">  <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
 </ul>
 <h3 id="ES报错处理"><a href="#ES报错处理" class="headerlink" title="ES报错处理"></a>ES报错处理</h3><ol>
 <li><p><strong>==<font color="red">Limit of total fields [1000] has been exceeded</font>==</strong></p>
 <p>原因：ES对mapping做了映射保护，防止mapping爆炸。</p>
 <p>解决方法：<strong>index.mapping.total_fields.limit：</strong>本设置允许您限制可手动或动态创建的字段映射的数量，以防止错误的文档导致映射爆炸，索引中的最大字段数。默认值为1000。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">curl -H &quot;Content-Type: application/json&quot; -XPUT http://192.168.186.34:9200/[索引名称]/_settings -d &#x27;&#123;&quot;index.mapping.total_fields.limit&quot;: [mapping数量,50000]&#125;&#x27;<br></code></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">curl -H &quot;Content-Type: application&#x2F;json&quot; -XPUT http:&#x2F;&#x2F;192.168.186.34:9200&#x2F;[索引名称]&#x2F;_settings -d &#39;&#123;&quot;index.mapping.total_fields.limit&quot;: [mapping数量,50000]&#125;&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
 <li></li>
 </ol>
 
@@ -458,6 +643,8 @@
 
 
   
+    
+  
 
 
 
@@ -499,30 +686,6 @@
 
 
 
-
-
-  
-    <!-- Baidu Analytics -->
-    <script defer>
-      var _hmt = _hmt || [];
-      (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?12a3171756132afa5f5f7bc08ae8d6c2";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
 
 

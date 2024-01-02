@@ -45,7 +45,15 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github-gist.min.css" />
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
     
   
 
@@ -70,7 +78,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -200,7 +208,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.3k 字
     </span>
   
 
@@ -270,18 +278,42 @@
 <td><a target="_blank" rel="noopener" href="https://yum.postgresql.org/14/redhat/rhel-7-x86_64/postgresql14-14.2-1PGDG.rhel7.x86_64.rpm">https://yum.postgresql.org/14/redhat/rhel-7-x86_64/postgresql14-14.2-1PGDG.rhel7.x86_64.rpm</a></td>
 </tr>
 </tbody></table>
-<h3 id="安装postgresql并启动"><a href="#安装postgresql并启动" class="headerlink" title="安装postgresql并启动"></a>安装postgresql并启动</h3><figure class="highlight sh"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><pre><code class="hljs sh">rpm -ivh libicu-50.2-4.el7_7.x86_64.rpm<br>rpm -ivh postgresql14-libs-14.2-1PGDG.rhel7.x86_64.rpm<br>rpm -ivh postgresql14-14.2-1PGDG.rhel7.x86_64.rpm<br>rpm -ivh postgresql14-server-14.2-1PGDG.rhel7.x86_64.rpm<br><span class="hljs-comment"># 启动</span><br>/usr/pgsql-14/bin/postgresql-14-setup initdb<br><span class="hljs-comment"># 设置开机启动</span><br>systemctl <span class="hljs-built_in">enable</span> postgresql-14<br>systemctl start postgresql-14<br></code></pre></td></tr></table></figure>
+<h3 id="安装postgresql并启动"><a href="#安装postgresql并启动" class="headerlink" title="安装postgresql并启动"></a>安装postgresql并启动</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">rpm -ivh libicu-50.2-4.el7_7.x86_64.rpm
+rpm -ivh postgresql14-libs-14.2-1PGDG.rhel7.x86_64.rpm
+rpm -ivh postgresql14-14.2-1PGDG.rhel7.x86_64.rpm
+rpm -ivh postgresql14-server-14.2-1PGDG.rhel7.x86_64.rpm
+# 启动
+&#x2F;usr&#x2F;pgsql-14&#x2F;bin&#x2F;postgresql-14-setup initdb
+# 设置开机启动
+systemctl enable postgresql-14
+systemctl start postgresql-14<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<h3 id="配置postgresql"><a href="#配置postgresql" class="headerlink" title="配置postgresql"></a>配置postgresql</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">vi /var/lib/pgsql/14/data/postgresql.conf<br></code></pre></td></tr></table></figure>
+<h3 id="配置postgresql"><a href="#配置postgresql" class="headerlink" title="配置postgresql"></a>配置postgresql</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">vi &#x2F;var&#x2F;lib&#x2F;pgsql&#x2F;14&#x2F;data&#x2F;postgresql.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <p><img src="/img/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85postgresql%E7%9A%8414%E7%89%88%E6%9C%AC/pgseting.png" srcset="/img/loading.gif" lazyload alt="pgseting"></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">vi /var/lib/pgsql/14/data/pg_hba.conf<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">vi &#x2F;var&#x2F;lib&#x2F;pgsql&#x2F;14&#x2F;data&#x2F;pg_hba.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <p><img src="/img/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85postgresql%E7%9A%8414%E7%89%88%E6%9C%AC/pghba.png" srcset="/img/loading.gif" lazyload alt="pghba"></p>
-<h3 id="重启postgresql"><a href="#重启postgresql" class="headerlink" title="重启postgresql"></a>重启postgresql</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">systemctl restart postgresql-14<br></code></pre></td></tr></table></figure>
+<h3 id="重启postgresql"><a href="#重启postgresql" class="headerlink" title="重启postgresql"></a>重启postgresql</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">systemctl restart postgresql-14<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>以上方式安装默认会创建<code>postgres</code>用户</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 切换用户</span><br>su - postgres<br>psql<br><span class="hljs-comment"># 创建数据库用户</span><br>create user pg password <span class="hljs-string">&#x27;pg&#x27;</span>;<br><span class="hljs-comment"># 赋予账号权限</span><br>alter user pg supperuser;<br><span class="hljs-comment"># 新建数据库</span><br>create database pg;<br><span class="hljs-built_in">exit</span><br><br><span class="hljs-comment"># 重新登录</span><br>su postgres<br>psql -U pg -h localhost -W<br><span class="hljs-comment"># 输入密码 pg</span><br><span class="hljs-comment"># 显示数据库</span><br>\l<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 切换用户
+su - postgres
+psql
+# 创建数据库用户
+create user pg password &#39;pg&#39;;
+# 赋予账号权限
+alter user pg supperuser;
+# 新建数据库
+create database pg;
+exit
+
+# 重新登录
+su postgres
+psql -U pg -h localhost -W
+# 输入密码 pg
+# 显示数据库
+\l<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p><img src="/img/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85postgresql%E7%9A%8414%E7%89%88%E6%9C%AC/pgdb.png" srcset="/img/loading.gif" lazyload alt="pghba"></p>
 <p>到此，数据库成功。</p>
@@ -436,6 +468,8 @@
 
 
   
+    
+  
 
 
 
@@ -477,30 +511,6 @@
 
 
 
-
-
-  
-    <!-- Baidu Analytics -->
-    <script defer>
-      var _hmt = _hmt || [];
-      (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?12a3171756132afa5f5f7bc08ae8d6c2";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
 
 

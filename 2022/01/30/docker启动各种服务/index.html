@@ -16,16 +16,16 @@
   <meta name="author" content="ntu820">
   <meta name="keywords" content="">
   
-    <meta name="description" content="启动activemq123456789101112131415161718docker run --name&#x3D;&amp;#x27;activemq&amp;#x27; -d \-e &amp;#x27;ACTIVEMQ_CONFIG_NAME&#x3D;amqp-srv1&amp;#x27; \-e &amp;#x27;ACTIVEMQ_CONFIG_DEFAULTACCOUNT&#x3D;false&amp;#x27; \-e &amp;#x27;ACTIVEMQ_AD">
+    <meta name="description" content="启动activemqdocker run --name&#x3D;&#39;activemq&#39; -d \ -e &#39;ACTIVEMQ_CONFIG_NAME&#x3D;amqp-srv1&#39; \ -e &#39;ACTIVEMQ_CONFIG_DEFAULTACCOUNT&#x3D;false&#39; \ -e &#39;ACTIVEMQ_ADMIN_LOGIN&#x3D;a">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker启动各种服务">
 <meta property="og:url" content="http://example.com/2022/01/30/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/index.html">
 <meta property="og:site_name" content="NTU820的小窝">
-<meta property="og:description" content="启动activemq123456789101112131415161718docker run --name&#x3D;&amp;#x27;activemq&amp;#x27; -d \-e &amp;#x27;ACTIVEMQ_CONFIG_NAME&#x3D;amqp-srv1&amp;#x27; \-e &amp;#x27;ACTIVEMQ_CONFIG_DEFAULTACCOUNT&#x3D;false&amp;#x27; \-e &amp;#x27;ACTIVEMQ_AD">
+<meta property="og:description" content="启动activemqdocker run --name&#x3D;&#39;activemq&#39; -d \ -e &#39;ACTIVEMQ_CONFIG_NAME&#x3D;amqp-srv1&#39; \ -e &#39;ACTIVEMQ_CONFIG_DEFAULTACCOUNT&#x3D;false&#39; \ -e &#39;ACTIVEMQ_ADMIN_LOGIN&#x3D;a">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/container.jpg">
 <meta property="article:published_time" content="2022-01-30T01:39:44.000Z">
-<meta property="article:modified_time" content="2022-03-28T09:23:14.423Z">
+<meta property="article:modified_time" content="2023-09-14T07:52:28.492Z">
 <meta property="article:author" content="ntu820">
 <meta property="article:tag" content="docker">
 <meta property="article:tag" content="container">
@@ -46,7 +46,15 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github-gist.min.css" />
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
     
   
 
@@ -71,7 +79,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -201,7 +209,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.6k 字
+      10k 字
     </span>
   
 
@@ -210,7 +218,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      56 分钟
+      86 分钟
     </span>
   
 
@@ -242,38 +250,254 @@
             <h1 style="display: none">docker启动各种服务</h1>
             
             <div class="markdown-body">
-              <h3 id="启动activemq"><a href="#启动activemq" class="headerlink" title="启动activemq"></a>启动activemq</h3><figure class="highlight sh"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><pre><code class="hljs sh">docker run --name=<span class="hljs-string">&#x27;activemq&#x27;</span> -d \<br>-e <span class="hljs-string">&#x27;ACTIVEMQ_CONFIG_NAME=amqp-srv1&#x27;</span> \<br>-e <span class="hljs-string">&#x27;ACTIVEMQ_CONFIG_DEFAULTACCOUNT=false&#x27;</span> \<br>-e <span class="hljs-string">&#x27;ACTIVEMQ_ADMIN_LOGIN=admin&#x27;</span> -e <span class="hljs-string">&#x27;ACTIVEMQ_ADMIN_PASSWORD=your_password&#x27;</span> \<br>-e <span class="hljs-string">&#x27;ACTIVEMQ_USERS_myproducer=producerpassword&#x27;</span> -e <span class="hljs-string">&#x27;ACTIVEMQ_GROUPS_writes=myproducer&#x27;</span> \<br>-e <span class="hljs-string">&#x27;ACTIVEMQ_USERS_myconsumer=consumerpassword&#x27;</span> -e <span class="hljs-string">&#x27;ACTIVEMQ_GROUPS_reads=myconsumer&#x27;</span> \<br>-e <span class="hljs-string">&#x27;ACTIVEMQ_JMX_user1_role=readwrite&#x27;</span> -e <span class="hljs-string">&#x27;ACTIVEMQ_JMX_user1_password=jmx_password&#x27;</span> \<br>-e <span class="hljs-string">&#x27;ACTIVEMQ_JMX_user2_role=read&#x27;</span> -e <span class="hljs-string">&#x27;ACTIVEMQ_JMX_user2_password=jmx2_password&#x27;</span><br>-e <span class="hljs-string">&#x27;ACTIVEMQ_CONFIG_TOPICS_topic1=mytopic1&#x27;</span> -e <span class="hljs-string">&#x27;ACTIVEMQ_CONFIG_TOPICS_topic2=mytopic2&#x27;</span>  \<br>-e <span class="hljs-string">&#x27;ACTIVEMQ_CONFIG_QUEUES_queue1=myqueue1&#x27;</span> -e <span class="hljs-string">&#x27;ACTIVEMQ_CONFIG_QUEUES_queue2=myqueue2&#x27;</span>  \<br>-e <span class="hljs-string">&#x27;ACTIVEMQ_CONFIG_MINMEMORY=1024&#x27;</span> -e  <span class="hljs-string">&#x27;ACTIVEMQ_CONFIG_MAXMEMORY=4096&#x27;</span> \<br>-e <span class="hljs-string">&#x27;ACTIVEMQ_CONFIG_SCHEDULERENABLED=true&#x27;</span> \<br>-v /data/activemq:/data \<br>-v /var/<span class="hljs-built_in">log</span>/activemq:/var/<span class="hljs-built_in">log</span>/activemq \<br>-p 8161:8161 \<br>-p 61616:61616 \<br>-p 61613:61613 \<br>webcenter/activemq:5.14.3<br></code></pre></td></tr></table></figure>
+              <h3 id="启动activemq"><a href="#启动activemq" class="headerlink" title="启动activemq"></a>启动activemq</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">docker run --name&#x3D;&#39;activemq&#39; -d \
+-e &#39;ACTIVEMQ_CONFIG_NAME&#x3D;amqp-srv1&#39; \
+-e &#39;ACTIVEMQ_CONFIG_DEFAULTACCOUNT&#x3D;false&#39; \
+-e &#39;ACTIVEMQ_ADMIN_LOGIN&#x3D;admin&#39; -e &#39;ACTIVEMQ_ADMIN_PASSWORD&#x3D;your_password&#39; \
+-e &#39;ACTIVEMQ_USERS_myproducer&#x3D;producerpassword&#39; -e &#39;ACTIVEMQ_GROUPS_writes&#x3D;myproducer&#39; \
+-e &#39;ACTIVEMQ_USERS_myconsumer&#x3D;consumerpassword&#39; -e &#39;ACTIVEMQ_GROUPS_reads&#x3D;myconsumer&#39; \
+-e &#39;ACTIVEMQ_JMX_user1_role&#x3D;readwrite&#39; -e &#39;ACTIVEMQ_JMX_user1_password&#x3D;jmx_password&#39; \
+-e &#39;ACTIVEMQ_JMX_user2_role&#x3D;read&#39; -e &#39;ACTIVEMQ_JMX_user2_password&#x3D;jmx2_password&#39;
+-e &#39;ACTIVEMQ_CONFIG_TOPICS_topic1&#x3D;mytopic1&#39; -e &#39;ACTIVEMQ_CONFIG_TOPICS_topic2&#x3D;mytopic2&#39;  \
+-e &#39;ACTIVEMQ_CONFIG_QUEUES_queue1&#x3D;myqueue1&#39; -e &#39;ACTIVEMQ_CONFIG_QUEUES_queue2&#x3D;myqueue2&#39;  \
+-e &#39;ACTIVEMQ_CONFIG_MINMEMORY&#x3D;1024&#39; -e  &#39;ACTIVEMQ_CONFIG_MAXMEMORY&#x3D;4096&#39; \
+-e &#39;ACTIVEMQ_CONFIG_SCHEDULERENABLED&#x3D;true&#39; \
+-v &#x2F;data&#x2F;activemq:&#x2F;data \
+-v &#x2F;var&#x2F;log&#x2F;activemq:&#x2F;var&#x2F;log&#x2F;activemq \
+-p 8161:8161 \
+-p 61616:61616 \
+-p 61613:61613 \
+webcenter&#x2F;activemq:5.14.3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p><code>docker run --name activemq-5.14 -d -e ACTIVEMQ_ADMIN_LOGIN=admin -e ACTIVEMQ_ADMIN_PASSWORD=admin@mq -v /home/activemq/data:/data -v /home/activemq/log:/var/log/activemq -p 8161:8161 -p 61616:61616 -p 61613:61613 webcenter/activemq:5.14.3</code></p>
 <hr>
-<h3 id="启动mysql"><a href="#启动mysql" class="headerlink" title="启动mysql"></a>启动mysql</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 简单启动</span><br>docker run -p 3306:3306 --name mysql -v <span class="hljs-variable">$PWD</span>/conf:/etc/mysql/conf.d -v <span class="hljs-variable">$PWD</span>/logs:/logs -v <span class="hljs-variable">$PWD</span>/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7.23<br></code></pre></td></tr></table></figure>
+<h3 id="启动mysql"><a href="#启动mysql" class="headerlink" title="启动mysql"></a>启动mysql</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 简单启动
+docker run -p 3306:3306 --name mysql -v $PWD&#x2F;conf:&#x2F;etc&#x2F;mysql&#x2F;conf.d -v $PWD&#x2F;logs:&#x2F;logs -v $PWD&#x2F;data:&#x2F;var&#x2F;lib&#x2F;mysql -e MYSQL_ROOT_PASSWORD&#x3D;123456 -d mysql:5.7.23<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
 
 <p>-p 3306:3306：将容器的 3306 端口映射到主机的 3306 端口。<br>-v $PWD/conf:/etc/mysql/conf.d：将主机当前目录下的 conf/my.cnf 挂载到容器的 /etc/mysql/my.cnf。<br>-v $PWD/logs:/logs：将主机当前目录下的 logs 目录挂载到容器的 /logs。<br>-v $PWD/data:/var/lib/mysql :将主机当前目录下的data目录挂载到容器的 /var/lib/mysql 。<br>-e MYSQL_ROOT_PASSWORD=123456：初始化 root 用户的密码。<br>-d 后台运行</p>
 <hr>
-<h3 id="启动nginx"><a href="#启动nginx" class="headerlink" title="启动nginx"></a>启动nginx</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker run --name nginx-1.16.1 -v /home/nginxdata/x-springboot-ui:/usr/share/nginx/html -v /home/nginxdata/conf/nginx.conf:/etc/nginx/nginx.conf -v /home/nginxdata/conf.d:/etc/nginx/conf.d -v /home/nginxdata/logs:/var/<span class="hljs-built_in">log</span>/nginx -p 80:80 -d nginx:1.16.1<br></code></pre></td></tr></table></figure>
+<h3 id="启动nginx"><a href="#启动nginx" class="headerlink" title="启动nginx"></a>启动nginx</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">docker run --name nginx-1.16.1 -v &#x2F;home&#x2F;nginxdata&#x2F;x-springboot-ui:&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html -v &#x2F;home&#x2F;nginxdata&#x2F;conf&#x2F;nginx.conf:&#x2F;etc&#x2F;nginx&#x2F;nginx.conf -v &#x2F;home&#x2F;nginxdata&#x2F;conf.d:&#x2F;etc&#x2F;nginx&#x2F;conf.d -v &#x2F;home&#x2F;nginxdata&#x2F;logs:&#x2F;var&#x2F;log&#x2F;nginx -p 80:80 -d nginx:1.16.1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <p>1、配置nginx.conf，设置user为root用户<br>2、配置default.conf，开启目录浏览<br>        autoindex on; # 开启目录显示<br>        autoindex_exact_size off; # 显示出文件的确切大小.关闭详细文件大小统计，让文件大小显示MB，GB单位，默认为b<br>        autoindex_localtime on; # 显示的文件时间为文件的服务器时间<br>        charset utf-8,gbk; # 避免中文乱码</p>
 <hr>
-<h3 id="启动oracle-11g"><a href="#启动oracle-11g" class="headerlink" title="启动oracle 11g"></a>启动oracle 11g</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 一开始无法使用挂载，必须先启动后再使用</span><br>1、docker run --name oracle_11g -v /home/oracle:/home/oracle -p 1521:1521 -d registry.cn-hangzhou.aliyuncs.com/helowin/oracle_11g:latest<br><br>docker run --name oracle11g -v /root/oracle_data/helowin:/home/oracle/app/oracle/oradata/helowin -p 1521:1521 -d registry.cn-hangzhou.aliyuncs.com/helowin/oracle_11g:latest<br><br>2、docker <span class="hljs-built_in">exec</span> -it oracle_11g bash<br><br>3、su root 【密码】：helowin<br><br>4、vi /etc/profile<br><br><span class="hljs-built_in">export</span> ORACLE_HOME=/home/oracle/app/oracle/product/11.2.0/dbhome_2<br><span class="hljs-built_in">export</span> ORACLE_SID=helowin<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$ORACLE_HOME</span>/bin:<span class="hljs-variable">$PATH</span><br><br><span class="hljs-built_in">source</span> /etc/profile --加载环境变量<br>ln -s <span class="hljs-variable">$ORACLE_HOME</span>/bin/sqlplus /usr/bin -- 软连接<br><br>5、su - oracle<br><br>6、sqlplus /nolog<br><br>7、conn /as sysdba<br><br>8、<br>alter user system identified by system; --修改system用户账号<br><br>alter user sys identified by system; --修改sys用户账号<br><br>create user db identified by dbzenith; --创建内部管理员账号，设备管理系统默认使用db用户<br><br>grant connect,resource,dba to db; --将dba权限授权给内部管理员账号<br><br>alter profile default <span class="hljs-built_in">limit</span> password_life_time unlimited; --修改密码规则策略为密码永不过期<br><br>alter system <span class="hljs-built_in">set</span> processes=1000 scope=spfile; --修改数据库最大连接数据<br><br>9、重启数据库<br><span class="hljs-built_in">exit</span> 退出当前操作<br>sqlplus /nolog<br>conn /as sysdba<br>shutdown immediate; --关闭数据库<br>startup; --启动数据库<br><br>10、退出，查看具体实例<br>lsnrctl status<br><br><br>11、删除用户操作<br>SELECT SID,SERIAL<span class="hljs-comment"># FROM V$SESSION WHERE USERNAME=&#x27;DEVUSER&#x27;;  -- 一定都要大写</span><br>ALTER  SYSTEM  KILL SESSION <span class="hljs-string">&#x27;137,41813&#x27;</span>;<br>drop  user sstest cascade;<br><br><br><span class="hljs-comment"># --删除oracle--</span><br>rm -rf /home/oracle/app/oracle/flash_recovery_area/helowin/control02.ctl<br></code></pre></td></tr></table></figure>
+<h3 id="启动oracle-11g"><a href="#启动oracle-11g" class="headerlink" title="启动oracle 11g"></a>启动oracle 11g</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 一开始无法使用挂载，必须先启动后再使用
+1、docker run --name oracle_11g -v &#x2F;home&#x2F;oracle:&#x2F;home&#x2F;oracle -p 1521:1521 -d registry.cn-hangzhou.aliyuncs.com&#x2F;helowin&#x2F;oracle_11g:latest
+
+docker run --name oracle11g -v &#x2F;root&#x2F;oracle_data&#x2F;helowin:&#x2F;home&#x2F;oracle&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;helowin -p 1521:1521 -d registry.cn-hangzhou.aliyuncs.com&#x2F;helowin&#x2F;oracle_11g:latest
+
+2、docker exec -it oracle_11g bash
+
+3、su root 【密码】：helowin
+
+4、vi &#x2F;etc&#x2F;profile
+
+export ORACLE_HOME&#x3D;&#x2F;home&#x2F;oracle&#x2F;app&#x2F;oracle&#x2F;product&#x2F;11.2.0&#x2F;dbhome_2
+export ORACLE_SID&#x3D;helowin
+export PATH&#x3D;$ORACLE_HOME&#x2F;bin:$PATH
+
+source &#x2F;etc&#x2F;profile --加载环境变量
+ln -s $ORACLE_HOME&#x2F;bin&#x2F;sqlplus &#x2F;usr&#x2F;bin -- 软连接
+
+5、su - oracle
+
+6、sqlplus &#x2F;nolog
+
+7、conn &#x2F;as sysdba
+
+8、
+alter user system identified by system; --修改system用户账号
+
+alter user sys identified by system; --修改sys用户账号
+
+create user db identified by dbzenith; --创建内部管理员账号，设备管理系统默认使用db用户
+
+grant connect,resource,dba to db; --将dba权限授权给内部管理员账号
+
+alter profile default limit password_life_time unlimited; --修改密码规则策略为密码永不过期
+
+alter system set processes&#x3D;1000 scope&#x3D;spfile; --修改数据库最大连接数据
+
+9、重启数据库
+exit 退出当前操作
+sqlplus &#x2F;nolog
+conn &#x2F;as sysdba
+shutdown immediate; --关闭数据库
+startup; --启动数据库
+
+10、退出，查看具体实例
+lsnrctl status
+
+
+11、删除用户操作
+SELECT SID,SERIAL# FROM V$SESSION WHERE USERNAME&#x3D;&#39;DEVUSER&#39;;  -- 一定都要大写
+ALTER  SYSTEM  KILL SESSION &#39;137,41813&#39;;
+drop  user sstest cascade;
+
+
+# --删除oracle--
+rm -rf &#x2F;home&#x2F;oracle&#x2F;app&#x2F;oracle&#x2F;flash_recovery_area&#x2F;helowin&#x2F;control02.ctl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <hr>
-<h3 id="启动portainer"><a href="#启动portainer" class="headerlink" title="启动portainer"></a>启动portainer</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker run --name portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -d portainer/portainer:linux-amd64<br></code></pre></td></tr></table></figure>
+<h3 id="启动portainer"><a href="#启动portainer" class="headerlink" title="启动portainer"></a>启动portainer</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">docker run --name portainer --restart&#x3D;always -p 9000:9000 -v &#x2F;root&#x2F;portainer:&#x2F;data -v &#x2F;var&#x2F;run&#x2F;docker.sock:&#x2F;var&#x2F;run&#x2F;docker.sock -d portainer&#x2F;portainer:linux-amd64<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">–-name # 指定运行容器的名称
+--restart&#x3D;always # 自动重启
+-p 9000:9000 # 宿主机9000端口映射容器中的9000端口
+-d # 容器在后台运行
+-v &#x2F;root&#x2F;portainer:&#x2F;data # 把宿主机目录 &#x2F;root&#x2F;portainer 挂载到容器 &#x2F;data 目录
+-v &#x2F;var&#x2F;run&#x2F;docker.sock:&#x2F;var&#x2F;run&#x2F;docker.sock # 把宿主机的Docker守护进程(docker daemon)默认监听的Unix域套接字挂载到容器中<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p><strong>portainer使用tls监控本地、远端docker</strong></p>
+<ol>
+<li><p>生成tls证书</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 产生tls的证书比较复杂，这里提供一个脚本。
+#!&#x2F;bin&#x2F;bash
+# 把$1，$2 换成地址的服务器地址和密码
+# 服务器域名或地址
+SERVER&#x3D;$1
+# 密码
+PASSWORD&#x3D;$2
+
+# 下面描述信息可改可不该
+COUNTRY&#x3D;&quot;CN&quot;
+STATE&#x3D;&quot;JiangSu&quot;
+CITY&#x3D;&quot;ChangZhou&quot;
+ORGANIZATION&#x3D;&quot;HMIFO&quot;
+ORGANIZATIONAL_UNIT&#x3D;&quot;HMIFO&quot;
+EMAIL&#x3D;&quot;hm@example.com&quot;
+
+echo &quot;开始生成文件...............&quot;
+
+mkdir tls&#x2F;
+cd &#96;pwd&#96;&#x2F;tls
+
+# 生成ca私钥 + ca证书
+openssl genrsa -aes256 -passout pass:$PASSWORD  -out ca-key.pem 2048
+
+openssl req -new -x509 -passin &quot;pass:$PASSWORD&quot; -days 36500 -key ca-key.pem -sha256 -out ca.pem -subj &quot;&#x2F;C&#x3D;$COUNTRY&#x2F;ST&#x3D;$STATE&#x2F;L&#x3D;$CITY&#x2F;O&#x3D;$ORGANIZATION&#x2F;OU&#x3D;$ORGANIZATIONAL_UNIT&#x2F;CN&#x3D;$SERVER&#x2F;emailAddress&#x3D;$EMAIL&quot;
+
+# 生成server私钥 + server证书请求文件 + 证书
+openssl genrsa -out server-key.pem 2048
+
+openssl req -subj &quot;&#x2F;CN&#x3D;$SERVER&quot; -new -key server-key.pem -out server.csr
+
+openssl x509 -req -days 36500 -in server.csr -CA ca.pem -CAkey ca-key.pem -passin &quot;pass:$PASSWORD&quot; -CAcreateserial  -out server-cert.pem
+
+# 生成client公钥 + client 证书请求文件 + 证书
+openssl genrsa -out client-key.pem 2048
+
+openssl req -subj &#39;&#x2F;CN&#x3D;client&#39; -new -key client-key.pem -out client.csr
+
+sh -c &#39;echo &quot;extendedKeyUsage&#x3D;clientAuth&quot; &gt; extfile.cnf&#39;
+
+openssl x509 -req -days 36500 -in client.csr -CA ca.pem -CAkey ca-key.pem  -passin &quot;pass:$PASSWORD&quot; -CAcreateserial -out client-cert.pem  -extfile extfile.cnf
+
+# 更改密钥权限
+chmod 0400 ca-key.pem client-key.pem server-key.pem
+
+chmod 0444 ca.pem server-cert.pem client-cert.pem
+# 删除无用文件
+rm  *.csr *.cnf *.srl
+
+# 将服务器证书和CA证书放到 &#x2F;etc&#x2F;docker 目录下
+cp ca.pem server-cert.pem server-key.pem &#x2F;etc&#x2F;docker
+
+echo &quot;生成文件结束...............&quot;
+
+# 将客户端证书和CA证书放到客户机中 ca.pem、client-cert.pem、client-key.pem<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li><p>docker开启2375端口</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">find &#x2F; -name docker.service # 找到docker的启动配置
+
+vi &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;docker.service
+
+# 在ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;dockerd后面追加
+# --tlsverify --tlscacert&#x3D;&#x2F;etc&#x2F;docker&#x2F;ca.pem[CA证书] --tlscert&#x3D;&#x2F;etc&#x2F;docker&#x2F;server-cert.pem[服务器证书] --tlskey&#x3D;&#x2F;etc&#x2F;docker&#x2F;server-key.pem[服务端密钥] -H tcp:&#x2F;&#x2F;0.0.0.0:2375[这个端口可以自己定义，只要是机器上没有用到的都行]
+# 完整的ExecStart配置
+ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;dockerd \
+	--tlsverify \
+	--tlscacert&#x3D;&#x2F;etc&#x2F;docker&#x2F;ca.pem \
+	--tlscert&#x3D;&#x2F;etc&#x2F;docker&#x2F;server-cert.pem \
+	--tlskey&#x3D;&#x2F;etc&#x2F;docker&#x2F;server-key.pem \
+	-H tcp:&#x2F;&#x2F;0.0.0.0:2375 \
+	-H fd:&#x2F;&#x2F; --containerd&#x3D;&#x2F;run&#x2F;containerd&#x2F;containerd.sock<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li><p>重启docker</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">systemctl daemon-reload &amp;&amp; systemctl restart docker<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
+<li><p>添加远程docker</p>
+<p><img src="/img/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/portainer-1.png" srcset="/img/loading.gif" lazyload alt="portainer-addendpoints"></p>
+<p><img src="/img/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/portainer-2.png" srcset="/img/loading.gif" lazyload alt="portainer-addendpoints2"></p>
+</li>
+</ol>
+<hr>
+<h3 id="启动Redis"><a href="#启动Redis" class="headerlink" title="启动Redis"></a>启动Redis</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 简单启动
+docker run --name redis-5.0.7 -p 6379:6379 -d redis:5.0.7 --requirepass &quot;admin123&quot;
+# 持久化
+docker run --name redis -v &#x2F;home&#x2F;redis&#x2F;data:&#x2F;data -p 6379:6379 -d redis:5.0.7 --requirepass &quot;admin123&quot; --appendonly yes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">--name redis-test #运行的docker容器名
+-p 6379:6379 #宿主本地端口:docker端口(容器里的端口)
+-d redis #daemonize模式运行，完整-d redis:版本号，默认为最新版本<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+<hr>
+<h3 id="启动sonarqube"><a href="#启动sonarqube" class="headerlink" title="启动sonarqube"></a>启动sonarqube</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 采用volume挂载方式，本地文件挂载有权限问题
+docker run -d --name sonarqube --restart always \
+-p 9000:9000 \
+-v sonarqube_conf:&#x2F;opt&#x2F;sonarqube&#x2F;conf \
+-v sonarqube_extensions:&#x2F;opt&#x2F;sonarqube&#x2F;extensions \
+-v sonarqube_logs:&#x2F;opt&#x2F;sonarqube&#x2F;logs \
+-v sonarqube_data:&#x2F;opt&#x2F;sonarqube&#x2F;data \
+sonarqube:7.9.2-community
+
+
+#分析项目
+#1、需要先将项目打包运行
+#2、运行分析代码
+sonar-scanner -Dsonar.host.url&#x3D;http:&#x2F;&#x2F;192.168.153.150:9000 \
+              -Dsonar.projectKey&#x3D;simple-java-maven-app \
+              -Dsonar.projectName&#x3D;simple-java-maven-app \
+              -Dsonar.projectVersion&#x3D;1.0 \
+              -Dsonar.login&#x3D;admin \
+              -Dsonar.password&#x3D;admin \
+              -Dsonar.ws.timeout&#x3D;30 \
+              -Dsonar.projectDescription&#x3D;&quot;my first project!&quot; \
+              -Dsonar.links.homepage&#x3D;http:&#x2F;&#x2F;www.baidu.com \
+              -Dsonar.sources&#x3D;src \
+              -Dsonar.sourceEncoding&#x3D;UTF-8 \
+              -Dsonar.java.binaries&#x3D;target&#x2F;classes \
+              -Dsonar.java.test.binaries&#x3D;target&#x2F;test-classes \
+              -Dsonar.java.surefire.report&#x3D;target&#x2F;surefire-reports<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <hr>
-<h3 id="启动redis"><a href="#启动redis" class="headerlink" title="启动redis"></a>启动redis</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 简单启动</span><br>docker run --name redis-5.0.7 -p 6379:6379 -d redis:5.0.7 --requirepass <span class="hljs-string">&quot;admin123&quot;</span><br><span class="hljs-comment"># 持久化</span><br>docker run --name redis -v /home/redis/data:/data -p 6379:6379 -d redis:5.0.7 --requirepass <span class="hljs-string">&quot;admin123&quot;</span> --appendonly yes<br></code></pre></td></tr></table></figure>
-
-<p>–name redis-test #运行的docker容器名<br>-p 6379:6379 #宿主本地端口:docker端口(容器里的端口)<br>-d redis #daemonize模式运行，完整-d redis:版本号，默认为最新版本</p>
-<hr>
-<h3 id="启动sonarqube"><a href="#启动sonarqube" class="headerlink" title="启动sonarqube"></a>启动sonarqube</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 采用volume挂载方式，本地文件挂载有权限问题</span><br>docker run -d --name sonarqube --restart always \<br>-p 9000:9000 \<br>-v sonarqube_conf:/opt/sonarqube/conf \<br>-v sonarqube_extensions:/opt/sonarqube/extensions \<br>-v sonarqube_logs:/opt/sonarqube/logs \<br>-v sonarqube_data:/opt/sonarqube/data \<br>sonarqube:7.9.2-community<br><br><br><span class="hljs-comment">#分析项目</span><br><span class="hljs-comment">#1、需要先将项目打包运行</span><br><span class="hljs-comment">#2、运行分析代码</span><br>sonar-scanner -Dsonar.host.url=http://192.168.153.150:9000 \<br>              -Dsonar.projectKey=simple-java-maven-app \<br>              -Dsonar.projectName=simple-java-maven-app \<br>              -Dsonar.projectVersion=1.0 \<br>              -Dsonar.login=admin \<br>              -Dsonar.password=admin \<br>              -Dsonar.ws.timeout=30 \<br>              -Dsonar.projectDescription=<span class="hljs-string">&quot;my first project!&quot;</span> \<br>              -Dsonar.links.homepage=http://www.baidu.com \<br>              -Dsonar.sources=src \<br>              -Dsonar.sourceEncoding=UTF-8 \<br>              -Dsonar.java.binaries=target/classes \<br>              -Dsonar.java.test.binaries=target/test-classes \<br>              -Dsonar.java.surefire.report=target/surefire-reports<br></code></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="启动sqlserver2017"><a href="#启动sqlserver2017" class="headerlink" title="启动sqlserver2017"></a>启动sqlserver2017</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker run --name sqlserver_2017 -v /home/sqlserver:/var/opt/mssql -e <span class="hljs-string">&#x27;ACCEPT_EULA=Y&#x27;</span> -e <span class="hljs-string">&#x27;SA_PASSWORD=admin123.X&#x27;</span> -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest<br></code></pre></td></tr></table></figure>
+<h3 id="启动sqlserver2017"><a href="#启动sqlserver2017" class="headerlink" title="启动sqlserver2017"></a>启动sqlserver2017</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">docker run --name sqlserver_2017 -v &#x2F;home&#x2F;sqlserver:&#x2F;var&#x2F;opt&#x2F;mssql -e &#39;ACCEPT_EULA&#x3D;Y&#39; -e &#39;SA_PASSWORD&#x3D;admin123.X&#39; -p 1433:1433 -d mcr.microsoft.com&#x2F;mssql&#x2F;server:2017-latest<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <p>使用sqlcmd创建数据库</p>
 <p>进入容器 docker exec -it 容器名称 bash</p>
 <p>创建数据库<br>/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P XXXX</p>
 <hr>
-<h3 id="启动rabbitmq"><a href="#启动rabbitmq" class="headerlink" title="启动rabbitmq"></a>启动rabbitmq</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker run -p 15672:15672 \<br>-p 5672:5672 \<br>-p 25672:25672 \<br>-p 15674:15674 \<br>-p 61613:61613 \<br>-v /home/yzh/Documents/Installed/docker/docker_repo/rabbitmq/:/var/lib/rabbitmq/mnesia \<br>--name rabbitmq3 \<br>--restart=always \<br>-d rabbitmq:3.7.8-management<br><br><span class="hljs-comment"># 启动rabbitmq的mqtt和stomp协议</span><br>docker run --name rabbitmq \<br>-p 15672:15672 \<br>-p 5672:5672 \<br>-p 15674:15674 \<br>-p 61613:61613 \<br>-p 15675:15675 \<br>-p 1883:1883 \<br>-d rabbitmq:3.8.14-management<br><br><span class="hljs-comment"># 进入容器内部</span><br><span class="hljs-comment"># rabbit开启stomp</span><br>rabbitmq-plugins <span class="hljs-built_in">enable</span> rabbitmq_stomp<br>rabbitmq-plugins <span class="hljs-built_in">enable</span> rabbitmq_web_stomp<br><br><span class="hljs-comment"># rabbit开启mqtt</span><br>rabbitmq-plugins <span class="hljs-built_in">enable</span> rabbitmq_mqtt<br>rabbitmq-plugins <span class="hljs-built_in">enable</span> rabbitmq_web_mqtt<br></code></pre></td></tr></table></figure>
+<h3 id="启动rabbitmq"><a href="#启动rabbitmq" class="headerlink" title="启动rabbitmq"></a>启动rabbitmq</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">docker run -p 15672:15672 \
+-p 5672:5672 \
+-p 25672:25672 \
+-p 15674:15674 \
+-p 61613:61613 \
+-v &#x2F;home&#x2F;yzh&#x2F;Documents&#x2F;Installed&#x2F;docker&#x2F;docker_repo&#x2F;rabbitmq&#x2F;:&#x2F;var&#x2F;lib&#x2F;rabbitmq&#x2F;mnesia \
+--name rabbitmq3 \
+--restart&#x3D;always \
+-d rabbitmq:3.7.8-management
+
+# 启动rabbitmq的mqtt和stomp协议
+docker run --name rabbitmq \
+-p 15672:15672 \
+-p 5672:5672 \
+-p 15674:15674 \
+-p 61613:61613 \
+-p 15675:15675 \
+-p 1883:1883 \
+-d rabbitmq:3.8.14-management
+
+# 进入容器内部
+# rabbit开启stomp
+rabbitmq-plugins enable rabbitmq_stomp
+rabbitmq-plugins enable rabbitmq_web_stomp
+
+# rabbit开启mqtt
+rabbitmq-plugins enable rabbitmq_mqtt
+rabbitmq-plugins enable rabbitmq_web_mqtt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>15672，rabbitmq的web页面端口</p>
 <p>5672，amqp协议端口</p>
@@ -283,11 +507,27 @@
 <p>1883，mqtt的tcp协议端口</p>
 <p>15675，mqtt的ws端口</p>
 <hr>
-<h3 id="启动traefik"><a href="#启动traefik" class="headerlink" title="启动traefik"></a>启动traefik</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker run --name traefik2 -d -p 8080:8080 -p 80:80 -v <span class="hljs-variable">$PWD</span>/traefik.yml:/etc/traefik/traefik.yml -v /var/run/docker.sock:/var/run/docker.sock traefik:v2.4.8<br></code></pre></td></tr></table></figure>
+<h3 id="启动traefik"><a href="#启动traefik" class="headerlink" title="启动traefik"></a>启动traefik</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">docker run --name traefik2 -d -p 8080:8080 -p 80:80 -v $PWD&#x2F;traefik.yml:&#x2F;etc&#x2F;traefik&#x2F;traefik.yml -v &#x2F;var&#x2F;run&#x2F;docker.sock:&#x2F;var&#x2F;run&#x2F;docker.sock traefik:v2.4.8<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
-<h3 id="启动MongoDB"><a href="#启动MongoDB" class="headerlink" title="启动MongoDB"></a>启动MongoDB</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker run --name mongo -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin -v /data/mongodb:/data/db -p 27017:27017 -d mongo:5.0<br></code></pre></td></tr></table></figure>
+<h3 id="启动MongoDB"><a href="#启动MongoDB" class="headerlink" title="启动MongoDB"></a>启动MongoDB</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">docker run --name mongo -e MONGO_INITDB_ROOT_USERNAME&#x3D;admin -e MONGO_INITDB_ROOT_PASSWORD&#x3D;admin -v &#x2F;data&#x2F;mongodb:&#x2F;data&#x2F;db -p 27017:27017 -d mongo:5.0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">version:</span> <span class="hljs-string">&#x27;3.1&#x27;</span><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">mongo:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">mongo</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">MONGO_INITDB_ROOT_USERNAME:</span> <span class="hljs-string">root</span><br>      <span class="hljs-attr">MONGO_INITDB_ROOT_PASSWORD:</span> <span class="hljs-string">example</span><br>  <span class="hljs-attr">mongo-express:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">mongo-express</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">8081</span><span class="hljs-string">:8081</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">ME_CONFIG_MONGODB_ADMINUSERNAME:</span> <span class="hljs-string">root</span><br>      <span class="hljs-attr">ME_CONFIG_MONGODB_ADMINPASSWORD:</span> <span class="hljs-string">example</span><br>      <span class="hljs-attr">ME_CONFIG_MONGODB_URL:</span> <span class="hljs-string">mongodb://root:example@mongo:27017/</span><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3.1'</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">mongo</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> mongo
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token key atrule">MONGO_INITDB_ROOT_USERNAME</span><span class="token punctuation">:</span> root
+      <span class="token key atrule">MONGO_INITDB_ROOT_PASSWORD</span><span class="token punctuation">:</span> example
+  <span class="token key atrule">mongo-express</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> mongo<span class="token punctuation">-</span>express
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 8081<span class="token punctuation">:</span><span class="token number">8081</span>
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ME_CONFIG_MONGODB_ADMINUSERNAME</span><span class="token punctuation">:</span> root
+      <span class="token key atrule">ME_CONFIG_MONGODB_ADMINPASSWORD</span><span class="token punctuation">:</span> example
+      <span class="token key atrule">ME_CONFIG_MONGODB_URL</span><span class="token punctuation">:</span> mongodb<span class="token punctuation">:</span>//root<span class="token punctuation">:</span>example@mongo<span class="token punctuation">:</span>27017/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 
 
@@ -450,6 +690,8 @@
 
 
   
+    
+  
 
 
 
@@ -491,30 +733,6 @@
 
 
 
-
-
-  
-    <!-- Baidu Analytics -->
-    <script defer>
-      var _hmt = _hmt || [];
-      (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?12a3171756132afa5f5f7bc08ae8d6c2";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
 
 

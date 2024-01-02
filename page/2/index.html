@@ -49,7 +49,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -191,23 +191,23 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/01/30/yapi/" target="_self">
-          <img src="/img/yapi/yapi.png" srcset="/img/loading.gif" lazyload alt="私有化部署yapi">
+        <a href="/2022/11/11/mysql%E4%B8%BB%E4%B8%BB%E6%90%AD%E5%BB%BA/" target="_self">
+          <img src="/img/mysql%E5%AE%89%E8%A3%85/mysql.png" srcset="/img/loading.gif" lazyload alt="mysql主主搭建">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/01/30/yapi/" target="_self">
-          私有化部署yapi
+        <a href="/2022/11/11/mysql%E4%B8%BB%E4%B8%BB%E6%90%AD%E5%BB%BA/" target="_self">
+          mysql主主搭建
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/01/30/yapi/" target="_self">
+        <a href="/2022/11/11/mysql%E4%B8%BB%E4%B8%BB%E6%90%AD%E5%BB%BA/" target="_self">
           
-          安装nodejs环境12345678910111213141516# 下载wget https:&#x2F;&#x2F;nodejs.org&#x2F;dist&#x2F;v10.16.0&#x2F;node-v10.16.0-linux-x64.tar.xz# 解压tar -xvf node-v10.16.0-linux-x64.tar.xz#创建软连接ln -s ~&#x2F;node-v10.16.0-linux-x64&#x2F;bin&#x2F;node &#x2F;usr&#x2F;
+          mysql主主说明在企业中，数据库高可用一直是企业的重中之重，中小企业很多都是使用mysql主从方案，一主多从，读写分离等，但是单主存在单点故障，从库切换成主库需要作改动。因此，如果是双主或者多主，就会增加mysql入口，增加高可用。不过多主需要考虑自增长ID问题，这个需要特别设置配置文件，比如双主，可以使用奇偶，总之，主之间设置自增长ID相互不冲突就能完美解决自增长ID冲突问题。  环境前提：
         </a>
       </p>
 
@@ -215,8 +215,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-30 10:43" pubdate>
-              2022-01-30
+            <time datetime="2022-11-11 08:47" pubdate>
+              2022-11-11
             </time>
           </div>
         
@@ -224,7 +224,7 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/yapi/">yapi</a>
+              <a href="/categories/mysql/">mysql</a>
             
           </div>
         
@@ -232,175 +232,10 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/node/">node</a>
-            
-              <a href="/tags/yapi/">yapi</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/01/30/windocker/" target="_self">
-          <img src="/img/windocker/windocker.jpg" srcset="/img/loading.gif" lazyload alt="在windows上部署docker实战">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/01/30/windocker/" target="_self">
-          在windows上部署docker实战
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/01/30/windocker/" target="_self">
-          
-          目前在windows上部署docker方式有两种。第一：采用虚拟机进行部署；第二：采用Hyper-V虚拟技术进行部署。微软自windows server2016开始将docker集成进系统。目前支持docker in windows部署方式的系统有：win10、windwos server2016&#x2F;2019。本文采用Hyper-V方式进行docker部署。 主板开启虚拟化，系统安装Hyper-V的
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-30 10:13" pubdate>
-              2022-01-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/docker/">docker</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/docker/">docker</a>
-            
-              <a href="/tags/windows/">windows</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/01/30/seata%E9%AB%98%E5%8F%AF%E7%94%A8%E9%83%A8%E7%BD%B2/" target="_self">
-          <img src="/img/seata%E9%AB%98%E5%8F%AF%E7%94%A8%E9%83%A8%E7%BD%B2/seata.png" srcset="/img/loading.gif" lazyload alt="seata高可用部署">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/01/30/seata%E9%AB%98%E5%8F%AF%E7%94%A8%E9%83%A8%E7%BD%B2/" target="_self">
-          seata高可用部署
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/01/30/seata%E9%AB%98%E5%8F%AF%E7%94%A8%E9%83%A8%E7%BD%B2/" target="_self">
-          
-          准备工作 部署nacos 部署mysql  部署server端 创建数据库（seata）及表,以mysql为例 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556-- -------------------------------- The s
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-30 10:02" pubdate>
-              2022-01-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/seata/">seata</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/seata/">seata</a>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">分布式事务</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/01/30/nacos%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" target="_self">
-          <img src="/img/nacos%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/nacos.jpg" srcset="/img/loading.gif" lazyload alt="nacos集群安装">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/01/30/nacos%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" target="_self">
-          nacos集群安装
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/01/30/nacos%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" target="_self">
-          
-          1. 在线安装mysql5.7 安装步骤  123456# 获取mysql yum源yum install -y wget &amp;&amp; wget https:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;mysql57-community-release-el7-9.noarch.rpm# 安装yum源rpm -ivh mysql57-community-release-el7-9.noarc
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-30 09:54" pubdate>
-              2022-01-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/nacos/">nacos</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
+              <a href="/tags/linux/">linux</a>
             
               <a href="/tags/mysql/">mysql</a>
             
-              <a href="/tags/nacos/">nacos</a>
-            
           </div>
         
       </div>
@@ -411,23 +246,23 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/01/30/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/" target="_self">
-          <img src="/img/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/container.jpg" srcset="/img/loading.gif" lazyload alt="docker启动各种服务">
+        <a href="/2022/10/24/%E5%9F%BA%E4%BA%8Ekeepalived%E7%9A%84nginx%E9%AB%98%E5%8F%AF%E7%94%A8/" target="_self">
+          <img src="/img/%E5%9F%BA%E4%BA%8Ekeepalived%E7%9A%84nginx%E9%AB%98%E5%8F%AF%E7%94%A8/kn.png" srcset="/img/loading.gif" lazyload alt="基于keepalived的nginx高可用">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/01/30/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/" target="_self">
-          docker启动各种服务
+        <a href="/2022/10/24/%E5%9F%BA%E4%BA%8Ekeepalived%E7%9A%84nginx%E9%AB%98%E5%8F%AF%E7%94%A8/" target="_self">
+          基于keepalived的nginx高可用
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/01/30/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/" target="_self">
+        <a href="/2022/10/24/%E5%9F%BA%E4%BA%8Ekeepalived%E7%9A%84nginx%E9%AB%98%E5%8F%AF%E7%94%A8/" target="_self">
           
-          启动activemq123456789101112131415161718docker run --name&#x3D;&amp;#x27;activemq&amp;#x27; -d \-e &amp;#x27;ACTIVEMQ_CONFIG_NAME&#x3D;amqp-srv1&amp;#x27; \-e &amp;#x27;ACTIVEMQ_CONFIG_DEFAULTACCOUNT&#x3D;false&amp;#x27; \-e &amp;#x27;ACTIVEMQ_AD
+          1. 安装nginx 将实现编译好的nginx导入到服务器，nginx-1.22.1-sbin.tar # 解压 tar -zxvf nginx-1.22.1-sbin.tar -C &#x2F;usr&#x2F;local&#x2F;nginx 编辑配置文件，nginx.conf user  root; worker_processes  1;  #error_log  logs&#x2F;error.l
         </a>
       </p>
 
@@ -435,8 +270,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-30 09:39" pubdate>
-              2022-01-30
+            <time datetime="2022-10-24 17:42" pubdate>
+              2022-10-24
             </time>
           </div>
         
@@ -444,7 +279,9 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/docker/">docker</a>
+              <a href="/categories/keepalived/">keepalived</a>
+            
+              <a href="/categories/keepalived/nginx/">nginx</a>
             
           </div>
         
@@ -452,172 +289,11 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/docker/">docker</a>
+              <a href="/tags/keepalived/">keepalived</a>
             
-              <a href="/tags/container/">container</a>
+              <a href="/tags/%E8%BD%AF%E8%B4%9F%E8%BD%BD/">软负载</a>
             
-              <a href="/tags/%E5%AE%B9%E5%99%A8/">容器</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/01/30/docker-ce%E5%AE%89%E8%A3%85/" target="_self">
-          <img src="/img/docker-ce%E5%AE%89%E8%A3%85/docker.jpg" srcset="/img/loading.gif" lazyload alt="docker-ce安装">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/01/30/docker-ce%E5%AE%89%E8%A3%85/" target="_self">
-          docker-ce安装
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/01/30/docker-ce%E5%AE%89%E8%A3%85/" target="_self">
-          
-          卸载原有docker及缓存 卸载 1yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine 清缓存将docker的缓存，包括镜像、图片、网络等删除。docker默认位置：&#x2F;var&#x2F;li
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-30 09:12" pubdate>
-              2022-01-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/docker/">docker</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/docker/">docker</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/01/29/redis6%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" target="_self">
-          <img src="/img/redis6%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/redis.jpg" srcset="/img/loading.gif" lazyload alt="redis6集群安装">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/01/29/redis6%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" target="_self">
-          redis6集群安装
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/01/29/redis6%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" target="_self">
-          
-          redis6 集群安装gcc升级安装redis6最主要的一点是要用GCC5以上，而CentOS6.9的GCC版本为4.8.x, 所以安装之前必须升级GCC。 123yum -y install gcc tclyum -y install centos-release-sclyum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-29 16:09" pubdate>
-              2022-01-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/redis/">redis</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/linux/">linux</a>
-            
-              <a href="/tags/redis/">redis</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/01/29/centos7%E5%AE%89%E8%A3%85nginx/" target="_self">
-          <img src="/img/centos7%E5%AE%89%E8%A3%85nginx/nginx.jpg" srcset="/img/loading.gif" lazyload alt="centos7安装nginx">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/01/29/centos7%E5%AE%89%E8%A3%85nginx/" target="_self">
-          centos7安装nginx
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/01/29/centos7%E5%AE%89%E8%A3%85nginx/" target="_self">
-          
-          Centos7安装nginx安装依赖包12345yum install -y gcc automake autoconf libtool makeyum install -y gcc-c++yum install -y pcre pcre-develyum install -y zlib zlib-develyum install -y openssl openssl-devel  下载nginx
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-29 16:00" pubdate>
-              2022-01-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/nginx/">nginx</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/linux/">linux</a>
+              <a href="/tags/%E9%AB%98%E5%8F%AF%E7%94%A8/">高可用</a>
             
               <a href="/tags/nginx/">nginx</a>
             
@@ -631,23 +307,23 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/01/29/%E6%9B%B4%E6%96%B0kubeadm%E8%AF%81%E4%B9%A6/" target="_self">
-          <img src="/img/k8s.jpg" srcset="/img/loading.gif" lazyload alt="更新kubeadm证书">
+        <a href="/2022/07/13/%E4%BD%BF%E7%94%A8kubekey%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%8D%95%E6%9C%BAk8s%E9%9B%86%E7%BE%A4/" target="_self">
+          <img src="/img/%E6%9B%B4%E6%96%B0kubeadm%E8%AF%81%E4%B9%A6/kubeadm.jpg" srcset="/img/loading.gif" lazyload alt="使用kubekey快速搭建单机k8s集群">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/01/29/%E6%9B%B4%E6%96%B0kubeadm%E8%AF%81%E4%B9%A6/" target="_self">
-          更新kubeadm证书
+        <a href="/2022/07/13/%E4%BD%BF%E7%94%A8kubekey%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%8D%95%E6%9C%BAk8s%E9%9B%86%E7%BE%A4/" target="_self">
+          使用kubekey快速搭建单机k8s集群
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/01/29/%E6%9B%B4%E6%96%B0kubeadm%E8%AF%81%E4%B9%A6/" target="_self">
+        <a href="/2022/07/13/%E4%BD%BF%E7%94%A8kubekey%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%8D%95%E6%9C%BAk8s%E9%9B%86%E7%BE%A4/" target="_self">
           
-          1. 续期k8s证书使用kubeadm搭建的k8s集群默认的kubectl只有一年有效期。 步骤 备份当前k8s证书1cp -r &#x2F;etc&#x2F;kubernetes &#x2F;etc&#x2F;kubernetes.bak 查看过期时间1kubeadm alpha certs check-expiration 更新证书12345kubeadm alpha certs renew allsystemctl restart
+          使用kubekey安装kubernetes集群 参考文档：https:&#x2F;&#x2F;v3-1.docs.kubesphere.io&#x2F;zh&#x2F;docs&#x2F;installing-on-linux&#x2F;introduction&#x2F;multioverview&#x2F;  1. 确认版本   docker kubernetes kubesphere    20.10.8 v1.19.8 v3.1.1             2. 需要
         </a>
       </p>
 
@@ -655,8 +331,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-29 10:07" pubdate>
-              2022-01-29
+            <time datetime="2022-07-13 14:52" pubdate>
+              2022-07-13
             </time>
           </div>
         
@@ -674,7 +350,390 @@
             
               <a href="/tags/kubernetes/">kubernetes</a>
             
-              <a href="/tags/kubeadm/">kubeadm</a>
+              <a href="/tags/kubekey/">kubekey</a>
+            
+              <a href="/tags/kubesphere/">kubesphere</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/06/28/%E5%8D%95%E6%9C%BAESB%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" target="_self">
+          <img src="/img/%E5%8D%95%E6%9C%BAESB%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/esb.png" srcset="/img/loading.gif" lazyload alt="ESB单机环境搭建">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/06/28/%E5%8D%95%E6%9C%BAESB%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" target="_self">
+          ESB单机环境搭建
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/06/28/%E5%8D%95%E6%9C%BAESB%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" target="_self">
+          
+          ESB介绍Mule是一个企业服务总线(ESB)消息框架。它的主要特性包括：  基于J2EE1.4的企业消息总线(ESB)和消息代理(broker)。  可插入的连接性:比如Jms,jdbc,tcp,udp,multicast,http,servlet,smtp,pop3, file,xmpp。  支持任何传输之上的异步，同步和请求响应事件处理机制。  支持Axis或者Glue的Web Servic
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-06-28 12:58" pubdate>
+              2022-06-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/ESB/">ESB</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ESB/">ESB</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/05/19/NFS%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA/" target="_self">
+          <img src="/img/NFS%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA/nfs.jpg" srcset="/img/loading.gif" lazyload alt="NFS服务搭建">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/19/NFS%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA/" target="_self">
+          NFS服务搭建
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/19/NFS%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA/" target="_self">
+          
+          Centos7安装及配置 NFS 服务器步骤 1：安装 NFS 服务器 (NFS kernel server)若要设置服务器机器，就必须在机器上安装 NFS 服务器。  安装 NFS 服务器。yum -y install nfs-utils rpcbind  步骤 2：创建输出目录NFS 客户端将在服务器机器上挂载一个目录，该目录已由 NFS 服务器输出。  运行以下命令来指定挂载文件夹名称mkd
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-19 09:17" pubdate>
+              2022-05-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/NFS/">NFS</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/NFS/">NFS</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/05/07/maven%E6%93%8D%E4%BD%9C/" target="_self">
+          <img src="/img/maven%E6%93%8D%E4%BD%9C/maven1.jpg" srcset="/img/loading.gif" lazyload alt="maven常用操作">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/07/maven%E6%93%8D%E4%BD%9C/" target="_self">
+          maven常用操作
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/07/maven%E6%93%8D%E4%BD%9C/" target="_self">
+          
+          maven安装、配置下载配置配置MAVEN_HOME 验证C:\Users\Administrator&gt;mvn -v Apache Maven 3.6.1 (d66c9c0b3152b2e69ee9bac180bb8fcc8e6af555; 2019-04-05T03:00:29+08:00) Maven home: D:\develop\apache-maven-3.6.1\bin\..
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-07 12:30" pubdate>
+              2022-05-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/maven/">maven</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/maven/">maven</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/24/linux%E4%B8%8B%E9%83%A8%E7%BD%B2skywalking/" target="_self">
+          <img src="/img/linux%E4%B8%8B%E9%83%A8%E7%BD%B2skywalking/skywalking.png" srcset="/img/loading.gif" lazyload alt="linux下skywalking8.3实践，监控JAVA应用">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/24/linux%E4%B8%8B%E9%83%A8%E7%BD%B2skywalking/" target="_self">
+          linux下skywalking8.3实践，监控JAVA应用
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/24/linux%E4%B8%8B%E9%83%A8%E7%BD%B2skywalking/" target="_self">
+          
+          下载前提：需要提前配置JDK，至少在1.8版本以上。 skywalking8.3-es7版本，下载地址：https:&#x2F;&#x2F;archive.apache.org&#x2F;dist&#x2F;skywalking&#x2F;8.3.0&#x2F;apache-skywalking-apm-es7-8.3.0.tar.gz wget https:&#x2F;&#x2F;archive.apache.org&#x2F;dist&#x2F;sky
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-24 09:09" pubdate>
+              2022-04-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/linux/">linux</a>
+            
+              <a href="/categories/linux/skywalking/">skywalking</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/skywalking/">skywalking</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/11/%E5%90%84%E7%A7%8D%E8%BF%90%E7%BB%B4%E5%A4%84%E7%90%86/" target="_self">
+          <img src="/img/%E5%90%84%E7%A7%8D%E8%BF%90%E7%BB%B4%E5%A4%84%E7%90%86/%E8%BF%90%E7%BB%B4.png" srcset="/img/loading.gif" lazyload alt="各种运维处理">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/11/%E5%90%84%E7%A7%8D%E8%BF%90%E7%BB%B4%E5%A4%84%E7%90%86/" target="_self">
+          各种运维处理
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/11/%E5%90%84%E7%A7%8D%E8%BF%90%E7%BB%B4%E5%A4%84%E7%90%86/" target="_self">
+          
+          kubectl操作 批量操作# 批量删除kube-system空间下状态为“驱逐”的pod kubectl get pod -n kube-system|grep Evicted|awk &#39;&amp;#123;print$1&amp;#125;&#39;|xargs kubectl delete pod -n kube-system 批量操作说明，所有批量操作都可以采用此方案   使用命令查询出需要批量操
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-11 10:19" pubdate>
+              2022-04-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/linux/">linux</a>
+            
+              <a href="/categories/linux/kubectl/">kubectl</a>
+            
+              <a href="/categories/linux/kubectl/docker/">docker</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/03/31/%E5%AE%89%E8%A3%85sonarquber-8-9-7/" target="_self">
+          <img src="/img/%E5%AE%89%E8%A3%85sonarquber/sonarqube.png" srcset="/img/loading.gif" lazyload alt="Linux7.9安装sonarqube-8.9.7">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/31/%E5%AE%89%E8%A3%85sonarquber-8-9-7/" target="_self">
+          Linux7.9安装sonarqube-8.9.7
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/31/%E5%AE%89%E8%A3%85sonarquber-8-9-7/" target="_self">
+          
+          下载sonarqube社区版下载：https:&#x2F;&#x2F;binaries.sonarsource.com&#x2F;Distribution&#x2F;sonarqube&#x2F;sonarqube-8.9.7.52159.zip sonarqube从7.9开始已经不支持mysql了，所以需要提前安装jdk和pg。 本次环境前提：    序号 环境 版本    1 jdk 14   2 postgresql 14   3 sona
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-31 20:33" pubdate>
+              2022-03-31
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/sonarqube/">sonarqube</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/linux/">linux</a>
+            
+              <a href="/tags/sonarqube/">sonarqube</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/03/31/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85postgresql%E7%9A%8414%E7%89%88%E6%9C%AC/" target="_self">
+          <img src="/img/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85postgresql%E7%9A%8414%E7%89%88%E6%9C%AC/postgresql.png" srcset="/img/loading.gif" lazyload alt="Linux7.9离线安装postgresql的14版本">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/31/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85postgresql%E7%9A%8414%E7%89%88%E6%9C%AC/" target="_self">
+          Linux7.9离线安装postgresql的14版本
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/31/%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85postgresql%E7%9A%8414%E7%89%88%E6%9C%AC/" target="_self">
+          
+          下载必要安装包   序号 软件名称 下载地址    1 libicu-50.2-4.el7_7.x86_64.rpm http:&#x2F;&#x2F;mirror.centos.org&#x2F;centos&#x2F;7&#x2F;os&#x2F;x86_64&#x2F;Packages&#x2F;libicu-50.2-4.el7_7.x86_64.rpm   2 postgresql14-libs-14.2-1PGDG.rhel7.x86_64.rpm https:&#x2F;
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-31 18:49" pubdate>
+              2022-03-31
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/postgresql/">postgresql</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/linux/">linux</a>
+            
+              <a href="/tags/postgresql/">postgresql</a>
             
           </div>
         
@@ -686,7 +745,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
@@ -777,6 +836,8 @@
 
 
   
+    
+  
 
 
 
@@ -832,30 +893,6 @@
 
 
 
-
-
-  
-    <!-- Baidu Analytics -->
-    <script defer>
-      var _hmt = _hmt || [];
-      (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?12a3171756132afa5f5f7bc08ae8d6c2";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
 
 

@@ -1,0 +1,621 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ntu820">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="iptables简易流程 常用命令iptables v1.6.0  Usage: iptables -[A] chain rule-specification [options] #添加规则        iptables -I chain [rulenum] rule-specification [options] #插入规则到链        iptables -D chain rulenum">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iptables防火墙">
+<meta property="og:url" content="http://example.com/2023/01/18/iptables%E9%98%B2%E7%81%AB%E5%A2%99/index.html">
+<meta property="og:site_name" content="NTU820的小窝">
+<meta property="og:description" content="iptables简易流程 常用命令iptables v1.6.0  Usage: iptables -[A] chain rule-specification [options] #添加规则        iptables -I chain [rulenum] rule-specification [options] #插入规则到链        iptables -D chain rulenum">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/iptables%E9%98%B2%E7%81%AB%E5%A2%99/iptables.png">
+<meta property="article:published_time" content="2023-01-18T06:09:44.000Z">
+<meta property="article:modified_time" content="2023-09-14T07:52:28.493Z">
+<meta property="article:author" content="ntu820">
+<meta property="article:tag" content="iptables">
+<meta property="article:tag" content="运维">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/iptables%E9%98%B2%E7%81%AB%E5%A2%99/iptables.png">
+  
+  
+  <title>iptables防火墙 - NTU820的小窝</title>
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>NTU820的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="iptables防火墙">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-01-18 14:09" pubdate>
+        2023年1月18日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      36 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">iptables防火墙</h1>
+            
+            <div class="markdown-body">
+              <h1 id="iptables"><a href="#iptables" class="headerlink" title="iptables"></a>iptables</h1><h2 id="简易流程"><a href="#简易流程" class="headerlink" title="简易流程"></a>简易流程</h2><p><img src="/img/iptables%E9%98%B2%E7%81%AB%E5%A2%99/iptables%E7%AE%80%E5%8D%95%E6%B5%81%E7%A8%8B.png" srcset="/img/loading.gif" lazyload alt="iptables简单流程"></p>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">iptables v1.6.0
+
+Usage: iptables -[A] chain rule-specification [options] #添加规则
+       iptables -I chain [rulenum] rule-specification [options] #插入规则到链
+       iptables -D chain rulenum [options] #根据规则号删除
+       iptables -[FZ] [chain] [options] # 清除规则计数器
+       iptables -[X] chain # 删除用户自定义链
+       iptables -P chain target [options] #针对链设置默认规则
+       iptables -h (print this help information) #帮助
+
+Commands:
+Either long or short options are allowed.
+  --append  -A chain            Append to chain #添加规则到链
+  --delete  -D chain            Delete matching rule from chain #从链删除规则
+  --delete  -D chain rulenum    #根据规则号删除
+                                Delete rule rulenum (1 &#x3D; first) from chain
+  --insert  -I chain [rulenum]
+                                Insert in chain as rulenum (default 1&#x3D;first) #插入规则，默认到第1条
+  
+  --list    -L [chain [rulenum]]
+                                List the rules in a chain or all chains #显示规则列表
+  --flush   -F [chain]          Delete all rules in  chain or all chains #清空规则
+  --zero    -Z [chain [rulenum]]
+                                Zero counters in chain or all chains #计数器清零
+  --new     -N chain            Create a new user-defined chain #创建自定义链
+  --delete-chain
+            -X [chain]          Delete a user-defined chain #删除自定义链
+  --policy  -P chain target
+                                Change policy on chain to target #修改默认规则
+
+Options:
+[!] --protocol  -p proto        protocol: by number or name, eg. &#96;tcp&#96; #针对协议过滤，
+[!] --source    -s address[&#x2F;mask][...]
+                                source specification #基于源地址
+[!] --destination -d address[&#x2F;mask][...]
+                                destination specification #基于目的地址
+[!] --in-interface -i input name[+]
+                                network interface name ([+] for wildcard) #指定进入接口，即网卡
+ --jump -j target
+                                target for rule (may load target extension) #跳转，即怎么处理。
+                                # 一般有 
+                                # ACCEPT：允许数据通过
+                                # DROP：直接丢弃数据包，不给任何回应
+                                # REJECT：拒绝数据包通过，必要时回给数据包发一个响应信息
+                                # SNAT：源地址转换，解决内网用户用同一个公网地址上网问题
+                                # MASQUERADE：SNAT的一种特殊形式，适用于动态的、临时汇编的IP
+                                # DNAT：目标地址转换
+                                # REDIRECT：在本机做端口映射
+  --numeric     -n              numeric output of addresses and ports #数字输出地址和端口
+[!] --out-interface -o output name[+]
+                                network interface name ([+] for wildcard) #指定出去的接口
+  --table       -t table        table to manipulate (default: &#96;filter&#96;) #指定表
+  --line-numbers                print line numbers when listing #显示规则号<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="实操"><a href="#实操" class="headerlink" title="实操"></a>实操</h2><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># -t，针对表，默认FILTER表
+# -p，针对协议，默认all，tcp、udp、icmp
+# --dport，目的端口
+# --sport，源端口
+# -j，对规则的具体处理方法，ACCEPT 接收、DROP 丢弃、REJECT 拒绝、SNAT 源目的地址转换、DNAT 目的地址转换
+# -i，进入的网卡
+# -o，出去的网卡
+
+# 禁止22端口
+iptables -t filter -A INPUT -p tcp --dport 22 -j DROP
+
+# 禁止对10.0.0.1的访问
+iptable -I INPUT -p tcp -s 10.0.0.1 -i eth0 -j DROP
+
+# 查看网络连接数
+netstat -an|awk &#39;&#x2F;^tcp&#x2F;&#39;|grep -i est|wc -l
+netstat -an|awk &#39;&#x2F;^tcp&#x2F;&#39;|grep -i est|awk -F &quot;[: ]+&quot; &#39;&#123;print $6&#125;&#39;|sort|uniq -c|head -10
+
+# 匹配端口范围
+iptables -I INPUT -p tcp -m multiport --dport 80,3306,9000 -j DROP
+iptables -I INPUT -p tcp --dport 23:80 -j DROP # 从23到80端口，全部封掉
+
+# 禁ping
+iptables -A INPUT -p icmp --icmp-type 8 -j DROP<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="企业防火墙（案例）"><a href="#企业防火墙（案例）" class="headerlink" title="企业防火墙（案例）"></a>企业防火墙（案例）</h2><ol>
+<li><p>两种思想，针对默认规则而言</p>
+<p>逛公园：黑名单</p>
+<ol>
+<li>默认规则总是允许</li>
+<li>看谁不顺眼就禁止</li>
+</ol>
+<p>看电影：白名单</p>
+<ol>
+<li>默认规则总是不允许，更安全</li>
+<li>看谁顺眼就通过</li>
+</ol>
+</li>
+</ol>
+<p>部署主机防火墙，清一色的看电影模式。部署企业网关模式一般使用逛公园模式。</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 清空规则
+iptables -F
+iptables -X
+iptables -Z
+# 允许自己网段
+iptables -A INPUT -s 10.0.0.0&#x2F;24 -j ACCEPT
+iptables -AINPUT -p tcp -s 10.0.0.1&#x2F;32 --dport 22 -j ACCEPT # 工作中一般需要指定源地址
+# 设置默认规则
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+# 设置其他允许
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -p tcp -m multiport 80,443 -j ACCEPT
+iptables -A INPUT -s 192.168.0.0&#x2F;16 -j ACCEPT
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+# 查看规则
+iptables -nL<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="局域网共享上网"><a href="#局域网共享上网" class="headerlink" title="局域网共享上网"></a>局域网共享上网</h2><p>前期准备：</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 网关上开启路由转发功能
+echo &quot;net.ipv4.ip_forward &#x3D; 1&quot; &gt;&gt; &#x2F;etc&#x2F;sysctl.conf
+sysctl -p
+
+iptables -P FORWARD ACCEPT
+iptables -P INPUT ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -t nat -P PREROUTING ACCEPT
+iptables -t nat -P POSTROUTING ACCEPT<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<ol>
+<li><p>适合于有固定外网地址</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 类似于路由器的NAT命令
+iptables -t nat -A POSTROUTING -o eth0 -s 172.16.1.0&#x2F;24 -j SNAT --to-source 10.0.0.8
+# -s 172.16.1.0&#x2F;24 是内网的网段
+# -o eth0是网关的外网卡接口
+# -j SNAT --to-source 10.0.0.8 网关的外网卡地址<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li><p>适合变化的IP</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">iptables -t nat -A POSTROUTING -s 172.16.1.0&#x2F;24 -j MASQUERADE<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
+</ol>
+<h2 id="其他案例"><a href="#其他案例" class="headerlink" title="其他案例"></a>其他案例</h2><ol>
+<li><p>将网关的9000端口映射到内网服务器的22端口</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">iptables -t nat -A PREROUTING -p tcp -d 10.0.0.1 --dport 9000 -j DNAT --to-destination 172.16.1.1:22<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
+<li><p>IP一对一映射，DMZ</p>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">iptables -t nat -I PREROUTING -d 10.0.0.81 -j DNAT --to-destionation 172.16.1.51
+iptables -t nat -I POSTROUTING -s 172.16.1.51 -o eth0 -j SNAT --to-source 10.0.0.81<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
+<li><p>映射多个外网IP上网</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 方式1
+iptables -t nat -A POSTROUTING -s 10.0.1.0&#x2F;255.255.240.0 -o eth0 -j SNAT --to-source 124.42.60.11-124.42.60.16
+# 方法2
+iptables -t nat -A POSTROUTING -s 10.0.1.0&#x2F;22 -o eth0 -j SNAT --to-source 124.42.60.11
+iptables -t nat -A POSTROUTING -s 10.0.2.0&#x2F;22 -o eth0 -j SNAT --to-source 124.42.60.12
+iptables -t nat -A POSTROUTING -s 10.0.3.0&#x2F;22 -o eth0 -j SNAT --to-source 124.42.60.13
+iptables -t nat -A POSTROUTING -s 10.0.4.0&#x2F;22 -o eth0 -j SNAT --to-source 124.42.60.14
+iptables -t nat -A POSTROUTING -s 10.0.5.0&#x2F;22 -o eth0 -j SNAT --to-source 124.42.60.15
+iptables -t nat -A POSTROUTING -s 10.0.6.0&#x2F;22 -o eth0 -j SNAT --to-source 124.42.60.16<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="扩充"><a href="#扩充" class="headerlink" title="扩充"></a>扩充</h2><p>Linux下抓包工具<code>tcpdump</code></p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 常用选项
+-i # 监听哪个网卡
+-n # 不把ip解析成主机名
+-nn # 不把端口解析成应用层协议
+-c # 指定抓包数量
+
+-v # 输出稍微详细的信息
+-vv # 输出详细的信息
+
+-S # 不把随机序列和确认序列解析成绝对值
+-w # 把流量保持到文件中，文件中的信息无法查看
+-r # 读取文件中的内容<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/linux/">linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/iptables/">iptables</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/18/n2n%E7%BB%84%E7%BD%91/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">n2n组网</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/11/mysql%E4%B8%BB%E4%B8%BB%E6%90%AD%E5%BB%BA/">
+                        <span class="hidden-mobile">mysql主主搭建</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.3.1/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

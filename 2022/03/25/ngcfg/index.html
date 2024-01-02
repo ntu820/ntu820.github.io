@@ -44,7 +44,15 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github-gist.min.css" />
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
     
   
 
@@ -69,7 +77,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -199,7 +207,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.3k 字
+      6.4k 字
     </span>
   
 
@@ -208,7 +216,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      53 分钟
+      54 分钟
     </span>
   
 
@@ -247,25 +255,158 @@
 <li>~* 表示该规则是使用正则定义的，不区分大小写。<br>注意：nginx按照上面的顺序进行优先匹配，一旦匹配直接退出。</li>
 </ol>
 <p>剩下的匹配，会按照<strong>最长匹配长度优先级来匹配</strong>，就是谁匹配的多就用谁。</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-section">server</span> &#123;<br>    <span class="hljs-attribute">server_name</span> website.com;<br>    <span class="hljs-attribute">location</span> /document &#123;<br>        <span class="hljs-attribute">return</span> <span class="hljs-number">701</span>;<br>    &#125;<br>    <span class="hljs-attribute">location</span> <span class="hljs-regexp">~* ^/docume.*$</span> &#123;<br>        <span class="hljs-attribute">return</span> <span class="hljs-number">702</span>;<br>    &#125;<br>    <span class="hljs-attribute">location</span> <span class="hljs-regexp">~* ^/document$</span> &#123;<br>        <span class="hljs-attribute">return</span> <span class="hljs-number">703</span>;<br>    &#125;<br><br>&#125;<br><span class="hljs-attribute">curl</span> -I  website.com:<span class="hljs-number">8080</span>/document <span class="hljs-number">702</span><br><span class="hljs-comment"># 匹配702 因为正则的优先级更高,而且正则是一旦匹配到就直接退出 所以不会再匹配703</span><br></code></pre></td></tr></table></figure>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-section">server</span> &#123;<br>    <span class="hljs-attribute">server_name</span> website.com;<br>    <span class="hljs-attribute">location</span> <span class="hljs-regexp">~* ^/docume.*$</span> &#123;<br>        <span class="hljs-attribute">return</span> <span class="hljs-number">701</span>;<br>    &#125;<br><br>    <span class="hljs-attribute">location</span><span class="hljs-regexp"> ^~</span> /doc &#123;<br>        <span class="hljs-attribute">return</span> <span class="hljs-number">702</span>;<br>    &#125;<br>    <span class="hljs-attribute">location</span> <span class="hljs-regexp">~* ^/document$</span> &#123;<br>        <span class="hljs-attribute">return</span> <span class="hljs-number">703</span>;<br>    &#125;<br>&#125;<br><span class="hljs-attribute">curl</span> http://website.com/document<br>HTTP/<span class="hljs-number">1</span>.<span class="hljs-number">1</span> <span class="hljs-number">702</span><br><span class="hljs-comment"># 匹配702 因为 ^~精确匹配的优先级比正则高 也是匹配到之后支持退出</span><br></code></pre></td></tr></table></figure>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">server &#123;<br>    server_name website.com;<br>    <span class="hljs-keyword">location</span> <span class="hljs-title">/doc</span> &#123;<br>        return <span class="hljs-number">702</span>;<br>    &#125;<br>    <span class="hljs-keyword">location</span> <span class="hljs-title">/docu</span> &#123;<br>        return <span class="hljs-number">701</span>;<br>    &#125;<br>&#125;<br><span class="hljs-comment"># 701 前缀匹配匹配是按照最长匹配，跟顺序无关</span><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">server &#123;
+    server_name website.com;
+    location &#x2F;document &#123;
+        return 701;
+    &#125;
+    location ~* ^&#x2F;docume.*$ &#123;
+        return 702;
+    &#125;
+    location ~* ^&#x2F;document$ &#123;
+        return 703;
+    &#125;
 
-<h3 id="history模式、跨域、缓存、反向代理"><a href="#history模式、跨域、缓存、反向代理" class="headerlink" title="history模式、跨域、缓存、反向代理"></a>history模式、跨域、缓存、反向代理</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment"># html设置history模式</span><br><span class="hljs-attribute">location</span> / &#123;<br>    <span class="hljs-attribute">index</span> index.html index.htm;<br>    <span class="hljs-attribute">proxy_set_header</span> Host $host;<br>    <span class="hljs-comment"># history模式最重要就是这里</span><br>    <span class="hljs-attribute">try_files</span> $uri $uri/ /index.html;<br>    <span class="hljs-comment"># index.html文件不可以设置强缓存 设置协商缓存即可</span><br>    <span class="hljs-attribute">add_header</span> Cache-Control <span class="hljs-string">&#x27;no-cache, must-revalidate, proxy-revalidate, max-age=0&#x27;</span>;<br>&#125;<br><br><span class="hljs-comment"># 接口反向代理</span><br><span class="hljs-attribute">location</span><span class="hljs-regexp"> ^~</span> /api/ &#123;<br>    <span class="hljs-comment"># 跨域处理 设置头部域名</span><br>    <span class="hljs-attribute">add_header</span> Access-Control-Allow-Origin *;<br>    <span class="hljs-comment"># 跨域处理 设置头部方法</span><br>    <span class="hljs-attribute">add_header</span> Access-Control-Allow-Methods <span class="hljs-string">&#x27;GET,POST,DELETE,OPTIONS,HEAD&#x27;</span>;<br>    <span class="hljs-comment"># 改写路径</span><br>    <span class="hljs-attribute">rewrite</span><span class="hljs-regexp"> ^/api/(.*)$</span> /<span class="hljs-variable">$1</span> <span class="hljs-literal">break</span>;<br>    <span class="hljs-comment"># 反向代理</span><br>    <span class="hljs-attribute">proxy_pass</span> http://static_env;<br>    <span class="hljs-attribute">proxy_set_header</span> Host $http_host;<br>&#125;<br><br><span class="hljs-attribute">location</span> <span class="hljs-regexp">~* \.(?:css(\.map)?|js(\.map)?|gif|svg|jfif|ico|cur|heic|webp|tiff?|mp3|m4a|aac|ogg|midi?|wav|mp4|mov|webm|mpe?g|avi|ogv|flv|wmv)$</span> &#123;<br>    <span class="hljs-comment"># 静态资源设置七天强缓存</span><br>    <span class="hljs-attribute">expires</span> <span class="hljs-number">7d</span>;<br>    <span class="hljs-attribute">access_log</span> <span class="hljs-literal">off</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+&#125;
+curl -I  website.com:8080&#x2F;document 702
+# 匹配702 因为正则的优先级更高,而且正则是一旦匹配到就直接退出 所以不会再匹配703<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">server &#123;
+    server_name website.com;
+    location ~* ^&#x2F;docume.*$ &#123;
+        return 701;
+    &#125;
+
+    location ^~ &#x2F;doc &#123;
+        return 702;
+    &#125;
+    location ~* ^&#x2F;document$ &#123;
+        return 703;
+    &#125;
+&#125;
+curl http:&#x2F;&#x2F;website.com&#x2F;document
+HTTP&#x2F;1.1 702
+# 匹配702 因为 ^~精确匹配的优先级比正则高 也是匹配到之后支持退出<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">server &#123;
+    server_name website.com;
+    location &#x2F;doc &#123;
+        return 702;
+    &#125;
+    location &#x2F;docu &#123;
+        return 701;
+    &#125;
+&#125;
+# 701 前缀匹配匹配是按照最长匹配，跟顺序无关<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h3 id="history模式、跨域、缓存、反向代理"><a href="#history模式、跨域、缓存、反向代理" class="headerlink" title="history模式、跨域、缓存、反向代理"></a>history模式、跨域、缓存、反向代理</h3><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none"># html设置history模式
+location &#x2F; &#123;
+    index index.html index.htm;
+    proxy_set_header Host $host;
+    # history模式最重要就是这里
+    try_files $uri $uri&#x2F; &#x2F;index.html;
+    # index.html文件不可以设置强缓存 设置协商缓存即可
+    add_header Cache-Control &#39;no-cache, must-revalidate, proxy-revalidate, max-age&#x3D;0&#39;;
+&#125;
+
+# 接口反向代理
+location ^~ &#x2F;api&#x2F; &#123;
+    # 跨域处理 设置头部域名
+    add_header Access-Control-Allow-Origin *;
+    # 跨域处理 设置头部方法
+    add_header Access-Control-Allow-Methods &#39;GET,POST,DELETE,OPTIONS,HEAD&#39;;
+    # 改写路径
+    rewrite ^&#x2F;api&#x2F;(.*)$ &#x2F;$1 break;
+    # 反向代理
+    proxy_pass http:&#x2F;&#x2F;static_env;
+    proxy_set_header Host $http_host;
+&#125;
+
+location ~* \.(?:css(\.map)?|js(\.map)?|gif|svg|jfif|ico|cur|heic|webp|tiff?|mp3|m4a|aac|ogg|midi?|wav|mp4|mov|webm|mpe?g|avi|ogv|flv|wmv)$ &#123;
+    # 静态资源设置七天强缓存
+    expires 7d;
+    access_log off;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h3 id="以目录区分多个history单文件"><a href="#以目录区分多个history单文件" class="headerlink" title="以目录区分多个history单文件"></a>以目录区分多个history单文件</h3><p>因为不可能每一个项目开启一个域名，仅仅指向通过增加路径来划分多个网站，比如：</p>
 <ol>
 <li><strong>ntu820.top/abc/login</strong> 访问abc登录页</li>
-<li><strong>ntu820.top/def/login</strong> 访问def登录页<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs awk">server &#123;<br>    listen <span class="hljs-number">80</span>;<br>    server_name ntu820.top;<br>    index index.html index.htm;<br>    <span class="hljs-comment"># 通过正则来匹配捕获 [abc|def]中间的这个路径</span><br>    location ~ ^<span class="hljs-regexp">/([^\/]+)/</span>(.*)$ &#123;<br>        try_files <span class="hljs-variable">$uri</span> <span class="hljs-variable">$uri</span><span class="hljs-regexp">/ /</span><span class="hljs-variable">$1</span><span class="hljs-regexp">/dist/i</span>ndex.html =<span class="hljs-number">404</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><strong>ntu820.top/def/login</strong> 访问def登录页<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">server &#123;
+    listen 80;
+    server_name ntu820.top;
+    index index.html index.htm;
+    # 通过正则来匹配捕获 [abc|def]中间的这个路径
+    location ~ ^&#x2F;([^\&#x2F;]+)&#x2F;(.*)$ &#123;
+        try_files $uri $uri&#x2F; &#x2F;$1&#x2F;dist&#x2F;index.html &#x3D;404;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 </ol>
 <h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><p>基于upstream做负载均衡,中间会涉及一些相关的策略比如<strong>ip_hash、weight</strong></p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs scss">upstream backserver&#123; <br>    # 哈希算法，自动定位到该服务器 保证唯一ip定位到同一部机器 用于解决session登录态的问题<br>    ip_hash; <br>    server 127<span class="hljs-selector-class">.0</span><span class="hljs-selector-class">.0</span><span class="hljs-selector-class">.1</span>:<span class="hljs-number">9090</span> down; (down 表示单前的server暂时不参与负载) <br>    server 127<span class="hljs-selector-class">.0</span><span class="hljs-selector-class">.0</span><span class="hljs-selector-class">.1</span>:<span class="hljs-number">8080</span> weight=<span class="hljs-number">2</span>; (weight 默认为<span class="hljs-number">1</span>.weight越大，负载的权重就越大) <br>    server 127<span class="hljs-selector-class">.0</span><span class="hljs-selector-class">.0</span><span class="hljs-selector-class">.1</span>:<span class="hljs-number">6060</span>; <br>    server 127<span class="hljs-selector-class">.0</span><span class="hljs-selector-class">.0</span><span class="hljs-selector-class">.1</span>:<span class="hljs-number">7070</span> backup; (其它所有的非backup机器down或者忙的时候，请求backup机器) <br>&#125; <br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">upstream backserver&#123; 
+    # 哈希算法，自动定位到该服务器 保证唯一ip定位到同一部机器 用于解决session登录态的问题
+    ip_hash; 
+    server 127.0.0.1:9090 down; (down 表示单前的server暂时不参与负载) 
+    server 127.0.0.1:8080 weight&#x3D;2; (weight 默认为1.weight越大，负载的权重就越大) 
+    server 127.0.0.1:6060; 
+    server 127.0.0.1:7070 backup; (其它所有的非backup机器down或者忙的时候，请求backup机器) 
+&#125; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h3 id="灰度部署"><a href="#灰度部署" class="headerlink" title="灰度部署"></a>灰度部署</h3><p>获取头部值，在nginx中可以通过$http_xxx来获取变量，然后根据header值来进行回复发布</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">upstream</span> stable &#123;<br>    <span class="hljs-attribute">server</span> xxx max_fails=<span class="hljs-number">1</span> fail_timeout=<span class="hljs-number">60</span>;<br>    <span class="hljs-attribute">server</span> xxx max_fails=<span class="hljs-number">1</span> fail_timeout=<span class="hljs-number">60</span>;<br> &#125;<br><span class="hljs-attribute">upstream</span> canara &#123;<br>   <span class="hljs-attribute">server</span> xxx max_fails=<span class="hljs-number">1</span> fail_timeout=<span class="hljs-number">60</span>;<br>&#125;<br><br><span class="hljs-section">server</span> &#123;<br>    <span class="hljs-attribute">listen</span> <span class="hljs-number">80</span>;<br>    <span class="hljs-attribute">server_name</span>  xxx;<br>    <span class="hljs-comment"># 设置默认</span><br>    <span class="hljs-attribute">set</span> $group <span class="hljs-string">&quot;stable&quot;</span>;<br><br>    <span class="hljs-comment"># 根据cookie头部设置接入的服务</span><br>    <span class="hljs-attribute">if</span> ($http_cookie <span class="hljs-regexp">~* &quot;tts_version_id=canara&quot;)</span>&#123;<br>        <span class="hljs-attribute">set</span> $group canara;<br>    &#125;<br>    <span class="hljs-attribute">if</span> ($http_cookie <span class="hljs-regexp">~* &quot;tts_version_id=stable&quot;)</span>&#123;<br>        <span class="hljs-attribute">set</span> $group stable;<br>    &#125;<br>    <span class="hljs-attribute">location</span> / &#123;<br>        <span class="hljs-attribute">proxy_pass</span> http://$group;<br>        <span class="hljs-attribute">proxy_set_header</span>   Host             $host;<br>        <span class="hljs-attribute">proxy_set_header</span>   X-Real-IP        $remote_addr;<br>        <span class="hljs-attribute">proxy_set_header</span>   X-Forwarded-For $proxy_add_x_forwarded_for;<br>        <span class="hljs-attribute">index</span>  index.html index.htm;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">upstream stable &#123;
+    server xxx max_fails&#x3D;1 fail_timeout&#x3D;60;
+    server xxx max_fails&#x3D;1 fail_timeout&#x3D;60;
+ &#125;
+upstream canara &#123;
+   server xxx max_fails&#x3D;1 fail_timeout&#x3D;60;
+&#125;
+
+server &#123;
+    listen 80;
+    server_name  xxx;
+    # 设置默认
+    set $group &quot;stable&quot;;
+
+    # 根据cookie头部设置接入的服务
+    if ($http_cookie ~* &quot;tts_version_id&#x3D;canara&quot;)&#123;
+        set $group canara;
+    &#125;
+    if ($http_cookie ~* &quot;tts_version_id&#x3D;stable&quot;)&#123;
+        set $group stable;
+    &#125;
+    location &#x2F; &#123;
+        proxy_pass http:&#x2F;&#x2F;$group;
+        proxy_set_header   Host             $host;
+        proxy_set_header   X-Real-IP        $remote_addr;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        index  index.html index.htm;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h3 id="优雅降级"><a href="#优雅降级" class="headerlink" title="优雅降级"></a>优雅降级</h3><p>常用于ssr的node服务挂了返回500错误码然后降级到csr的cos桶或者nginx中，优雅降级主要用<strong>error_page</strong>参数来进行降级指向备用地址。</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">upstream</span> ssr &#123;<br>    <span class="hljs-attribute">server</span> xxx max_fails=<span class="hljs-number">1</span> fail_timeout=<span class="hljs-number">60</span>;<br>    <span class="hljs-attribute">server</span> xxx max_fails=<span class="hljs-number">1</span> fail_timeout=<span class="hljs-number">60</span>;<br> &#125;<br><span class="hljs-attribute">upstream</span> csr &#123;<br>    <span class="hljs-attribute">server</span> xxx max_fails=<span class="hljs-number">1</span> fail_timeout=<span class="hljs-number">60</span>;<br>    <span class="hljs-attribute">server</span> xxx max_fails=<span class="hljs-number">1</span> fail_timeout=<span class="hljs-number">60</span>;<br>&#125;<br><br><span class="hljs-attribute">location</span><span class="hljs-regexp"> ^~</span> /ssr/ &#123;<br>    <span class="hljs-attribute">proxy_pass</span> http://ssr;<br>    <span class="hljs-comment"># 开启自定义错误捕获 如果这里不设置为on的话 会走向nginx处理的默认错误页面</span><br>    <span class="hljs-attribute">proxy_intercept_errors</span> <span class="hljs-literal">on</span>;<br>    <span class="hljs-comment"># 捕获500系列错误 如果500错误的话降级为下面的csr渲染</span><br>    <span class="hljs-attribute">error_page</span> <span class="hljs-number">500</span> <span class="hljs-number">501</span> <span class="hljs-number">502</span> <span class="hljs-number">503</span> <span class="hljs-number">504</span> = @csr_location<br><br>    <span class="hljs-comment"># error_page 500 501 502 503 504 = 200 @csr_location</span><br>    <span class="hljs-comment"># 注意这上面的区别 等号前面没有200 表示 最终返回的状态码已 @csr_location为准 加了200的话表示不管@csr_location返回啥都返回200状态码</span><br>&#125;<br><br>location @csr_location &#123;<br>    <span class="hljs-comment"># 这时候地址还是带着/ssr/的要去除</span><br>    <span class="hljs-attribute">rewrite</span><span class="hljs-regexp"> ^/ssr/(.*)$</span> /<span class="hljs-variable">$1</span> <span class="hljs-literal">break</span>;<br>    <span class="hljs-attribute">proxy_pass</span> http://csr;<br>    <span class="hljs-attribute">rewrite_log</span> <span class="hljs-literal">on</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">upstream ssr &#123;
+    server xxx max_fails&#x3D;1 fail_timeout&#x3D;60;
+    server xxx max_fails&#x3D;1 fail_timeout&#x3D;60;
+ &#125;
+upstream csr &#123;
+    server xxx max_fails&#x3D;1 fail_timeout&#x3D;60;
+    server xxx max_fails&#x3D;1 fail_timeout&#x3D;60;
+&#125;
+
+location ^~ &#x2F;ssr&#x2F; &#123;
+    proxy_pass http:&#x2F;&#x2F;ssr;
+    # 开启自定义错误捕获 如果这里不设置为on的话 会走向nginx处理的默认错误页面
+    proxy_intercept_errors on;
+    # 捕获500系列错误 如果500错误的话降级为下面的csr渲染
+    error_page 500 501 502 503 504 &#x3D; @csr_location
+
+    # error_page 500 501 502 503 504 &#x3D; 200 @csr_location
+    # 注意这上面的区别 等号前面没有200 表示 最终返回的状态码已 @csr_location为准 加了200的话表示不管@csr_location返回啥都返回200状态码
+&#125;
+
+location @csr_location &#123;
+    # 这时候地址还是带着&#x2F;ssr&#x2F;的要去除
+    rewrite ^&#x2F;ssr&#x2F;(.*)$ &#x2F;$1 break;
+    proxy_pass http:&#x2F;&#x2F;csr;
+    rewrite_log on;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h3 id="webp根据浏览器自动降级为png"><a href="#webp根据浏览器自动降级为png" class="headerlink" title="webp根据浏览器自动降级为png"></a>webp根据浏览器自动降级为png</h3><p>这套方案不像常见的由nginx把png转为webp的方案，而是先经由图床系统（node服务）上传两份图片:</p>
 <ol>
@@ -273,7 +414,109 @@
 <li>一份是png压缩为webp的图片（使用的是imagemin-webp)</li>
 </ol>
 <p>然后通过nginx检测头部是否支持webp来返回webp图片，不支持的话就返回原图即可。这其中还做了错误拦截，如果cos桶丢失webp图片及时浏览器支持webp也要降级为png。</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><code class="hljs awk">http &#123;<br>  include       <span class="hljs-regexp">/etc/</span>nginx/mime.types;<br>  default_type  application/octet-stream;<br><br>  <span class="hljs-comment"># 设置日志格式</span><br>  log_format  main  <span class="hljs-string">&#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span><br>  <span class="hljs-string">&#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span><br>  <span class="hljs-string">&#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;</span><br>  <span class="hljs-string">&#x27;&quot;$proxy_host&quot; &quot;$upstream_addr&quot;&#x27;</span>;<br><br>  access_log  <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/nginx/</span>access.log  main;<br><br>  sendfile        on;<br>  keepalive_timeout  <span class="hljs-number">65</span>;<br><br>  <span class="hljs-comment"># 开启gzip</span><br>  gzip on;<br>  gzip_vary on;<br>  gzip_proxied any;<br>  gzip_comp_level <span class="hljs-number">6</span>;<br>  gzip_types text<span class="hljs-regexp">/plain text/</span>css text<span class="hljs-regexp">/xml application/</span>json application<span class="hljs-regexp">/javascript application/</span>rss+xml application<span class="hljs-regexp">/atom+xml image/</span>svg+xml;<br><br>  <span class="hljs-comment"># 负载均衡 这里可以是多个cos桶地址即可</span><br>  upstream static_env &#123;<br>    server xxx;<br>    server xxx;<br>  &#125;<br><br>  <span class="hljs-comment"># map 设置变量映射 第一个变量指的是要通过映射的key值 Accpet 第二个值的是变量别名</span><br>  map <span class="hljs-variable">$http_accept</span> <span class="hljs-variable">$webp_suffix</span> &#123;<br>    <span class="hljs-comment"># 默认为 空字符串</span><br>    default   <span class="hljs-string">&quot;&quot;</span>;<br>    <span class="hljs-comment"># 正则匹配如果Accep含有webp字段 设置为.webp值</span><br>    <span class="hljs-string">&quot;~*webp&quot;</span>  <span class="hljs-string">&quot;.webp&quot;</span>;<br>  &#125;<br>  server &#123;<br><br>    listen <span class="hljs-number">8888</span>;<br>    absolute_redirect off;    <span class="hljs-comment">#取消绝对路径的重定向</span><br>    <span class="hljs-comment">#网站主页路径。此路径仅供参考，具体请您按照实际目录操作。</span><br>    root <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/nginx/</span>html;<br><br>    location / &#123;<br>      index index.html index.htm;<br>      proxy_set_header Host <span class="hljs-variable">$host</span>;<br>      try_files <span class="hljs-variable">$uri</span> <span class="hljs-variable">$uri</span><span class="hljs-regexp">/ /i</span>ndex.html;<br>      add_header Cache-Control <span class="hljs-string">&#x27;no-cache, max-age=0&#x27;</span>;<br>    &#125;<br><br>    <span class="hljs-comment"># favicon.ico</span><br>    location = /favicon.ico &#123;<br>      log_not_found off;<br>      access_log off;<br>    &#125;<br><br>    <span class="hljs-comment"># robots.txt</span><br>    location = /robots.txt &#123;<br>      log_not_found off;<br>      access_log off;<br>    &#125;<br><br>    <span class="hljs-comment"># </span><br>    location ~* \.(png|jpe?g)$ &#123;<br>      <span class="hljs-comment"># Pass WebP support header to backend</span><br>      <span class="hljs-comment"># 如果header头部中支持webp</span><br>      <span class="hljs-keyword">if</span> (<span class="hljs-variable">$webp_suffix</span> ~* webp) &#123;<br>        <span class="hljs-comment"># 先尝试找是否有webp格式图片</span><br>        rewrite ^<span class="hljs-regexp">/(.*)\.(png|jpe?g)$ /</span><span class="hljs-variable">$1</span>.webp <span class="hljs-keyword">break</span>;<br>        <span class="hljs-comment"># 找不到的话 这里捕获404错误 返回原始错误 注意这里的=号 代表最终返回的是@static_img的状态吗</span><br>        error_page <span class="hljs-number">404</span> = @static_img;<br>      &#125;<br>      proxy_intercept_errors on;<br>      add_header Vary Accept;<br>      proxy_pass http:<span class="hljs-regexp">//</span>static_env;<br>      proxy_set_header Host <span class="hljs-variable">$http_host</span>;<br>      expires <span class="hljs-number">7</span>d;<br>      access_log off;<br>    &#125;<br><br>    location @static_img &#123;<br>      <span class="hljs-comment">#set $complete $schema $server_addr $request_uri;</span><br>      rewrite ^/.+$ <span class="hljs-variable">$request_uri</span> <span class="hljs-keyword">break</span>;<br>      proxy_pass http:<span class="hljs-regexp">//</span>static_env;<br>      proxy_set_header Host <span class="hljs-variable">$http_host</span>;<br>      expires <span class="hljs-number">7</span>d;<br>    &#125;<br><br><br>    <span class="hljs-comment"># assets, media</span><br>    location ~* \.(?:css(\.map)?|js(\.map)?|gif|svg|jfif|ico|cur|heic|webp|tiff?|mp3|m4a|aac|ogg|midi?|wav|mp4|mov|webm|mpe?g|avi|ogv|flv|wmv)$ &#123;<br>      proxy_pass http:<span class="hljs-regexp">//</span>static_env;<br>      proxy_set_header Host <span class="hljs-variable">$http_host</span>;<br>      expires <span class="hljs-number">7</span>d;<br>      access_log off;<br>    &#125;<br><br><br>    error_page   <span class="hljs-number">500</span> <span class="hljs-number">502</span> <span class="hljs-number">503</span> <span class="hljs-number">504</span>  /<span class="hljs-number">50</span>x.html;<br>    location = /<span class="hljs-number">50</span>x.html &#123;<br>      root   <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/nginx/</span>html;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">http &#123;
+  include       &#x2F;etc&#x2F;nginx&#x2F;mime.types;
+  default_type  application&#x2F;octet-stream;
+
+  # 设置日志格式
+  log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
+  &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
+  &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;
+  &#39;&quot;$proxy_host&quot; &quot;$upstream_addr&quot;&#39;;
+
+  access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log  main;
+
+  sendfile        on;
+  keepalive_timeout  65;
+
+  # 开启gzip
+  gzip on;
+  gzip_vary on;
+  gzip_proxied any;
+  gzip_comp_level 6;
+  gzip_types text&#x2F;plain text&#x2F;css text&#x2F;xml application&#x2F;json application&#x2F;javascript application&#x2F;rss+xml application&#x2F;atom+xml image&#x2F;svg+xml;
+
+  # 负载均衡 这里可以是多个cos桶地址即可
+  upstream static_env &#123;
+    server xxx;
+    server xxx;
+  &#125;
+
+  # map 设置变量映射 第一个变量指的是要通过映射的key值 Accpet 第二个值的是变量别名
+  map $http_accept $webp_suffix &#123;
+    # 默认为 空字符串
+    default   &quot;&quot;;
+    # 正则匹配如果Accep含有webp字段 设置为.webp值
+    &quot;~*webp&quot;  &quot;.webp&quot;;
+  &#125;
+  server &#123;
+
+    listen 8888;
+    absolute_redirect off;    #取消绝对路径的重定向
+    #网站主页路径。此路径仅供参考，具体请您按照实际目录操作。
+    root &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html;
+
+    location &#x2F; &#123;
+      index index.html index.htm;
+      proxy_set_header Host $host;
+      try_files $uri $uri&#x2F; &#x2F;index.html;
+      add_header Cache-Control &#39;no-cache, max-age&#x3D;0&#39;;
+    &#125;
+
+    # favicon.ico
+    location &#x3D; &#x2F;favicon.ico &#123;
+      log_not_found off;
+      access_log off;
+    &#125;
+
+    # robots.txt
+    location &#x3D; &#x2F;robots.txt &#123;
+      log_not_found off;
+      access_log off;
+    &#125;
+
+    # 
+    location ~* \.(png|jpe?g)$ &#123;
+      # Pass WebP support header to backend
+      # 如果header头部中支持webp
+      if ($webp_suffix ~* webp) &#123;
+        # 先尝试找是否有webp格式图片
+        rewrite ^&#x2F;(.*)\.(png|jpe?g)$ &#x2F;$1.webp break;
+        # 找不到的话 这里捕获404错误 返回原始错误 注意这里的&#x3D;号 代表最终返回的是@static_img的状态吗
+        error_page 404 &#x3D; @static_img;
+      &#125;
+      proxy_intercept_errors on;
+      add_header Vary Accept;
+      proxy_pass http:&#x2F;&#x2F;static_env;
+      proxy_set_header Host $http_host;
+      expires 7d;
+      access_log off;
+    &#125;
+
+    location @static_img &#123;
+      #set $complete $schema $server_addr $request_uri;
+      rewrite ^&#x2F;.+$ $request_uri break;
+      proxy_pass http:&#x2F;&#x2F;static_env;
+      proxy_set_header Host $http_host;
+      expires 7d;
+    &#125;
+
+
+    # assets, media
+    location ~* \.(?:css(\.map)?|js(\.map)?|gif|svg|jfif|ico|cur|heic|webp|tiff?|mp3|m4a|aac|ogg|midi?|wav|mp4|mov|webm|mpe?g|avi|ogv|flv|wmv)$ &#123;
+      proxy_pass http:&#x2F;&#x2F;static_env;
+      proxy_set_header Host $http_host;
+      expires 7d;
+      access_log off;
+    &#125;
+
+
+    error_page   500 502 503 504  &#x2F;50x.html;
+    location &#x3D; &#x2F;50x.html &#123;
+      root   &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
             </div>
             <hr>
             <div>
@@ -424,6 +667,8 @@
 
 
   
+    
+  
 
 
 
@@ -465,30 +710,6 @@
 
 
 
-
-
-  
-    <!-- Baidu Analytics -->
-    <script defer>
-      var _hmt = _hmt || [];
-      (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?12a3171756132afa5f5f7bc08ae8d6c2";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
 
 

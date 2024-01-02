@@ -16,24 +16,26 @@
   <meta name="author" content="ntu820">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 续期k8s证书使用kubeadm搭建的k8s集群默认的kubectl只有一年有效期。 步骤 备份当前k8s证书1cp -r &#x2F;etc&#x2F;kubernetes &#x2F;etc&#x2F;kubernetes.bak 查看过期时间1kubeadm alpha certs check-expiration 更新证书12345kubeadm alpha certs renew allsystemctl restart">
+    <meta name="description" content="1.在线安装keepalived、nginxapt install -y keepalived  2.在线安装nginx apt install -y nginx  2.配置keepalived主keepalived配置： global_defs &amp;#123;    router_id nginx01  # 运行 keepalived 服务器的标识，在一个网络内应该是唯一的 &amp;#125;  vrr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="更新kubeadm证书">
-<meta property="og:url" content="http://example.com/2022/01/29/%E6%9B%B4%E6%96%B0kubeadm%E8%AF%81%E4%B9%A6/index.html">
+<meta property="og:title" content="Ubuntu安装nginx+keepalived-联网版">
+<meta property="og:url" content="http://example.com/2023/07/17/Ubuntu%E5%AE%89%E8%A3%85nginx-keepalived-%E8%81%94%E7%BD%91%E7%89%88/index.html">
 <meta property="og:site_name" content="NTU820的小窝">
-<meta property="og:description" content="1. 续期k8s证书使用kubeadm搭建的k8s集群默认的kubectl只有一年有效期。 步骤 备份当前k8s证书1cp -r &#x2F;etc&#x2F;kubernetes &#x2F;etc&#x2F;kubernetes.bak 查看过期时间1kubeadm alpha certs check-expiration 更新证书12345kubeadm alpha certs renew allsystemctl restart">
+<meta property="og:description" content="1.在线安装keepalived、nginxapt install -y keepalived  2.在线安装nginx apt install -y nginx  2.配置keepalived主keepalived配置： global_defs &amp;#123;    router_id nginx01  # 运行 keepalived 服务器的标识，在一个网络内应该是唯一的 &amp;#125;  vrr">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/k8s.jpg">
-<meta property="article:published_time" content="2022-01-29T02:07:26.000Z">
-<meta property="article:modified_time" content="2022-01-29T08:03:57.434Z">
+<meta property="og:image" content="http://example.com/img/%E5%9F%BA%E4%BA%8Ekeepalived%E7%9A%84nginx%E9%AB%98%E5%8F%AF%E7%94%A8/kn.png">
+<meta property="article:published_time" content="2023-07-17T02:40:55.000Z">
+<meta property="article:modified_time" content="2023-09-14T07:52:28.490Z">
 <meta property="article:author" content="ntu820">
-<meta property="article:tag" content="kubernetes">
-<meta property="article:tag" content="kubeadm">
+<meta property="article:tag" content="keepalived">
+<meta property="article:tag" content="软负载">
+<meta property="article:tag" content="高可用">
+<meta property="article:tag" content="nginx">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/k8s.jpg">
+<meta name="twitter:image" content="http://example.com/img/%E5%9F%BA%E4%BA%8Ekeepalived%E7%9A%84nginx%E9%AB%98%E5%8F%AF%E7%94%A8/kn.png">
   
   
-  <title>更新kubeadm证书 - NTU820的小窝</title>
+  <title>Ubuntu安装nginx+keepalived-联网版 - NTU820的小窝</title>
 
   <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
 
@@ -45,7 +47,15 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github-gist.min.css" />
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
     
   
 
@@ -70,7 +80,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -174,12 +184,12 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/%E6%9B%B4%E6%96%B0kubeadm%E8%AF%81%E4%B9%A6/kubeadm.jpg') no-repeat center center;
+         style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="更新kubeadm证书">
+            <span class="h2" id="subtitle" title="Ubuntu安装nginx+keepalived-联网版">
               
             </span>
 
@@ -189,8 +199,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-01-29 10:07" pubdate>
-        2022年1月29日 上午
+      <time datetime="2023-07-17 10:40" pubdate>
+        2023年7月17日 上午
       </time>
     </span>
   
@@ -200,7 +210,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      635 字
+      1.9k 字
     </span>
   
 
@@ -209,7 +219,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6 分钟
+      16 分钟
     </span>
   
 
@@ -238,16 +248,102 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">更新kubeadm证书</h1>
+            <h1 style="display: none">Ubuntu安装nginx+keepalived-联网版</h1>
             
             <div class="markdown-body">
-              <h3 id="1-续期k8s证书"><a href="#1-续期k8s证书" class="headerlink" title="1. 续期k8s证书"></a>1. 续期k8s证书</h3><p>使用kubeadm搭建的k8s集群默认的kubectl只有一年有效期。</p>
-<h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><ol>
-<li>备份当前k8s证书<figure class="highlight shell"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs shell">cp -r /etc/kubernetes /etc/kubernetes.bak<br></code></pre></td></tr></table></figure></li>
-<li>查看过期时间<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">kubeadm alpha certs check-expiration<br></code></pre></td></tr></table></figure></li>
-<li>更新证书<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">kubeadm alpha certs renew all<br><br>systemctl restart kubelet<br><br>cp -a /etc/kubernetes/admin.conf /root/.kube/config<br></code></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="2-需要更改文件"><a href="#2-需要更改文件" class="headerlink" title="2. 需要更改文件"></a>2. 需要更改文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs txt">└─etc<br>    └─kubernetes<br>        │  admin.conf<br>        │  config<br>        │  controller-manager.conf<br>        │  scheduler.conf<br>        │  <br>        ├─etcd<br>        │   healthcheck-client.crt<br>        │   healthcheck-client.key<br>        │   peer.crt<br>        │   peer.key<br>        │   server.crt<br>        │   server.key<br>        │      <br>        └─pki<br>            apiserver-etcd-client.crt<br>            apiserver-etcd-client.key<br>            apiserver-kubelet-client.crt<br>            apiserver-kubelet-client.key<br>            apiserver.crt<br>            apiserver.key<br>            front-proxy-client.crt<br>            front-proxy-client.key<br></code></pre></td></tr></table></figure>
+              <h3 id="1-在线安装keepalived、nginx"><a href="#1-在线安装keepalived、nginx" class="headerlink" title="1.在线安装keepalived、nginx"></a>1.在线安装keepalived、nginx</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">apt install -y keepalived<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<p>2.在线安装nginx</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">apt install -y nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<h3 id="2-配置keepalived"><a href="#2-配置keepalived" class="headerlink" title="2.配置keepalived"></a>2.配置keepalived</h3><p>主keepalived配置：</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">global_defs &#123;
+   router_id nginx01  # 运行 keepalived 服务器的标识，在一个网络内应该是唯一的
+&#125;
+
+vrrp_script chk_nginx &#123;
+   script &quot;&#x2F;etc&#x2F;keepalived&#x2F;chk_nginx.sh&quot; # 检查nginx状态脚本路径
+   interval 1  # 每1秒检测一次nginx的运行状态
+   weight -2  # 失败一次，将自己的优先级-2
+&#125;
+
+vrrp_instance VI_1 &#123; #vrrp 实例定义部分
+    state MASTER  # 设置 lvs 的状态，MASTER 和 BACKUP 两种，必须大写
+    interface ens18 # 设置对外服务的接口，绑定网卡
+    virtual_router_id 200 # 设置虚拟路由标示，这个标示是一个数字，同一个 vrrp 实例使用唯一标示
+    priority 100 # 定义优先级，数字越大优先级越高，在一个 vrrp——instance 下，master 的优先级必须大于 backup
+    advert_int 1 # 设定 master 与 backup 负载均衡器之间同步检查的时间间隔，单位是秒
+    authentication &#123;  # 设置验证类型和密码
+        auth_type PASS
+        auth_pass 1111  # 验证密码，同一个 vrrp_instance 下 MASTER 和 BACKUP 密码必须相同
+    &#125;
+
+    virtual_ipaddress &#123;  # 设置虚拟 ip 地址，可以设置多个，每行一个
+        172.16.214.206&#x2F;24
+   &#125;
+
+   cast_src_ip 172.16.214.204
+   unicast_peer &#123;
+      172.16.214.205
+   &#125;
+
+   track_script &#123;
+        chk_nginx
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>备keepalived配置：</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">global_defs &#123;
+   router_id nginx02
+&#125;
+
+vrrp_script chk_nginx &#123;
+   script &quot;&#x2F;etc&#x2F;keepalived&#x2F;chk_nginx.sh&quot; ##检查nginx状态脚本路径
+   interval 1  ##每1秒检测一次nginx的运行状态
+   weight -2  ##失败一次，将自己的优先级-2
+&#125;
+
+vrrp_instance VI_1 &#123;
+    state BACKUP
+    interface ens18
+    virtual_router_id 200
+    priority 80
+    advert_int 1
+    authentication &#123;
+        auth_type PASS
+        auth_pass 1111
+    &#125;
+
+    virtual_ipaddress &#123;
+        172.16.214.206&#x2F;24
+   &#125;
+
+   cast_src_ip 172.16.214.205
+   unicast_peer &#123;
+      172.16.214.204
+   &#125;
+
+   track_script &#123;
+        chk_nginx
+   &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>检查脚本</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">#!&#x2F;bin&#x2F;bash
+d&#x3D;&#96;date --date today +%Y-%m-%d_%H:%M:%S&#96;
+run1&#x3D;&#96;ps -C nginx --no-heading|wc -l&#96;
+if [ $run1 -eq &quot;0&quot; ]; then
+        echo &quot;$d nginx down,nginx will restart for once&quot; &gt;&gt; &#x2F;var&#x2F;log&#x2F;chk_nginx.log
+        systemctl start nginxd.service
+        sleep 2
+        run2&#x3D;&#96;ps -C nginx --no-heading|wc -l&#96;
+        if [ $run2 -eq &quot;0&quot;  ]; then
+                echo &quot;$d nginx down,keepalived will stop&quot; &gt;&gt; &#x2F;var&#x2F;log&#x2F;chk_nginx.log
+                systemctl stop keepalived.service
+        fi
+fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h3 id="3-验证主备"><a href="#3-验证主备" class="headerlink" title="3.验证主备"></a>3.验证主备</h3><p><img src="/img/Ubuntu%E5%AE%89%E8%A3%85nginx-keepalived-%E8%81%94%E7%BD%91%E7%89%88/ip.png" srcset="/img/loading.gif" lazyload alt="主备sip"></p>
 
             </div>
             <hr>
@@ -257,7 +353,11 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/kubernetes/">kubernetes</a>
+                      <a class="hover-with-bg" href="/categories/ubuntu/">ubuntu</a>
+                    
+                      <a class="hover-with-bg" href="/categories/ubuntu/keepalived/">keepalived</a>
+                    
+                      <a class="hover-with-bg" href="/categories/ubuntu/keepalived/nginx/">nginx</a>
                     
                   </div>
                 
@@ -265,9 +365,13 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/kubernetes/">kubernetes</a>
+                      <a class="hover-with-bg" href="/tags/keepalived/">keepalived</a>
                     
-                      <a class="hover-with-bg" href="/tags/kubeadm/">kubeadm</a>
+                      <a class="hover-with-bg" href="/tags/%E8%BD%AF%E8%B4%9F%E8%BD%BD/">软负载</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%AB%98%E5%8F%AF%E7%94%A8/">高可用</a>
+                    
+                      <a class="hover-with-bg" href="/tags/nginx/">nginx</a>
                     
                   </div>
                 
@@ -278,15 +382,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/01/29/centos7%E5%AE%89%E8%A3%85nginx/">
+                      <a href="/2023/09/14/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2ChatGLM2/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">centos7安装nginx</span>
+                        <span class="hidden-mobile">本地部署ChatGLM2</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2023/03/10/%E5%9C%A8k8s%E4%B8%AD%E9%83%A8%E7%BD%B2jenkins/">
+                        <span class="hidden-mobile">在k8s中部署jenkins</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
@@ -393,6 +503,8 @@
 
 
   
+    
+  
 
 
 
@@ -434,30 +546,6 @@
 
 
 
-
-
-  
-    <!-- Baidu Analytics -->
-    <script defer>
-      var _hmt = _hmt || [];
-      (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?12a3171756132afa5f5f7bc08ae8d6c2";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
 
 

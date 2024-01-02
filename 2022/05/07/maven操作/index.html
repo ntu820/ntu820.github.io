@@ -16,16 +16,16 @@
   <meta name="author" content="ntu820">
   <meta name="keywords" content="">
   
-    <meta name="description" content="maven安装、配置下载配置配置MAVEN_HOME 验证123456C:\Users\Administrator&gt;mvn -vApache Maven 3.6.1 (d66c9c0b3152b2e69ee9bac180bb8fcc8e6af555; 2019-04-05T03:00:29+08:00)Maven home: D:\develop\apache-maven-3.6.1\bin">
+    <meta name="description" content="maven安装、配置下载配置配置MAVEN_HOME 验证C:\Users\Administrator&gt;mvn -v Apache Maven 3.6.1 (d66c9c0b3152b2e69ee9bac180bb8fcc8e6af555; 2019-04-05T03:00:29+08:00) Maven home: D:\develop\apache-maven-3.6.1\bin\..">
 <meta property="og:type" content="article">
 <meta property="og:title" content="maven常用操作">
 <meta property="og:url" content="http://example.com/2022/05/07/maven%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="NTU820的小窝">
-<meta property="og:description" content="maven安装、配置下载配置配置MAVEN_HOME 验证123456C:\Users\Administrator&gt;mvn -vApache Maven 3.6.1 (d66c9c0b3152b2e69ee9bac180bb8fcc8e6af555; 2019-04-05T03:00:29+08:00)Maven home: D:\develop\apache-maven-3.6.1\bin">
+<meta property="og:description" content="maven安装、配置下载配置配置MAVEN_HOME 验证C:\Users\Administrator&gt;mvn -v Apache Maven 3.6.1 (d66c9c0b3152b2e69ee9bac180bb8fcc8e6af555; 2019-04-05T03:00:29+08:00) Maven home: D:\develop\apache-maven-3.6.1\bin\..">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/maven%E6%93%8D%E4%BD%9C/maven1.jpg">
 <meta property="article:published_time" content="2022-05-07T04:30:46.000Z">
-<meta property="article:modified_time" content="2022-06-08T09:50:05.056Z">
+<meta property="article:modified_time" content="2023-09-14T07:52:28.494Z">
 <meta property="article:author" content="ntu820">
 <meta property="article:tag" content="maven">
 <meta name="twitter:card" content="summary_large_image">
@@ -44,7 +44,15 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github-gist.min.css" />
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
     
   
 
@@ -69,7 +77,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -199,7 +207,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6k 字
+      5.3k 字
     </span>
   
 
@@ -208,7 +216,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      51 分钟
+      45 分钟
     </span>
   
 
@@ -241,21 +249,142 @@
             
             <div class="markdown-body">
               <h2 id="maven安装、配置"><a href="#maven安装、配置" class="headerlink" title="maven安装、配置"></a>maven安装、配置</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h4 id="配置MAVEN-HOME"><a href="#配置MAVEN-HOME" class="headerlink" title="配置MAVEN_HOME"></a>配置MAVEN_HOME</h4><p><img src="/img/maven%E6%93%8D%E4%BD%9C/mvn%E9%85%8D%E7%BD%AE.png" srcset="/img/loading.gif" lazyload alt="mvn配置"></p>
-<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><figure class="highlight sh"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><pre><code class="hljs sh">C:\Users\Administrator&gt;mvn -v<br>Apache Maven 3.6.1 (d66c9c0b3152b2e69ee9bac180bb8fcc8e6af555; 2019-04-05T03:00:29+08:00)<br>Maven home: D:\develop\apache-maven-3.6.1\bin\..<br>Java version: 1.8.0_152, vendor: Oracle Corporation, runtime: D:\Java\jdk1.8.0_152\jre<br>Default locale: zh_CN, platform encoding: GBK<br>OS name: <span class="hljs-string">&quot;windows 10&quot;</span>, version: <span class="hljs-string">&quot;10.0&quot;</span>, arch: <span class="hljs-string">&quot;amd64&quot;</span>, family: <span class="hljs-string">&quot;windows&quot;</span><br></code></pre></td></tr></table></figure>
+<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">C:\Users\Administrator&gt;mvn -v
+Apache Maven 3.6.1 (d66c9c0b3152b2e69ee9bac180bb8fcc8e6af555; 2019-04-05T03:00:29+08:00)
+Maven home: D:\develop\apache-maven-3.6.1\bin\..
+Java version: 1.8.0_152, vendor: Oracle Corporation, runtime: D:\Java\jdk1.8.0_152\jre
+Default locale: zh_CN, platform encoding: GBK
+OS name: &quot;windows 10&quot;, version: &quot;10.0&quot;, arch: &quot;amd64&quot;, family: &quot;windows&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>看到此字样，即为成功。</p>
-<h4 id="配置settings-conf，一般在maven根目录下的conf文件下"><a href="#配置settings-conf，一般在maven根目录下的conf文件下" class="headerlink" title="配置settings.conf，一般在maven根目录下的conf文件下"></a>配置settings.conf，一般在maven根目录下的conf文件下</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">settings</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;</span></span><br><span class="hljs-tag">          <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="hljs-tag">          <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 配置jar包本地下载地址 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">localRepository</span>&gt;</span>D:\my_maven\repository<span class="hljs-tag">&lt;/<span class="hljs-name">localRepository</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">pluginGroups</span>&gt;</span><br><br>	<span class="hljs-tag">&lt;<span class="hljs-name">pluginGroup</span>&gt;</span>org.pentaho.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">pluginGroup</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">pluginGroup</span>&gt;</span>com.pentaho.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">pluginGroup</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">pluginGroup</span>&gt;</span>com.github.spotbugs<span class="hljs-tag">&lt;/<span class="hljs-name">pluginGroup</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">pluginGroups</span>&gt;</span><br><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">proxies</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">proxies</span>&gt;</span><br><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">servers</span>&gt;</span><br><br>	<span class="hljs-tag">&lt;<span class="hljs-name">server</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>pentaho-public<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">username</span>&gt;</span>devreaduser<span class="hljs-tag">&lt;/<span class="hljs-name">username</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">password</span>&gt;</span>&#123;zIMyJWfHKfoHiBJAVsAgW4E5BcJzR+nhTtgPy0J+/rs=&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">password</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">server</span>&gt;</span><br>	<br>  <span class="hljs-comment">&lt;!-- 配置私服认证 --&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">server</span>&gt;</span><br>	  <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>ztgt-release<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">username</span>&gt;</span>[username]<span class="hljs-tag">&lt;/<span class="hljs-name">username</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">password</span>&gt;</span>[password]<span class="hljs-tag">&lt;/<span class="hljs-name">password</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">server</span>&gt;</span><br>	<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">servers</span>&gt;</span><br><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">mirrors</span>&gt;</span><br>	  <span class="hljs-comment">&lt;!-- 配置阿里仓库，加快下载 --&gt;</span><br>	  <span class="hljs-tag">&lt;<span class="hljs-name">mirror</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>alimaven<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">mirrorOf</span>&gt;</span>central<span class="hljs-tag">&lt;/<span class="hljs-name">mirrorOf</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>alimaven in central RELEASE.<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>https://maven.aliyun.com/repository/central<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">mirror</span>&gt;</span><br>	<br>	  <span class="hljs-tag">&lt;<span class="hljs-name">mirror</span>&gt;</span><br>	    <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>aliyun<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>	    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>aliyun Maven<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>	    <span class="hljs-tag">&lt;<span class="hljs-name">mirrorOf</span>&gt;</span>xxx<span class="hljs-tag">&lt;/<span class="hljs-name">mirrorOf</span>&gt;</span><br>	    <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">mirror</span>&gt;</span><br>	<br>    <span class="hljs-comment">&lt;!--  --&gt;</span><br>	  <span class="hljs-tag">&lt;<span class="hljs-name">mirror</span>&gt;</span>   <br>      <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>ztgt-release<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span>   <br>      <span class="hljs-tag">&lt;<span class="hljs-name">mirrorOf</span>&gt;</span>*<span class="hljs-tag">&lt;/<span class="hljs-name">mirrorOf</span>&gt;</span>   <br>      <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>http://ip/repository/maven-ztgt/<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span>   <br>    <span class="hljs-tag">&lt;/<span class="hljs-name">mirror</span>&gt;</span>  <br>  <span class="hljs-tag">&lt;/<span class="hljs-name">mirrors</span>&gt;</span><br><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">profiles</span>&gt;</span><br>	<br>	<span class="hljs-tag">&lt;<span class="hljs-name">profile</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>pentaho<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">activation</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">activeByDefault</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">activeByDefault</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">activation</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">repositories</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">repository</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>pentaho-public<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Pentaho Public<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>https://repo.orl.eng.hitachivantara.com/artifactory/pnt-mvn/<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">releases</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">enabled</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">enabled</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">updatePolicy</span>&gt;</span>always<span class="hljs-tag">&lt;/<span class="hljs-name">updatePolicy</span>&gt;</span><br>          <span class="hljs-tag">&lt;/<span class="hljs-name">releases</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">snapshots</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">enabled</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">enabled</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">updatePolicy</span>&gt;</span>always<span class="hljs-tag">&lt;/<span class="hljs-name">updatePolicy</span>&gt;</span><br>          <span class="hljs-tag">&lt;/<span class="hljs-name">snapshots</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">repository</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">repositories</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">pluginRepositories</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">pluginRepository</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>pentaho-public<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Pentaho Public<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>https://repo.orl.eng.hitachivantara.com/artifactory/pnt-mvn/<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">releases</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">enabled</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">enabled</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">updatePolicy</span>&gt;</span>always<span class="hljs-tag">&lt;/<span class="hljs-name">updatePolicy</span>&gt;</span><br>          <span class="hljs-tag">&lt;/<span class="hljs-name">releases</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">snapshots</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">enabled</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">enabled</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">updatePolicy</span>&gt;</span>always<span class="hljs-tag">&lt;/<span class="hljs-name">updatePolicy</span>&gt;</span><br>          <span class="hljs-tag">&lt;/<span class="hljs-name">snapshots</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">pluginRepository</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">pluginRepositories</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">profile</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">profiles</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">settings</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+<h4 id="配置settings-conf，一般在maven根目录下的conf文件下"><a href="#配置settings-conf，一般在maven根目录下的conf文件下" class="headerlink" title="配置settings.conf，一般在maven根目录下的conf文件下"></a>配置settings.conf，一般在maven根目录下的conf文件下</h4><div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>settings</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://maven.apache.org/SETTINGS/1.0.0<span class="token punctuation">"</span></span>
+          <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
+          <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token comment">&lt;!-- 配置jar包本地下载地址 --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>localRepository</span><span class="token punctuation">></span></span>D:\my_maven\repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>localRepository</span><span class="token punctuation">></span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pluginGroups</span><span class="token punctuation">></span></span>
+
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pluginGroup</span><span class="token punctuation">></span></span>org.pentaho.maven.plugins<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>pluginGroup</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pluginGroup</span><span class="token punctuation">></span></span>com.pentaho.maven.plugins<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>pluginGroup</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pluginGroup</span><span class="token punctuation">></span></span>com.github.spotbugs<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>pluginGroup</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>pluginGroups</span><span class="token punctuation">></span></span>
+
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>proxies</span><span class="token punctuation">></span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>proxies</span><span class="token punctuation">></span></span>
+
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servers</span><span class="token punctuation">></span></span>
+
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>server</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>pentaho-public<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>username</span><span class="token punctuation">></span></span>devreaduser<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>username</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>password</span><span class="token punctuation">></span></span>&#123;zIMyJWfHKfoHiBJAVsAgW4E5BcJzR+nhTtgPy0J+/rs=&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>password</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>server</span><span class="token punctuation">></span></span>
+	
+  <span class="token comment">&lt;!-- 配置私服认证 --></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>server</span><span class="token punctuation">></span></span>
+	  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>ztgt-release<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>username</span><span class="token punctuation">></span></span>[username]<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>username</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>password</span><span class="token punctuation">></span></span>[password]<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>password</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>server</span><span class="token punctuation">></span></span>
+	
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servers</span><span class="token punctuation">></span></span>
+
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrors</span><span class="token punctuation">></span></span>
+	  <span class="token comment">&lt;!-- 配置阿里仓库，加快下载 --></span>
+	  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirror</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>alimaven<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrorOf</span><span class="token punctuation">></span></span>central<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrorOf</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>alimaven in central RELEASE.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>https://maven.aliyun.com/repository/central<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirror</span><span class="token punctuation">></span></span>
+	
+	  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirror</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>aliyun<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>aliyun Maven<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrorOf</span><span class="token punctuation">></span></span>xxx<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrorOf</span><span class="token punctuation">></span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://maven.aliyun.com/nexus/content/groups/public/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirror</span><span class="token punctuation">></span></span>
+	
+    <span class="token comment">&lt;!--  --></span>
+	  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirror</span><span class="token punctuation">></span></span>   
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>ztgt-release<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>   
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrorOf</span><span class="token punctuation">></span></span>*<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrorOf</span><span class="token punctuation">></span></span>   
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://ip/repository/maven-ztgt/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>   
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirror</span><span class="token punctuation">></span></span>  
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrors</span><span class="token punctuation">></span></span>
+
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>profiles</span><span class="token punctuation">></span></span>
+	
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>profile</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>pentaho<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>activation</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>activeByDefault</span><span class="token punctuation">></span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>activeByDefault</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>activation</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repositories</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repository</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>pentaho-public<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>Pentaho Public<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>https://repo.orl.eng.hitachivantara.com/artifactory/pnt-mvn/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>releases</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enabled</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enabled</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>updatePolicy</span><span class="token punctuation">></span></span>always<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>updatePolicy</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>releases</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>snapshots</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enabled</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enabled</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>updatePolicy</span><span class="token punctuation">></span></span>always<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>updatePolicy</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>snapshots</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repository</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repositories</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pluginRepositories</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pluginRepository</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>pentaho-public<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>Pentaho Public<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>https://repo.orl.eng.hitachivantara.com/artifactory/pnt-mvn/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>releases</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enabled</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enabled</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>updatePolicy</span><span class="token punctuation">></span></span>always<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>updatePolicy</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>releases</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>snapshots</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enabled</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enabled</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>updatePolicy</span><span class="token punctuation">></span></span>always<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>updatePolicy</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>snapshots</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>pluginRepository</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>pluginRepositories</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>profile</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>profiles</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>settings</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h2 id="maven常用操作"><a href="#maven常用操作" class="headerlink" title="maven常用操作"></a>maven常用操作</h2><h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><p><code>mvn -Dmaven.test.skip=true clean package</code></p>
 <p>-Dmaven.test.skip=true：跳过测试</p>
 <p>clean：先进行清理</p>
-<h3 id="安装jar"><a href="#安装jar" class="headerlink" title="安装jar"></a>安装jar</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh">mvn install:install-file \ <span class="hljs-comment"># 操作</span><br>    -Dfile=[XXX.jar] \ <span class="hljs-comment"># jar包名称</span><br>    -DgroupId=[com.hmifo] \ <span class="hljs-comment"># groupid</span><br>    -DartifactId=[hm-core-tool] \ <span class="hljs-comment"># artifactid</span><br>    -Dversion=[1.0.0.RELEASE] \ <span class="hljs-comment"># 版本</span><br>    -Dpackaging=jar <span class="hljs-comment"># 格式</span><br></code></pre></td></tr></table></figure>
+<h3 id="安装jar"><a href="#安装jar" class="headerlink" title="安装jar"></a>安装jar</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mvn install:install-file \ # 操作
+    -Dfile&#x3D;[XXX.jar] \ # jar包名称
+    -DgroupId&#x3D;[com.hmifo] \ # groupid
+    -DartifactId&#x3D;[hm-core-tool] \ # artifactid
+    -Dversion&#x3D;[1.0.0.RELEASE] \ # 版本
+    -Dpackaging&#x3D;jar # 格式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>需要和当前jar在同一级目录下执行</p>
 <h3 id="上传jar到私服"><a href="#上传jar到私服" class="headerlink" title="上传jar到私服"></a>上传jar到私服</h3><ol>
 <li>配置上传目标</li>
 </ol>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">distributionManagement</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">repository</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>ztgt-release<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span> <span class="hljs-comment">&lt;!-- 这里和私服配置的id必须一致 --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>Release Repository<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>http://ip/repository/maven-ztgt/<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">repository</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">distributionManagement</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>distributionManagement</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repository</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>ztgt-release<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span> <span class="token comment">&lt;!-- 这里和私服配置的id必须一致 --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>Release Repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://ip/repository/maven-ztgt/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repository</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>distributionManagement</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <ol start="2">
 <li>上传</li>
@@ -263,7 +392,14 @@
 <ul>
 <li>命令上传</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh">mvn deploy:deploy-file \ <span class="hljs-comment"># 上传操作</span><br>    -DgroupId=[com.zhenai.dakehu] \ <span class="hljs-comment"># groupid</span><br>    -DartifactId=[dakehu-commons] \ <span class="hljs-comment"># artifactid</span><br>    -Dversion=[1.0.0-SNAPSHOT] \ <span class="hljs-comment"># 版本</span><br>    -Dpacckaging=jar \ <span class="hljs-comment"># 格式</span><br>    -Dfile=[dakehu-commons-1.0.0-SNAPSHOT.jar] \ <span class="hljs-comment"># 文件名称</span><br>    -DrepositoryId=[aven-snapshots] \ <span class="hljs-comment"># 仓库id，和私服配置的必须一致</span><br>    -Durl=p[ttp://112.124.33.150:8081/repository/maven-snapshots/ <span class="hljs-comment"># 私服地址</span><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mvn deploy:deploy-file \ # 上传操作
+    -DgroupId&#x3D;[com.hmifo] \ # groupid
+    -DartifactId&#x3D;[XXX] \ # artifactid
+    -Dversion&#x3D;[1.0.0] \ # 版本
+    -Dpacckaging&#x3D;jar \ # 格式
+    -Dfile&#x3D;[XXX.jar] \ # 文件名称
+    -DrepositoryId&#x3D;[ztgt-release] \ # 仓库id，和私服配置的必须一致
+    -Durl&#x3D;[http:&#x2F;&#x2F;192.168.182.187:82&#x2F;repository&#x2F;maven-ztgt&#x2F;] # 私服地址<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <ul>
 <li>idea上传</li>
@@ -271,20 +407,25 @@
 <p><img src="/img/maven%E6%93%8D%E4%BD%9C/mvn%E4%B8%8A%E4%BC%A0.png" srcset="/img/loading.gif" lazyload alt="mvn上传"></p>
 <h3 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h3><ol>
 <li><p>更新版本</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 更新版本号 -DgenerateBackupPoms=false  不生成备份文件</span><br>mvn versions:<span class="hljs-built_in">set</span> -DnewVersion=[1.0.2-SNAPSHOT]<br></code></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 更新版本号 -DgenerateBackupPoms&#x3D;false  不生成备份文件
+mvn versions:set -DnewVersion&#x3D;[1.0.2-SNAPSHOT]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
 <li><p>更新子模块版本</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mvn -N versions:update-child-modules<br></code></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mvn -N versions:update-child-modules<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
 <li><p>版本回退</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 版本回滚，提交后就无法回滚了</span><br>mvn versions:revert<br></code></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 版本回滚，提交后就无法回滚了
+mvn versions:revert<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
 <li><p>版本提交</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mvn versions:commit<br></code></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mvn versions:commit<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
 </ol>
 <h2 id="maven制作archetype"><a href="#maven制作archetype" class="headerlink" title="maven制作archetype"></a>maven制作archetype</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Archetype是Maven工程的模板工具包。使用Archetype提供的方法可以快速的构建和组织一致化的工程，解决在工作过程中创建一个新项目时需一堆繁琐的配置工作等。</p>
 <h3 id="基于maven项目制作archetype"><a href="#基于maven项目制作archetype" class="headerlink" title="基于maven项目制作archetype"></a>基于maven项目制作archetype</h3><ol>
 <li><p>准备好maven项目，将无关代码全部删除，只保留最基础的项目和结构</p>
 </li>
 <li><p>在项目的根目录下的pom中添加依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plugin</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-maven-plugin<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>plugin</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 <li><p>进入项目根目录，执行<code>mvn archetype:create-from-project</code>进行模板生成</p>
 <p><img src="/img/maven%E6%93%8D%E4%BD%9C/mvncreatearchetype.png" srcset="/img/loading.gif" lazyload alt="mvncreatearchetype"></p>
 </li>
@@ -324,13 +465,19 @@
 <li><p>具体步骤</p>
 <ol>
 <li><p>设置master密码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mvn --encrypt-master-password [pwd]<br></code></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mvn --encrypt-master-password [pwd]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
 <li><p>配置<code>$&#123;MAVEN_HOME&#125;\.m2\settings-security.xml</code>，如果不存在，则手动创建</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">settingsSecurity</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">master</span>&gt;</span>[上一步生成的密码]<span class="hljs-tag">&lt;/<span class="hljs-name">master</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">settingsSecurity</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>settingsSecurity</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>master</span><span class="token punctuation">></span></span>[上一步生成的密码]<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>master</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>settingsSecurity</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></li>
 <li><p>设置实际使用的密码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mvn --encrpty-password [pwd] <br></code></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mvn --encrpty-password [pwd] <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
 <li><p>配置<code>settings.xml</code>文件</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">server</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>ztgt-release<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">username</span>&gt;</span>admin<span class="hljs-tag">&lt;/<span class="hljs-name">username</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">password</span>&gt;</span>[上一步生成的密钥]<span class="hljs-tag">&lt;/<span class="hljs-name">password</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">server</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>server</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>ztgt-release<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>username</span><span class="token punctuation">></span></span>admin<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>username</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>password</span><span class="token punctuation">></span></span>[上一步生成的密钥]<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>password</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>server</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 </ol>
 </li>
 </ol>
@@ -483,6 +630,8 @@
 
 
   
+    
+  
 
 
 
@@ -524,30 +673,6 @@
 
 
 
-
-
-  
-    <!-- Baidu Analytics -->
-    <script defer>
-      var _hmt = _hmt || [];
-      (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?12a3171756132afa5f5f7bc08ae8d6c2";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
 
 

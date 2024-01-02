@@ -16,16 +16,16 @@
   <meta name="author" content="ntu820">
   <meta name="keywords" content="">
   
-    <meta name="description" content="下载解压到目录1234# 解压tar -zxvf mysql-5.7.21-linux-glibc2.12-x86_64.tar.gz# 移动目录mv mysql-5.7.21-linux-glibc2.12-x86_64 &#x2F;usr&#x2F;local&#x2F;mysql  新增用户、组和数据目录12345678# 新增组groupadd mysql# 新增用户useradd -r -g mysql mysql#">
+    <meta name="description" content="下载解压到目录# 解压 tar -zxvf mysql-5.7.21-linux-glibc2.12-x86_64.tar.gz # 移动目录 mv mysql-5.7.21-linux-glibc2.12-x86_64 &#x2F;usr&#x2F;local&#x2F;mysql  新增用户、组和数据目录# 新增组 groupadd mysql # 新增用户 useradd -r -g mys">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux7.9安装Mysql-5.7.21">
 <meta property="og:url" content="http://example.com/2022/03/31/mysql%E5%AE%89%E8%A3%85/index.html">
 <meta property="og:site_name" content="NTU820的小窝">
-<meta property="og:description" content="下载解压到目录1234# 解压tar -zxvf mysql-5.7.21-linux-glibc2.12-x86_64.tar.gz# 移动目录mv mysql-5.7.21-linux-glibc2.12-x86_64 &#x2F;usr&#x2F;local&#x2F;mysql  新增用户、组和数据目录12345678# 新增组groupadd mysql# 新增用户useradd -r -g mysql mysql#">
+<meta property="og:description" content="下载解压到目录# 解压 tar -zxvf mysql-5.7.21-linux-glibc2.12-x86_64.tar.gz # 移动目录 mv mysql-5.7.21-linux-glibc2.12-x86_64 &#x2F;usr&#x2F;local&#x2F;mysql  新增用户、组和数据目录# 新增组 groupadd mysql # 新增用户 useradd -r -g mys">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/mysql%E5%AE%89%E8%A3%85/mysql.png">
 <meta property="article:published_time" content="2022-03-31T08:22:57.000Z">
-<meta property="article:modified_time" content="2022-03-31T12:31:36.710Z">
+<meta property="article:modified_time" content="2023-09-14T07:52:28.495Z">
 <meta property="article:author" content="ntu820">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="mysql">
@@ -45,7 +45,15 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github-gist.min.css" />
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
     
   
 
@@ -70,7 +78,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -200,7 +208,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      2.3k 字
     </span>
   
 
@@ -209,7 +217,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13 分钟
+      20 分钟
     </span>
   
 
@@ -241,22 +249,104 @@
             <h1 style="display: none">Linux7.9安装Mysql-5.7.21</h1>
             
             <div class="markdown-body">
-              <h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><h3 id="解压到目录"><a href="#解压到目录" class="headerlink" title="解压到目录"></a>解压到目录</h3><figure class="highlight sh"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 解压</span><br>tar -zxvf mysql-5.7.21-linux-glibc2.12-x86_64.tar.gz<br><span class="hljs-comment"># 移动目录</span><br>mv mysql-5.7.21-linux-glibc2.12-x86_64 /usr/<span class="hljs-built_in">local</span>/mysql<br></code></pre></td></tr></table></figure>
+              <h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><h3 id="解压到目录"><a href="#解压到目录" class="headerlink" title="解压到目录"></a>解压到目录</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 解压
+tar -zxvf mysql-5.7.21-linux-glibc2.12-x86_64.tar.gz
+# 移动目录
+mv mysql-5.7.21-linux-glibc2.12-x86_64 &#x2F;usr&#x2F;local&#x2F;mysql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<h3 id="新增用户、组和数据目录"><a href="#新增用户、组和数据目录" class="headerlink" title="新增用户、组和数据目录"></a>新增用户、组和数据目录</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 新增组</span><br>groupadd mysql<br><span class="hljs-comment"># 新增用户</span><br>useradd -r -g mysql mysql<br><span class="hljs-comment"># 创建目录</span><br>mkdir -p /data/mysql<br><span class="hljs-comment"># 分配权限</span><br>chown mysql:mysql -R /data/mysql<br></code></pre></td></tr></table></figure>
+<h3 id="新增用户、组和数据目录"><a href="#新增用户、组和数据目录" class="headerlink" title="新增用户、组和数据目录"></a>新增用户、组和数据目录</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 新增组
+groupadd mysql
+# 新增用户
+useradd -r -g mysql mysql
+# 创建目录
+mkdir -p &#x2F;data&#x2F;mysql
+# 分配权限
+chown mysql:mysql -R &#x2F;data&#x2F;mysql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<h3 id="配置my-cnf"><a href="#配置my-cnf" class="headerlink" title="配置my.cnf"></a>配置my.cnf</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs sh">vi /etc/my.cnf<br><br><span class="hljs-comment"># 可以采用这个</span><br>[mysqld]<br>bind-address=0.0.0.0<br>port=3306<br>user=mysql<br>basedir=/usr/<span class="hljs-built_in">local</span>/mysql<br>datadir=/data/mysql<br>socket=/tmp/mysql.sock<br>log-error=/data/mysql/mysql.err<br>pid-file=/data/mysql/mysql.pid<br><span class="hljs-comment">#character config</span><br>character_set_server=utf8mb4<br>symbolic-links=0<br>explicit_defaults_for_timestamp=<span class="hljs-literal">true</span><br><br><span class="hljs-comment"># 也可以采用这个</span><br>[mysql]<br><span class="hljs-comment"># 设置mysql客户端默认字符集</span><br>default-character-set=utf8<br>socket=/tmp/mysql.sock<br>[mysqld]<br><span class="hljs-comment">#skip-name-resolve</span><br><span class="hljs-comment">#skip-grant-tables</span><br><span class="hljs-comment">#设置3306端口</span><br>port=3306<br>socket=/tmp/mysql.sock<br><span class="hljs-comment"># 设置mysql的真正的安装目录 （看自己的是在哪里)</span><br>basedir=/usr/<span class="hljs-built_in">local</span>/mysql<br><span class="hljs-comment"># 设置mysql数据库的数据的存放目录 （看自己的是在哪里)</span><br>datadir=/data/mysql<br><span class="hljs-comment"># 允许最大连接数</span><br>max_connections=200<br><span class="hljs-comment"># 服务端使用的字符集默认为8比特编码的latin1字符雿</span><br>character-set-server=utf8<br><span class="hljs-comment"># 创建新表时将使用的默认存储引擿</span><br>default-storage-engine=INNODB<br><span class="hljs-comment">#lower_case_table_name=1</span><br>max_allowed_packet=16M<br></code></pre></td></tr></table></figure>
+<h3 id="配置my-cnf"><a href="#配置my-cnf" class="headerlink" title="配置my.cnf"></a>配置my.cnf</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">vi &#x2F;etc&#x2F;my.cnf
 
-<h3 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-built_in">cd</span> /usr/<span class="hljs-built_in">local</span>/mysql/bin<br>./mysqld --defaults-file=/etc/my.cnf --basedir=/usr/<span class="hljs-built_in">local</span>/mysql/ --datadir=/data/mysql/ --user=mysql --initialize<br><span class="hljs-comment"># 成功以后，查看密码</span><br>cat /data/mysql/mysql.err<br></code></pre></td></tr></table></figure>
+# 可以采用这个
+[mysqld]
+bind-address&#x3D;0.0.0.0
+port&#x3D;3306
+user&#x3D;mysql
+basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql
+datadir&#x3D;&#x2F;data&#x2F;mysql
+socket&#x3D;&#x2F;tmp&#x2F;mysql.sock
+log-error&#x3D;&#x2F;data&#x2F;mysql&#x2F;mysql.err
+pid-file&#x3D;&#x2F;data&#x2F;mysql&#x2F;mysql.pid
+#character config
+character_set_server&#x3D;utf8mb4
+symbolic-links&#x3D;0
+explicit_defaults_for_timestamp&#x3D;true
 
-<h3 id="启动mysql"><a href="#启动mysql" class="headerlink" title="启动mysql"></a>启动mysql</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">cp /usr/<span class="hljs-built_in">local</span>/mysql/support-files/mysql.server /etc/init.d/mysql<br>service start mysql<br></code></pre></td></tr></table></figure>
+# 也可以采用这个
+[mysql]
+# 设置mysql客户端默认字符集
+default-character-set&#x3D;utf8
+socket&#x3D;&#x2F;tmp&#x2F;mysql.sock
+[mysqld]
+#skip-name-resolve
+#skip-grant-tables
+#设置3306端口
+port&#x3D;3306
+socket&#x3D;&#x2F;tmp&#x2F;mysql.sock
+# 设置mysql的真正的安装目录 （看自己的是在哪里)
+basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql
+# 设置mysql数据库的数据的存放目录 （看自己的是在哪里)
+datadir&#x3D;&#x2F;data&#x2F;mysql
+# 允许最大连接数
+max_connections&#x3D;200
+# 服务端使用的字符集默认为8比特编码的latin1字符雿
+character-set-server&#x3D;utf8
+# 创建新表时将使用的默认存储引擿
+default-storage-engine&#x3D;INNODB
+#lower_case_table_name&#x3D;1
+max_allowed_packet&#x3D;16M<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<h3 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh">mysql -uroot -p<br><span class="hljs-comment"># 输入刚刚获得的密码</span><br><span class="hljs-comment"># 修改密码</span><br>SET PASSWORD = PASSWORD(<span class="hljs-string">&#x27;root&#x27;</span>);<br>ALTER USER <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span> PASSWORD EXPIRE NEVER;<br>FLUSH PRIVILEGES;<br></code></pre></td></tr></table></figure>
+<h3 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">cd &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;bin
+.&#x2F;mysqld --defaults-file&#x3D;&#x2F;etc&#x2F;my.cnf --basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F; --datadir&#x3D;&#x2F;data&#x2F;mysql&#x2F; --user&#x3D;mysql --initialize
+# 成功以后，查看密码
+cat &#x2F;data&#x2F;mysql&#x2F;mysql.err<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<h3 id="新增软连接"><a href="#新增软连接" class="headerlink" title="新增软连接"></a>新增软连接</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 不用每次都进入mysql目录运行命令</span><br>ln -s  <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/mysql/</span>bin<span class="hljs-regexp">/mysql    /u</span>sr/bin<br></code></pre></td></tr></table></figure>
+<h3 id="启动mysql"><a href="#启动mysql" class="headerlink" title="启动mysql"></a>启动mysql</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">cp &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;support-files&#x2F;mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysql
+service start mysql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
 
+<h3 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h3><div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mysql -uroot -p
+# 输入刚刚获得的密码
+# 修改密码
+SET PASSWORD &#x3D; PASSWORD(&#39;root&#39;);
+ALTER USER &#39;root&#39;@&#39;localhost&#39; PASSWORD EXPIRE NEVER;
+FLUSH PRIVILEGES;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
+<h3 id="新增软连接"><a href="#新增软连接" class="headerlink" title="新增软连接"></a>新增软连接</h3><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none"># 不用每次都进入mysql目录运行命令
+ln -s  &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;bin&#x2F;mysql    &#x2F;usr&#x2F;bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
 
+<h3 id="mysql数据丢失恢复"><a href="#mysql数据丢失恢复" class="headerlink" title="mysql数据丢失恢复"></a>mysql数据丢失恢复</h3><blockquote>
+<p>当mysql由于某些原因突然无法启动，且没有做过备份的情况下，使用mysql的data目录进行数据恢复</p>
+</blockquote>
+<ol>
+<li><p>修改原my.cnf文件，重新知道一个data目录</p>
+</li>
+<li><p>启动mysql，进入mysql命令行，看是否启动成功</p>
+</li>
+<li><p>停止mysql，否则无法备份</p>
+</li>
+<li><p>在新的data目录下，备份文件</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">cp auto.cnf auto.cnf.bak
+cp ib_buffer_pool ib_buffer_pool.bak
+cp ibdata1 ibdata1.bak
+cp ib_logfile0 ib_logfile0.bak
+cp ib_logfile1 ib_logfile1.bak<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li><p>将需要恢复的目录和文件进行打包</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">tar -zcvf backup.tar.gz auto.cnf ib_buffer_pool ibdata1 ib_logfile0 ib_logfile1 [需要恢复的数据库目录]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
+<li><p>将压缩包导入进新的data目录，并解压</p>
+</li>
+<li><p>重新启动mysql，查看数据是否恢复</p>
+</li>
+<li><p>重新在新的mysql上分配用户和权限</p>
+</li>
+</ol>
 
             </div>
             <hr>
@@ -408,6 +498,8 @@
 
 
   
+    
+  
 
 
 
@@ -449,30 +541,6 @@
 
 
 
-
-
-  
-    <!-- Baidu Analytics -->
-    <script defer>
-      var _hmt = _hmt || [];
-      (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?12a3171756132afa5f5f7bc08ae8d6c2";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
 
 

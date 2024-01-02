@@ -16,12 +16,12 @@
   <meta name="author" content="ntu820">
   <meta name="keywords" content="">
   
-    <meta name="description" content="kubectl操作 批量操作12# 批量删除kube-system空间下状态为“驱逐”的podkubectl get pod -n kube-system|grep Evicted|awk &amp;#x27;&amp;#123;print$1&amp;#125;&amp;#x27;|xargs kubectl delete pod -n kube-system 批量操作说明，所有批量操作都可以采用此方案   使用命令查询出需要">
+    <meta name="description" content="kubectl操作 批量操作# 批量删除kube-system空间下状态为“驱逐”的pod kubectl get pod -n kube-system|grep Evicted|awk &#39;&amp;#123;print$1&amp;#125;&#39;|xargs kubectl delete pod -n kube-system 批量操作说明，所有批量操作都可以采用此方案   使用命令查询出需要批量操">
 <meta property="og:type" content="article">
 <meta property="og:title" content="各种运维处理">
 <meta property="og:url" content="http://example.com/2022/04/11/%E5%90%84%E7%A7%8D%E8%BF%90%E7%BB%B4%E5%A4%84%E7%90%86/index.html">
 <meta property="og:site_name" content="NTU820的小窝">
-<meta property="og:description" content="kubectl操作 批量操作12# 批量删除kube-system空间下状态为“驱逐”的podkubectl get pod -n kube-system|grep Evicted|awk &amp;#x27;&amp;#123;print$1&amp;#125;&amp;#x27;|xargs kubectl delete pod -n kube-system 批量操作说明，所有批量操作都可以采用此方案   使用命令查询出需要">
+<meta property="og:description" content="kubectl操作 批量操作# 批量删除kube-system空间下状态为“驱逐”的pod kubectl get pod -n kube-system|grep Evicted|awk &#39;&amp;#123;print$1&amp;#125;&#39;|xargs kubectl delete pod -n kube-system 批量操作说明，所有批量操作都可以采用此方案   使用命令查询出需要批量操">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/%E5%90%84%E7%A7%8D%E8%BF%90%E7%BB%B4%E5%A4%84%E7%90%86/%E8%BF%90%E7%BB%B4.png">
 <meta property="article:published_time" content="2022-04-11T02:19:24.000Z">
@@ -44,7 +44,15 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github-gist.min.css" />
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
     
   
 
@@ -69,7 +77,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -199,7 +207,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.1k 字
+      2.2k 字
     </span>
   
 
@@ -208,7 +216,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      18 分钟
+      19 分钟
     </span>
   
 
@@ -241,7 +249,8 @@
             
             <div class="markdown-body">
               <h3 id="kubectl操作"><a href="#kubectl操作" class="headerlink" title="kubectl操作"></a>kubectl操作</h3><ol>
-<li>批量操作<figure class="highlight vim"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs vim"># 批量删除kube-<span class="hljs-built_in">system</span>空间下状态为“驱逐”的pod<br>kubectl <span class="hljs-built_in">get</span> pod -n kube-<span class="hljs-built_in">system</span>|<span class="hljs-keyword">grep</span> Evicted|awk <span class="hljs-string">&#x27;&#123;print$1&#125;&#x27;</span>|xargs kubectl <span class="hljs-keyword">delete</span> pod -n kube-<span class="hljs-built_in">system</span><br></code></pre></td></tr></table></figure>
+<li>批量操作<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none"># 批量删除kube-system空间下状态为“驱逐”的pod
+kubectl get pod -n kube-system|grep Evicted|awk &#39;&#123;print$1&#125;&#39;|xargs kubectl delete pod -n kube-system<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
 批量操作说明，所有批量操作都可以采用此方案<br></li>
 </ol>
 <ul>
@@ -250,14 +259,30 @@
 <li>使用 <code>xargs</code> 进行命令的拼接</li>
 </ul>
 <ol start="2">
-<li>产生集群管理员的密钥<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">adm_account</span>=<span class="hljs-string">&quot;k8s-dash-admin&quot;</span><br><br><span class="hljs-comment"># 产生sa</span><br>kubectl create serviceaccount <span class="hljs-variable">$&#123;adm_account&#125;</span> -n kube-system<br><br><span class="hljs-comment"># 产生集群角色绑定</span><br>kubectl create clusterrolebinding <span class="hljs-variable">$&#123;adm_account&#125;</span> <span class="hljs-attribute">--clusterrole</span>=cluster-admin <span class="hljs-attribute">--serviceaccount</span>=kube-system:$&#123;adm_account&#125;<br><br><span class="hljs-comment"># 查看密钥</span><br>kubectl -n kube-system describe secrets $(kubectl -n kube-system <span class="hljs-builtin-name">get</span><span class="hljs-built_in"> secret </span>| grep <span class="hljs-variable">$&#123;adm_account&#125;</span> | awk <span class="hljs-string">&#x27;&#123;print $1&#125;&#x27;</span>)<br></code></pre></td></tr></table></figure></li>
+<li>产生集群管理员的密钥<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">adm_account&#x3D;&quot;k8s-dash-admin&quot;
+
+# 产生sa
+kubectl create serviceaccount $&#123;adm_account&#125; -n kube-system
+
+# 产生集群角色绑定
+kubectl create clusterrolebinding $&#123;adm_account&#125; --clusterrole&#x3D;cluster-admin --serviceaccount&#x3D;kube-system:$&#123;adm_account&#125;
+
+# 查看密钥
+kubectl -n kube-system describe secrets $(kubectl -n kube-system get secret | grep $&#123;adm_account&#125; | awk &#39;&#123;print $1&#125;&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 </ol>
 <h3 id="docker操作"><a href="#docker操作" class="headerlink" title="docker操作"></a>docker操作</h3><ol>
-<li>解决overlay2空间越来越大问题<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-comment"># 进入目录</span><br><span class="hljs-keyword">cd</span> <span class="hljs-keyword">cd</span> <span class="hljs-string">/var/lib/docker/overlay2</span><br><span class="hljs-comment"># 查看文件大小</span><br>du -h <span class="hljs-params">--max-depth=1</span><br><span class="hljs-comment"># 查看占用空间的pid，以及对应的容器名称</span><br>docker ps -q | xargs docker inspect <span class="hljs-params">--format</span> &#x27;&#123;&#123;<span class="hljs-string">.State.Pid</span>&#125;&#125;, &#123;&#123;<span class="hljs-string">.Name</span>&#125;&#125;, &#123;&#123;<span class="hljs-string">.GraphDriver.Data.WorkDir</span>&#125;&#125;&#x27; | grep <span class="hljs-string">&quot;[overlay2的文件名称]&quot;</span><br><span class="hljs-comment"># 解决方法（会删除对应的容器和对应镜像）</span><br>docker stop [容器名称] &amp;&amp; docker rm [容器名称] &amp;&amp; docker rmi [镜像id]<br></code></pre></td></tr></table></figure></li>
+<li>解决overlay2空间越来越大问题<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none"># 进入目录
+cd cd &#x2F;var&#x2F;lib&#x2F;docker&#x2F;overlay2
+# 查看文件大小
+du -h --max-depth&#x3D;1
+# 查看占用空间的pid，以及对应的容器名称
+docker ps -q | xargs docker inspect --format &#39;&#123;&#123;.State.Pid&#125;&#125;, &#123;&#123;.Name&#125;&#125;, &#123;&#123;.GraphDriver.Data.WorkDir&#125;&#125;&#39; | grep &quot;[overlay2的文件名称]&quot;
+# 解决方法（会删除对应的容器和对应镜像）
+docker stop [容器名称] &amp;&amp; docker rm [容器名称] &amp;&amp; docker rmi [镜像id]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 </ol>
 <h3 id="curl操作"><a href="#curl操作" class="headerlink" title="curl操作"></a>curl操作</h3><ol>
-<li>发送get请求<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">curl [-X <span class="hljs-builtin-name">GET</span>] <span class="hljs-string">&quot;http://127.0.0.1/api/ztgt-mdm/getMdmInfo/deptInfo&quot;</span><br></code></pre></td></tr></table></figure></li>
-<li>发送post请求<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">curl</span> -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> -H <span class="hljs-string">&quot;serviceCode: 1052125D01&quot;</span> -H <span class="hljs-string">&quot;sourceCode: 1052&quot;</span> -H <span class="hljs-string">&quot;requestId: fc7deb67-6168-4d70-9c22-cbdd16a99f28&quot;</span> -X POST -d &#x27;&#123;<span class="hljs-string">&quot;COMPID&quot;</span>:<span class="hljs-string">&quot;1339&quot;</span>,<span class="hljs-string">&quot;PROJECTNO&quot;</span>:<span class="hljs-string">&quot;NTGC20201015&quot;</span>,<span class="hljs-string">&quot;AMT&quot;</span>:<span class="hljs-number">0</span>,<span class="hljs-string">&quot;TYPE&quot;</span>:<span class="hljs-string">&quot;GC&quot;</span>,<span class="hljs-string">&quot;PROJECTNAME&quot;</span>:<span class="hljs-string">&quot;加油点（柴油）单元&quot;</span>&#125;&#x27; <span class="hljs-string">&quot;http://esb-pre.zt.net.cn:18080/esb/comm/api&quot;</span><br></code></pre></td></tr></table></figure></li>
+<li>发送get请求<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">curl [-X GET] &quot;http:&#x2F;&#x2F;127.0.0.1&#x2F;api&#x2F;ztgt-mdm&#x2F;getMdmInfo&#x2F;deptInfo&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
+<li>发送post请求<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">curl -H &quot;Content-Type: application&#x2F;json&quot; -H &quot;serviceCode: 1052125D01&quot; -H &quot;sourceCode: 1052&quot; -H &quot;requestId: fc7deb67-6168-4d70-9c22-cbdd16a99f28&quot; -X POST -d &#39;&#123;&quot;COMPID&quot;:&quot;1339&quot;,&quot;PROJECTNO&quot;:&quot;NTGC20201015&quot;,&quot;AMT&quot;:0,&quot;TYPE&quot;:&quot;GC&quot;,&quot;PROJECTNAME&quot;:&quot;加油点（柴油）单元&quot;&#125;&#39; &quot;http:&#x2F;&#x2F;esb-pre.zt.net.cn:18080&#x2F;esb&#x2F;comm&#x2F;api&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
 </ol>
 <h3 id="Linux防火墙操作"><a href="#Linux防火墙操作" class="headerlink" title="Linux防火墙操作"></a>Linux防火墙操作</h3><ol>
 <li><p>firewalld的基本使用</p>
@@ -516,6 +541,8 @@
 
 
   
+    
+  
 
 
 
@@ -557,30 +584,6 @@
 
 
 
-
-
-  
-    <!-- Baidu Analytics -->
-    <script defer>
-      var _hmt = _hmt || [];
-      (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?12a3171756132afa5f5f7bc08ae8d6c2";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
 
 

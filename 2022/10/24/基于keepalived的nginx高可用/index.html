@@ -1,0 +1,692 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ntu820">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 安装nginx 将实现编译好的nginx导入到服务器，nginx-1.22.1-sbin.tar # 解压 tar -zxvf nginx-1.22.1-sbin.tar -C &#x2F;usr&#x2F;local&#x2F;nginx 编辑配置文件，nginx.conf user  root; worker_processes  1;  #error_log  logs&#x2F;error.l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于keepalived的nginx高可用">
+<meta property="og:url" content="http://example.com/2022/10/24/%E5%9F%BA%E4%BA%8Ekeepalived%E7%9A%84nginx%E9%AB%98%E5%8F%AF%E7%94%A8/index.html">
+<meta property="og:site_name" content="NTU820的小窝">
+<meta property="og:description" content="1. 安装nginx 将实现编译好的nginx导入到服务器，nginx-1.22.1-sbin.tar # 解压 tar -zxvf nginx-1.22.1-sbin.tar -C &#x2F;usr&#x2F;local&#x2F;nginx 编辑配置文件，nginx.conf user  root; worker_processes  1;  #error_log  logs&#x2F;error.l">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E5%9F%BA%E4%BA%8Ekeepalived%E7%9A%84nginx%E9%AB%98%E5%8F%AF%E7%94%A8/kn.png">
+<meta property="article:published_time" content="2022-10-24T09:42:26.000Z">
+<meta property="article:modified_time" content="2023-09-14T07:52:28.496Z">
+<meta property="article:author" content="ntu820">
+<meta property="article:tag" content="keepalived">
+<meta property="article:tag" content="软负载">
+<meta property="article:tag" content="高可用">
+<meta property="article:tag" content="nginx">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/%E5%9F%BA%E4%BA%8Ekeepalived%E7%9A%84nginx%E9%AB%98%E5%8F%AF%E7%94%A8/kn.png">
+  
+  
+  <title>基于keepalived的nginx高可用 - NTU820的小窝</title>
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>NTU820的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="基于keepalived的nginx高可用">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-10-24 17:42" pubdate>
+        2022年10月24日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      44 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">基于keepalived的nginx高可用</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1-安装nginx"><a href="#1-安装nginx" class="headerlink" title="1. 安装nginx"></a>1. 安装nginx</h2><ol>
+<li><p>将实现编译好的nginx导入到服务器，<code>nginx-1.22.1-sbin.tar</code></p>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 解压
+tar -zxvf nginx-1.22.1-sbin.tar -C &#x2F;usr&#x2F;local&#x2F;nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
+<li><p>编辑配置文件，<code>nginx.conf</code></p>
+<div class="code-wrapper"><pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">user</span>  root</span><span class="token punctuation">;</span>
+<span class="token directive"><span class="token keyword">worker_processes</span>  <span class="token number">1</span></span><span class="token punctuation">;</span>
+
+<span class="token comment">#error_log  logs/error.log;</span>
+<span class="token comment">#error_log  logs/error.log  notice;</span>
+<span class="token comment">#error_log  logs/error.log  info;</span>
+
+<span class="token comment">#pid        logs/nginx.pid;</span>
+
+
+<span class="token directive"><span class="token keyword">events</span></span> <span class="token punctuation">&#123;</span>
+    <span class="token directive"><span class="token keyword">worker_connections</span>  <span class="token number">1024</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+
+<span class="token directive"><span class="token keyword">http</span></span> <span class="token punctuation">&#123;</span>
+    <span class="token directive"><span class="token keyword">include</span>       mime.types</span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">default_type</span>  application/octet-stream</span><span class="token punctuation">;</span>
+
+    <span class="token directive"><span class="token keyword">log_format</span>  main  <span class="token string">'<span class="token variable">$remote_addr</span> - <span class="token variable">$remote_user</span> [<span class="token variable">$time_local]</span> "<span class="token variable">$request</span>" '</span>
+                      <span class="token string">'<span class="token variable">$status</span> <span class="token variable">$body_bytes_sent</span> "<span class="token variable">$http_referer</span>" '</span>
+                      <span class="token string">'"<span class="token variable">$http_user_agent</span>" "<span class="token variable">$http_x_forwarded_for</span>"'</span></span><span class="token punctuation">;</span>
+
+    <span class="token comment">#access_log  logs/access.log  main;</span>
+
+    <span class="token directive"><span class="token keyword">sendfile</span>        <span class="token boolean">on</span></span><span class="token punctuation">;</span>
+    <span class="token comment">#tcp_nopush     on;</span>
+
+    <span class="token comment">#keepalive_timeout  0;</span>
+    <span class="token directive"><span class="token keyword">keepalive_timeout</span>  <span class="token number">65</span></span><span class="token punctuation">;</span>
+
+    <span class="token comment">#gzip  on;</span>
+
+    <span class="token directive"><span class="token keyword">server</span></span> <span class="token punctuation">&#123;</span>
+        <span class="token directive"><span class="token keyword">listen</span>       <span class="token number">80</span></span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">server_name</span>  localhost</span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">root</span>         /usr/local/nginx/html</span><span class="token punctuation">;</span>
+
+        <span class="token comment">#charset koi8-r;</span>
+
+        <span class="token comment">#从系统时间中正则匹配出年月日</span>
+        <span class="token directive"><span class="token keyword">if</span> (<span class="token variable">$time_iso8601</span> ~ <span class="token string">"^(\d&#123;4&#125;)-(\d&#123;2&#125;)-(\d&#123;2&#125;)"</span>)</span> <span class="token punctuation">&#123;</span>
+            <span class="token directive"><span class="token keyword">set</span> <span class="token variable">$date</span> <span class="token variable">$1</span><span class="token variable">$2</span><span class="token variable">$3</span></span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token directive"><span class="token keyword">access_log</span>  logs/<span class="token variable">$date</span>.host.access.log  main</span><span class="token punctuation">;</span>
+
+        <span class="token directive"><span class="token keyword">location</span> /</span> <span class="token punctuation">&#123;</span>
+            <span class="token directive"><span class="token keyword">try_files</span> <span class="token variable">$uri</span> <span class="token variable">$uri</span>/ /index.html</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token directive"><span class="token keyword">location</span> ^~ /oauth/redirect</span> <span class="token punctuation">&#123;</span>
+           <span class="token directive"><span class="token keyword">rewrite</span> ^(.*)$ /index.html break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token directive"><span class="token keyword">if</span> (<span class="token variable">$request_uri</span> ~ <span class="token string">"/actuator"</span>)</span> <span class="token punctuation">&#123;</span>
+           <span class="token directive"><span class="token keyword">return</span> <span class="token number">403</span></span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token directive"><span class="token keyword">location</span> ^~ /api</span> <span class="token punctuation">&#123;</span>
+           <span class="token directive"><span class="token keyword">proxy_set_header</span> Host <span class="token variable">$host</span></span><span class="token punctuation">;</span>
+           <span class="token directive"><span class="token keyword">proxy_set_header</span> X-Real-IP <span class="token variable">$remote_addr</span></span><span class="token punctuation">;</span>
+           <span class="token directive"><span class="token keyword">proxy_set_header</span> X-Forwarded-For <span class="token variable">$proxy_add_x_forwarded_for</span></span><span class="token punctuation">;</span>
+           <span class="token directive"><span class="token keyword">proxy_buffering</span> <span class="token boolean">off</span></span><span class="token punctuation">;</span>
+           <span class="token directive"><span class="token keyword">proxy_send_timeout</span> <span class="token number">300</span></span><span class="token punctuation">;</span>
+           <span class="token directive"><span class="token keyword">proxy_read_timeout</span> <span class="token number">300</span></span><span class="token punctuation">;</span>
+           <span class="token directive"><span class="token keyword">proxy_connect_timeout</span> <span class="token number">300</span></span><span class="token punctuation">;</span>
+           <span class="token directive"><span class="token keyword">rewrite</span> ^/api/(.*)$ /<span class="token variable">$1</span> break</span><span class="token punctuation">;</span>
+           <span class="token directive"><span class="token keyword">proxy_pass</span> http://192.168.186.24:30776</span><span class="token punctuation">;</span> <span class="token comment"># 反代地址</span>
+        <span class="token punctuation">&#125;</span>
+
+    <span class="token punctuation">&#125;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li><p>创建nginx软链接，<code>ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/nginx</code></p>
+</li>
+<li><p>开机启动nginx</p>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">echo &quot;&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin&#x2F;nginx&quot; &gt;&gt; &#x2F;etc&#x2F;rc.d&#x2F;rc.local
+
+chmod a+x &#x2F;etc&#x2F;rc.d&#x2F;rc.local
+
+# 测试，查看nginx是否启动
+reboot
+ps -ef|grep nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li><p>启动nginx</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
+</ol>
+<h2 id="2-安装keepalived"><a href="#2-安装keepalived" class="headerlink" title="2. 安装keepalived"></a>2. 安装keepalived</h2><ol>
+<li><p>将实现编译好的keepalived导入到服务器，<code>keepalived-2.2.7-sbin.tar</code></p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 解压
+tar -zxvf keepalived-2.2.7-sbin.tar -C &#x2F;usr&#x2F;local&#x2F;keepalived<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
+<li><p>如果使用我的安装包，进入README目录，运行run.sh脚本</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">#创建目录
+mkdir -p &#x2F;etc&#x2F;keepalived
+#拷贝配置文件到&#x2F;etc&#x2F;keepalived目录下
+cp &#x2F;usr&#x2F;local&#x2F;keepalived&#x2F;etc&#x2F;keepalived&#x2F;keepalived.conf.sample &#x2F;etc&#x2F;keepalived&#x2F;keepalived.conf
+#复制keepalived脚本到&#x2F;etc&#x2F;init.d&#x2F; 目录(可忽略)
+cp .&#x2F;keepalived &#x2F;etc&#x2F;init.d&#x2F;
+#拷贝keepalived脚本到&#x2F;etc&#x2F;sysconfig&#x2F; 目录
+cp &#x2F;usr&#x2F;local&#x2F;keepalived&#x2F;etc&#x2F;sysconfig&#x2F;keepalived &#x2F;etc&#x2F;sysconfig&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li><p>设置开机启动，<code>chkconfig --add keepalived</code>，然后执行<code>chkconfig keepalived on</code></p>
+</li>
+<li><p>配置keepalived，<code>/etc/keepalived/keepalived.conf</code></p>
+<div class="code-wrapper"><pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token comment"># 主</span>
+<span class="token directive"><span class="token keyword">global_defs</span></span> <span class="token punctuation">&#123;</span>
+   router_id nginx01  <span class="token comment"># 运行 keepalived 服务器的标识，在一个网络内应该是唯一的</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token directive"><span class="token keyword">vrrp_script</span> chk_nginx</span> <span class="token punctuation">&#123;</span>
+   script "/etc/keepalived/chk_nginx.sh" <span class="token comment"># 检查nginx状态脚本路径</span>
+   interval 1  <span class="token comment"># 每1秒检测一次nginx的运行状态</span>
+   weight -2  <span class="token comment"># 失败一次，将自己的优先级-2</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token directive"><span class="token keyword">vrrp_instance</span> VI_1</span> <span class="token punctuation">&#123;</span> <span class="token comment">#vrrp 实例定义部分</span>
+    <span class="token directive"><span class="token keyword">state</span> MASTER  <span class="token comment"># 设置 lvs 的状态，MASTER 和 BACKUP 两种，必须大写</span>
+    interface ens33 <span class="token comment"># 设置对外服务的接口，绑定网卡</span>
+    virtual_router_id <span class="token number">200</span> <span class="token comment"># 设置虚拟路由标示，这个标示是一个数字，同一个 vrrp 实例使用唯一标示</span>
+    priority <span class="token number">100</span> <span class="token comment"># 定义优先级，数字越大优先级越高，在一个 vrrp——instance 下，master 的优先级必须大于 backup</span>
+    advert_int <span class="token number">1</span> <span class="token comment"># 设定 master 与 backup 负载均衡器之间同步检查的时间间隔，单位是秒</span>
+    authentication</span> <span class="token punctuation">&#123;</span>  <span class="token comment"># 设置验证类型和密码</span>
+        auth_type PASS
+        auth_pass 1111  <span class="token comment"># 验证密码，同一个 vrrp_instance 下 MASTER 和 BACKUP 密码必须相同</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token directive"><span class="token keyword">virtual_ipaddress</span></span> <span class="token punctuation">&#123;</span>  <span class="token comment"># 设置虚拟 ip 地址，可以设置多个，每行一个</span>
+        172.11.219.199/24
+   <span class="token punctuation">&#125;</span>
+
+   <span class="token directive"><span class="token keyword">cast_src_ip</span> 172.11.219.200
+   unicast_peer</span> <span class="token punctuation">&#123;</span>
+      172.11.219.201
+   <span class="token punctuation">&#125;</span>
+
+   <span class="token directive"><span class="token keyword">track_script</span></span> <span class="token punctuation">&#123;</span>
+        chk_nginx
+   <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment"># 从</span>
+<span class="token directive"><span class="token keyword">global_defs</span></span> <span class="token punctuation">&#123;</span>
+   router_id nginx02
+<span class="token punctuation">&#125;</span>
+
+<span class="token directive"><span class="token keyword">vrrp_script</span> chk_nginx</span> <span class="token punctuation">&#123;</span>
+   script "/etc/keepalived/chk_nginx.sh" <span class="token comment">##检查nginx状态脚本路径</span>
+   interval 1  <span class="token comment">##每1秒检测一次nginx的运行状态</span>
+   weight -2  <span class="token comment">##失败一次，将自己的优先级-2</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token directive"><span class="token keyword">vrrp_instance</span> VI_1</span> <span class="token punctuation">&#123;</span>
+    <span class="token directive"><span class="token keyword">state</span> BACKUP
+    interface ens33
+    virtual_router_id <span class="token number">200</span>
+    priority <span class="token number">80</span>
+    advert_int <span class="token number">1</span>
+    authentication</span> <span class="token punctuation">&#123;</span>
+        auth_type PASS
+        auth_pass 1111
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token directive"><span class="token keyword">virtual_ipaddress</span></span> <span class="token punctuation">&#123;</span>
+        172.11.219.199/24
+   <span class="token punctuation">&#125;</span>
+
+   <span class="token directive"><span class="token keyword">cast_src_ip</span> 172.11.219.201
+   unicast_peer</span> <span class="token punctuation">&#123;</span>
+      172.11.219.200
+   <span class="token punctuation">&#125;</span>
+
+   <span class="token directive"><span class="token keyword">track_script</span></span> <span class="token punctuation">&#123;</span>
+        chk_nginx
+   <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>nginx检测脚本，赋予可执行权限，<code>chmod 756 chk_nginx.sh</code></p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">#!&#x2F;bin&#x2F;bash
+d&#x3D;&#96;date --date today +%Y-%m-%d_%H:%M:%S&#96;
+run1&#x3D;&#96;ps -C nginx --no-heading|wc -l&#96;
+if [ $run1 -eq &quot;0&quot; ]; then
+        echo &quot;$d nginx down,nginx will restart for once&quot; &gt;&gt; &#x2F;var&#x2F;log&#x2F;chk_nginx.log
+        systemctl start nginx.service
+        sleep 2
+        run2&#x3D;&#96;ps -C nginx --no-heading|wc -l&#96;
+        if [ $run2 -eq &quot;0&quot;  ]; then
+                echo &quot;$d nginx down,keepalived will stop&quot; &gt;&gt; &#x2F;var&#x2F;log&#x2F;chk_nginx.log
+                systemctl stop keepalived.service
+        fi
+fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+</ol>
+<h2 id="3-测试主备"><a href="#3-测试主备" class="headerlink" title="3. 测试主备"></a>3. 测试主备</h2><ol>
+<li><p>查看VIP是否在主服务器上</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh"># 在主服务上运行如下命令
+# 如果发现如下地址，则表明程序正常
+[root@nginx1 README]# ip a
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link&#x2F;loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1&#x2F;8 scope host lo
+       valid_lft forever preferred_lft forever
+2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link&#x2F;ether 00:0c:29:70:b4:11 brd ff:ff:ff:ff:ff:ff
+    inet 172.11.219.200&#x2F;24 brd 172.11.219.255 scope global noprefixroute ens33
+       valid_lft forever preferred_lft forever
+    inet 172.11.219.199&#x2F;24 scope global secondary ens33
+       valid_lft forever preferred_lft forever
+3: docker0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN group default
+    link&#x2F;ether 02:42:6c:0f:45:df brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.1&#x2F;16 brd 172.17.255.255 scope global docker0
+       valid_lft forever preferred_lft forever<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li><p>模拟nginx异常，手动关闭nginx。<code>nginx -s quit</code>，发现nginx已经下线。</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[root@nginx1 README]# nginx -s quit
+[root@nginx1 README]# ps -ef |grep nginx
+root      32130  20859  0 08:18 pts&#x2F;0    00:00:00 grep --color&#x3D;auto nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></li>
+<li><p>此时再次访问，<a target="_blank" rel="noopener" href="http://172.11.219.199,/">http://172.11.219.199，</a> 发现其仍然可用。这里将主nginx和从nginx配置为不同的页面来区分。</p>
+<p><img src="/img/%E5%9F%BA%E4%BA%8Ekeepalived%E7%9A%84nginx%E9%AB%98%E5%8F%AF%E7%94%A8/nginx2.jpg" srcset="/img/loading.gif" lazyload alt="nginx2"></p>
+</li>
+<li><p>将主nginx再次启动，然后再次输入上述网址，观察页面情况。</p>
+<div class="code-wrapper"><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">nginx
+keepalived<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+
+<p><img src="/img/%E5%9F%BA%E4%BA%8Ekeepalived%E7%9A%84nginx%E9%AB%98%E5%8F%AF%E7%94%A8/nginx1.jpg" srcset="/img/loading.gif" lazyload alt="nginx1"></p>
+</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/keepalived/">keepalived</a>
+                    
+                      <a class="hover-with-bg" href="/categories/keepalived/nginx/">nginx</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/keepalived/">keepalived</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%BD%AF%E8%B4%9F%E8%BD%BD/">软负载</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%AB%98%E5%8F%AF%E7%94%A8/">高可用</a>
+                    
+                      <a class="hover-with-bg" href="/tags/nginx/">nginx</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/11/11/mysql%E4%B8%BB%E4%B8%BB%E6%90%AD%E5%BB%BA/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">mysql主主搭建</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/13/%E4%BD%BF%E7%94%A8kubekey%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%8D%95%E6%9C%BAk8s%E9%9B%86%E7%BE%A4/">
+                        <span class="hidden-mobile">使用kubekey快速搭建单机k8s集群</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.3.1/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
