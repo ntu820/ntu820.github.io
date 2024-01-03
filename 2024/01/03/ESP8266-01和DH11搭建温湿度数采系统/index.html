@@ -1,0 +1,653 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ntu820">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一：Arduino、ESP01、DH11 Arduino，是一款便捷灵活、方便上手的开源电子原型平台。它构建于开放原始码simple I&#x2F;O介面版，并且具有使用类似Java、C语言的Processing&#x2F;Wiring开发环境。主要包含两个部分：硬件部分是可以用来做电路连接的Arduino电路板；另外一个则是Arduino IDE，计算机中的程序开发环境。你只要在IDE中编写程序代码，将程序上传到A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Arduino硬件篇一：ESP-01和DH11搭建温湿度数采">
+<meta property="og:url" content="http://example.com/2024/01/03/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="NTU820的小窝">
+<meta property="og:description" content="一：Arduino、ESP01、DH11 Arduino，是一款便捷灵活、方便上手的开源电子原型平台。它构建于开放原始码simple I&#x2F;O介面版，并且具有使用类似Java、C语言的Processing&#x2F;Wiring开发环境。主要包含两个部分：硬件部分是可以用来做电路连接的Arduino电路板；另外一个则是Arduino IDE，计算机中的程序开发环境。你只要在IDE中编写程序代码，将程序上传到A">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/Arduino-Logo.jpg">
+<meta property="article:published_time" content="2024-01-03T09:18:50.000Z">
+<meta property="article:modified_time" content="2024-01-03T11:00:43.321Z">
+<meta property="article:author" content="ntu820">
+<meta property="article:tag" content="ESP-01">
+<meta property="article:tag" content="DH11">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/Arduino-Logo.jpg">
+  
+  
+  <title>Arduino硬件篇一：ESP-01和DH11搭建温湿度数采 - NTU820的小窝</title>
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>NTU820的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Arduino硬件篇一：ESP-01和DH11搭建温湿度数采">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2024-01-03 17:18" pubdate>
+        2024年1月3日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.5k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Arduino硬件篇一：ESP-01和DH11搭建温湿度数采</h1>
+            
+            <div class="markdown-body">
+              <h3 id="一：Arduino、ESP01、DH11"><a href="#一：Arduino、ESP01、DH11" class="headerlink" title="一：Arduino、ESP01、DH11"></a>一：Arduino、ESP01、DH11</h3><ol>
+<li><p>Arduino，是一款便捷灵活、方便上手的开源电子原型平台。它构建于开放原始码simple I/O介面版，并且具有使用类似Java、C语言的Processing/Wiring开发环境。主要包含两个部分：硬件部分是可以用来做电路连接的Arduino电路板；另外一个则是Arduino IDE，计算机中的程序开发环境。你只要在IDE中编写程序代码，将程序上传到Arduino电路板后，程序便会告诉Arduino电路板要做些什么了。</p>
+</li>
+<li><p>ESP-01，是个比较常用的wifi模块，体积小，功能强大。</p>
+<p><img src="/img/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/esp01.jpg" srcset="/img/loading.gif" lazyload alt="esp-01"></p>
+<p>引脚图：</p>
+<p><img src="/img/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/esp01%E5%BC%95%E8%84%9A%E8%AF%B4%E6%98%8E.jpg" srcset="/img/loading.gif" lazyload alt="引脚图"></p>
+</li>
+<li><p>DH11，是一款有已校准数字信号输出的温湿度传感器。其精度湿度±5%RH， 温度±2℃，量程湿度5~ 95%RH， 温度-20~+60℃。</p>
+<p><img src="/img/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/dh11.jpg" srcset="/img/loading.gif" lazyload alt="DH11"></p>
+</li>
+</ol>
+<h3 id="二：Arduino配置ESP8266开发板，进行开发"><a href="#二：Arduino配置ESP8266开发板，进行开发" class="headerlink" title="二：Arduino配置ESP8266开发板，进行开发"></a>二：Arduino配置ESP8266开发板，进行开发</h3><ol>
+<li><p>增加开发板支持</p>
+<p><img src="/img/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/%E5%BC%80%E5%8F%91%E6%9D%BF.png" srcset="/img/loading.gif" lazyload alt="开发板"></p>
+</li>
+<li><p>安装开发板</p>
+<p><img src="/img/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/%E5%AE%89%E8%A3%850.png" srcset="/img/loading.gif" lazyload alt="安装1"></p>
+<p><img src="/img/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/%E5%AE%89%E8%A3%851.png" srcset="/img/loading.gif" lazyload alt="安装2"></p>
+<p><img src="/img/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/%E5%AE%89%E8%A3%852.png" srcset="/img/loading.gif" lazyload alt="安装3"></p>
+</li>
+<li><p>硬件连接</p>
+<p>使用USB转TTL设备进行烧写，接线方式如下：</p>
+<table>
+<thead>
+<tr>
+<th>ESP-01</th>
+<th>USB-TTL</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VCC</td>
+<td>3.3V</td>
+<td></td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+<td></td>
+</tr>
+<tr>
+<td>RX</td>
+<td>TX</td>
+<td></td>
+</tr>
+<tr>
+<td>TX</td>
+<td>RX</td>
+<td></td>
+</tr>
+<tr>
+<td>CH_PD</td>
+<td>3.3V</td>
+<td>芯片使能，高电平使能，低电平失能。<br>手册上说需要串联一个上拉电阻，但是实际直接接入3.3v也可以进行烧录</td>
+</tr>
+<tr>
+<td>GPIO0</td>
+<td>GND</td>
+<td>低电平启动，会进入烧写模式</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>软件编码</p>
+<div class="code-wrapper"><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;ESP8266WiFi.h&gt;
+#include &lt;ESP8266HTTPClient.h&gt;
+#include &lt;DHT.h&gt;
+#include &lt;UUID.h&gt;
+
+&#x2F;&#x2F; 替换为您的 WiFi 信息
+const char* ssid &#x3D; &quot;wifi名称&quot;;
+const char* password &#x3D; &quot;wifi密码&quot;;
+
+&#x2F;&#x2F; 替换为您的后端 API 地址和端点
+const char* api_endpoint &#x3D; &quot;XXXX&quot;;
+
+&#x2F;&#x2F; 设置 DHT11 的引脚
+#define DHTPIN 2
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+
+UUID uuid;
+
+void setup() &#123;
+  Serial.begin(115200);
+
+  &#x2F;&#x2F; 连接到 Wi-Fi
+  Serial.println(&quot;Connecting to WiFi...&quot;);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() !&#x3D; WL_CONNECTED) &#123;
+    delay(1000);
+    Serial.println(&quot;Connecting to WiFi...&quot;);
+  &#125;
+  Serial.println(&quot;Connected to WiFi.&quot;);
+
+  &#x2F;&#x2F; 初始化 DHT11 传感器
+  Serial.println(&quot;Initializing DHT11 sensor...&quot;);
+  dht.begin();
+&#125;
+
+void loop() &#123;
+  if ((WiFi.status() &#x3D;&#x3D; WL_CONNECTED)) &#123;
+
+    &#x2F;&#x2F; 获取温湿度值
+    float temperature &#x3D; dht.readTemperature();
+    float humidity &#x3D; dht.readHumidity();
+
+    &#x2F;&#x2F; 如果读取失败，则退出本次循环
+    if (isnan(temperature) || isnan(humidity)) &#123;
+      delay(5000);
+      Serial.println(&quot;Failed to read from DHT11 sensor.&quot;);
+      return;
+    &#125;
+
+    &#x2F;&#x2F; 将温湿度值转换为字符串
+    &#x2F;&#x2F; String data &#x3D; &quot;temperature&#x3D;&quot; + String(temperature) + &quot;&amp;humidity&#x3D;&quot; + String(humidity);
+    &#x2F;&#x2F; Serial.println(data);
+
+    WiFiClient client;
+    HTTPClient http;
+
+    uuid.generate();
+    &#x2F;&#x2F; Serial.println(&quot;UUID:&quot; + String(uuid.toCharArray()));
+
+    Serial.print(&quot;[HTTP] begin...\n&quot;);
+
+    http.begin(client, api_endpoint);  &#x2F;&#x2F; HTTP，这里使用HTTP是因为项目有一个通讯网关，只能用HTTP。一般更好的实现方式是使用MQTT进行传输。
+    http.addHeader(&quot;Content-Type&quot;, &quot;application&#x2F;json&quot;); &#x2F;&#x2F; 设置一些头部信息
+    http.addHeader(&quot;requestId&quot;, String(uuid.toCharArray()));
+    http.addHeader(&quot;sourceCode&quot;, &quot;1004&quot;);
+    http.addHeader(&quot;serviceCode&quot;, &quot;1004109401&quot;);
+
+    Serial.print(&quot;[HTTP] POST...\n&quot;);
+    &#x2F;&#x2F; 拼接JSON数据
+    String postData &#x3D; &quot;&#123;\&quot;devCode\&quot;:\&quot;EQIP202304230001\&quot;,\&quot;authCode\&quot;:\&quot;70:C0:7B:EF:56:23\&quot;,\&quot;data\&quot;:&#123;\&quot;temperature\&quot;:&quot; + String(temperature) + &quot;,\&quot;humidity\&quot;:&quot; + String(humidity) + &quot;&#125;&#125;&quot;;
+	&#x2F;&#x2F; 发送POST请求
+    int httpCode &#x3D; http.POST(postData);
+
+    if (httpCode &gt; 0) &#123;
+      &#x2F;&#x2F; HTTP header has been send and Server response header has been handled
+      Serial.printf(&quot;[HTTP] POST... code: %d\n&quot;, httpCode);
+
+      &#x2F;&#x2F; file found at server
+      if (httpCode &#x3D;&#x3D; HTTP_CODE_OK) &#123;
+        const String&amp; payload &#x3D; http.getString();
+        Serial.println(&quot;received payload:\n&lt;&lt;&quot;);
+        Serial.println(payload);
+        Serial.println(&quot;&gt;&gt;&quot;);
+      &#125;
+    &#125; else &#123;
+      Serial.printf(&quot;[HTTP] POST... failed, error: %s\n&quot;, http.errorToString(httpCode).c_str());
+    &#125;
+    http.end();
+  &#125;
+
+  &#x2F;&#x2F; 等待一段时间再进行下一次读取
+  delay(10 * 60 * 1000);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li><p>程序烧录</p>
+<p>按照步骤3的接线，将USB转TTL插入电脑，选择对应的COM口，点击进行烧录。</p>
+</li>
+<li><p>连接DH11</p>
+<table>
+<thead>
+<tr>
+<th>ESP-01</th>
+<th>DH11</th>
+<th>电源模块</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VCC</td>
+<td>VCC</td>
+<td>3.3V</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>GPIO2</td>
+<td>DATA</td>
+<td></td>
+</tr>
+<tr>
+<td>CH_PD</td>
+<td></td>
+<td>3.3V</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>通电后，经过一段时间，发现数据上报成功。</p>
+<p><img src="/img/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/%E4%B8%8A%E6%8A%A5%E7%BB%93%E6%9E%9C.png" srcset="/img/loading.gif" lazyload alt="上报结果"></p>
+</li>
+</ol>
+<h3 id="三：后期优化"><a href="#三：后期优化" class="headerlink" title="三：后期优化"></a>三：后期优化</h3><ol>
+<li>手动输入wifi地址后，进行连接，不要写死在代码中；</li>
+<li>数据上报，可以采用MQTT方式；</li>
+<li>通过温湿度的改变，接入继电器，可以实现空调开关、灯光的开关。</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Arduino/">Arduino</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Arduino/%E7%A1%AC%E4%BB%B6/">硬件</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/ESP-01/">ESP-01</a>
+                    
+                      <a class="hover-with-bg" href="/tags/DH11/">DH11</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/31/docker-swarm%E5%88%9B%E5%BB%BA%E5%8F%8A%E4%BD%BF%E7%94%A8/">
+                        <span class="hidden-mobile">docker-swarm创建及使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.3.1/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
