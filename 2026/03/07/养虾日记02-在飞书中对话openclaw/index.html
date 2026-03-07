@@ -1,0 +1,812 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ntu820">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一：创建飞书企业自建应用 登陆开发者后台：开发者后台 - 飞书开放平台，创建企业自建应用  在弹出的创建窗口中，填写以下信息：    配置项 填写内容（后续都可以随意修改） 说明    应用名称 （内容随便写） 自定义名称   应用描述 （内容随便写） 简单描述用途   应用图标 可以暂时不传     填写完成后，点击 “创建” 按钮  应用创建成功后，会自动跳转到应用详情页   添加应用能力 在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="养虾日记02-飞书&amp;Openclaw">
+<meta property="og:url" content="http://example.com/2026/03/07/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B002-%E5%9C%A8%E9%A3%9E%E4%B9%A6%E4%B8%AD%E5%AF%B9%E8%AF%9Dopenclaw/index.html">
+<meta property="og:site_name" content="NTU820的小窝">
+<meta property="og:description" content="一：创建飞书企业自建应用 登陆开发者后台：开发者后台 - 飞书开放平台，创建企业自建应用  在弹出的创建窗口中，填写以下信息：    配置项 填写内容（后续都可以随意修改） 说明    应用名称 （内容随便写） 自定义名称   应用描述 （内容随便写） 简单描述用途   应用图标 可以暂时不传     填写完成后，点击 “创建” 按钮  应用创建成功后，会自动跳转到应用详情页   添加应用能力 在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/banner02.png">
+<meta property="article:published_time" content="2026-03-07T13:08:38.000Z">
+<meta property="article:modified_time" content="2026-03-07T13:58:25.157Z">
+<meta property="article:author" content="ntu820">
+<meta property="article:tag" content="openclaw">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/banner02.png">
+  
+  
+  
+  <title>养虾日记02-飞书&amp;Openclaw - NTU820的小窝</title>
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>NTU820的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="养虾日记02-飞书&amp;Openclaw"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-03-07 21:08" pubdate>
+          2026年3月7日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          730 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          7 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">养虾日记02-飞书&amp;Openclaw</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="一：创建飞书企业自建应用"><a href="#一：创建飞书企业自建应用" class="headerlink" title="一：创建飞书企业自建应用"></a>一：创建飞书企业自建应用</h3><ol>
+<li><p>登陆开发者后台：<a target="_blank" rel="noopener" href="https://open.feishu.cn/app?lang=zh-CN">开发者后台 - 飞书开放平台</a>，创建企业自建应用</p>
+</li>
+<li><p>在弹出的创建窗口中，填写以下信息：</p>
+<table>
+<thead>
+<tr>
+<th align="left">配置项</th>
+<th align="left">填写内容（后续都可以随意修改）</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">应用名称</td>
+<td align="left">（内容随便写）</td>
+<td align="left">自定义名称</td>
+</tr>
+<tr>
+<td align="left">应用描述</td>
+<td align="left">（内容随便写）</td>
+<td align="left">简单描述用途</td>
+</tr>
+<tr>
+<td align="left">应用图标</td>
+<td align="left">可以暂时不传</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>填写完成后，点击 <strong>“创建”</strong> 按钮</p>
+</li>
+<li><p>应用创建成功后，会自动跳转到应用详情页</p>
+<p><img src="/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/peizhi03.png" srcset="/img/loading.gif" lazyload alt="创建飞书应用"></p>
+</li>
+<li><p>添加应用能力</p>
+<p>在能力列表中，找到 <strong>“机器人”</strong> 能力卡片，点击卡片上的 <strong>“添加”</strong> 按钮</p>
+<p><img src="/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/peizhi04.png" srcset="/img/loading.gif" lazyload alt="添加机器人"></p>
+</li>
+<li><p>！！！最重要的一步，<strong>导入应用权限</strong></p>
+<p><img src="/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/peizhi05.png" srcset="/img/loading.gif" lazyload alt="权限"></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"scopes"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"tenant"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"contact:contact.base:readonly"</span><span class="token punctuation">,</span>
+      <span class="token string">"docx:document:readonly"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:chat:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:chat:update"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message.group_at_msg:readonly"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message.p2p_msg:readonly"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message.pins:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message.pins:write_only"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message.reactions:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message.reactions:write_only"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message:readonly"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message:recall"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message:send_as_bot"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message:send_multi_users"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message:send_sys_msg"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message:update"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:resource"</span><span class="token punctuation">,</span>
+      <span class="token string">"application:application:self_manage"</span><span class="token punctuation">,</span>
+      <span class="token string">"cardkit:card:write"</span><span class="token punctuation">,</span>
+      <span class="token string">"cardkit:card:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"aily:file:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"aily:file:write"</span><span class="token punctuation">,</span>
+      <span class="token string">"application:application.app_message_stats.overview:readonly"</span><span class="token punctuation">,</span>
+      <span class="token string">"application:bot.menu:write"</span><span class="token punctuation">,</span>
+      <span class="token string">"contact:user.employee_id:readonly"</span><span class="token punctuation">,</span>
+      <span class="token string">"corehr:file:download"</span><span class="token punctuation">,</span>
+      <span class="token string">"event:ip_list"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:chat.access_event.bot_p2p_chat:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:chat.members:bot_access"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"user"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"contact:user.employee_id:readonly"</span><span class="token punctuation">,</span>
+      <span class="token string">"offline_access"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:app:copy"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:field:create"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:field:delete"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:field:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:field:update"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:record:create"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:record:delete"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:record:retrieve"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:record:update"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:table:create"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:table:delete"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:table:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:table:update"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:view:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:view:write_only"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:app:create"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:app:update"</span><span class="token punctuation">,</span>
+      <span class="token string">"base:app:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"board:whiteboard:node:create"</span><span class="token punctuation">,</span>
+      <span class="token string">"board:whiteboard:node:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"calendar:calendar:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"calendar:calendar.event:create"</span><span class="token punctuation">,</span>
+      <span class="token string">"calendar:calendar.event:delete"</span><span class="token punctuation">,</span>
+      <span class="token string">"calendar:calendar.event:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"calendar:calendar.event:reply"</span><span class="token punctuation">,</span>
+      <span class="token string">"calendar:calendar.event:update"</span><span class="token punctuation">,</span>
+      <span class="token string">"calendar:calendar.free_busy:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"contact:contact.base:readonly"</span><span class="token punctuation">,</span>
+      <span class="token string">"contact:user.base:readonly"</span><span class="token punctuation">,</span>
+      <span class="token string">"contact:user:search"</span><span class="token punctuation">,</span>
+      <span class="token string">"docs:document.comment:create"</span><span class="token punctuation">,</span>
+      <span class="token string">"docs:document.comment:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"docs:document.comment:update"</span><span class="token punctuation">,</span>
+      <span class="token string">"docs:document.media:download"</span><span class="token punctuation">,</span>
+      <span class="token string">"docs:document:copy"</span><span class="token punctuation">,</span>
+      <span class="token string">"docx:document:create"</span><span class="token punctuation">,</span>
+      <span class="token string">"docx:document:readonly"</span><span class="token punctuation">,</span>
+      <span class="token string">"docx:document:write_only"</span><span class="token punctuation">,</span>
+      <span class="token string">"drive:drive.metadata:readonly"</span><span class="token punctuation">,</span>
+      <span class="token string">"drive:file:download"</span><span class="token punctuation">,</span>
+      <span class="token string">"drive:file:upload"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:chat.members:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:chat:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message.group_msg:get_as_user"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message.p2p_msg:get_as_user"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:message:readonly"</span><span class="token punctuation">,</span>
+      <span class="token string">"search:docs:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"search:message"</span><span class="token punctuation">,</span>
+      <span class="token string">"space:document:delete"</span><span class="token punctuation">,</span>
+      <span class="token string">"space:document:move"</span><span class="token punctuation">,</span>
+      <span class="token string">"space:document:retrieve"</span><span class="token punctuation">,</span>
+      <span class="token string">"task:comment:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"task:comment:write"</span><span class="token punctuation">,</span>
+      <span class="token string">"task:task:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"task:task:write"</span><span class="token punctuation">,</span>
+      <span class="token string">"task:task:writeonly"</span><span class="token punctuation">,</span>
+      <span class="token string">"task:tasklist:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"task:tasklist:write"</span><span class="token punctuation">,</span>
+      <span class="token string">"wiki:node:copy"</span><span class="token punctuation">,</span>
+      <span class="token string">"wiki:node:create"</span><span class="token punctuation">,</span>
+      <span class="token string">"wiki:node:move"</span><span class="token punctuation">,</span>
+      <span class="token string">"wiki:node:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"wiki:node:retrieve"</span><span class="token punctuation">,</span>
+      <span class="token string">"wiki:space:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"wiki:space:retrieve"</span><span class="token punctuation">,</span>
+      <span class="token string">"wiki:space:write_only"</span><span class="token punctuation">,</span>
+      <span class="token string">"aily:file:read"</span><span class="token punctuation">,</span>
+      <span class="token string">"aily:file:write"</span><span class="token punctuation">,</span>
+      <span class="token string">"im:chat.access_event.bot_p2p_chat:read"</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+<li><p>订阅事件与回调</p>
+<ol>
+<li><p>进入 <strong>事件配置 &gt; 订阅方式 &gt; 使用</strong> <strong>长链接 接受事件</strong> <strong>&gt; 保存</strong></p>
+<p><img src="/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/peizhi06.png" srcset="/img/loading.gif" lazyload alt="事件回调"></p>
+</li>
+<li><p>添加<strong>“接收消息”</strong>事件</p>
+</li>
+</ol>
+</li>
+<li><p>发布应用</p>
+<p><img src="/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/peizhi08.png" srcset="/img/loading.gif" lazyload alt="发布应用"></p>
+</li>
+</ol>
+<h3 id="二：安装飞书官方插件"><a href="#二：安装飞书官方插件" class="headerlink" title="二：安装飞书官方插件"></a>二：安装飞书官方插件</h3><blockquote>
+<p>书接上回《养虾日记01-安装openclaw》</p>
+</blockquote>
+<ol>
+<li><p>依次在终端中执行以下命令</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> config <span class="token builtin class-name">set</span> registry https://registry.npmjs.org 
+
+<span class="token function">curl</span> <span class="token parameter variable">-o</span> /tmp/feishu-openclaw-plugin-onboard-cli.tgz https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/195a94cb3d9a45d862d417313ff62c9c_gfW8JbxtTd.tgz
+
+<span class="token function">npm</span> <span class="token function">install</span> /tmp/feishu-openclaw-plugin-onboard-cli.tgz <span class="token parameter variable">-g</span> 
+
+<span class="token function">rm</span> /tmp/feishu-openclaw-plugin-onboard-cli.tgz <span class="token comment"># 可以不用删除</span>
+
+feishu-plugin-onboard <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+<li><p><strong>输入以上所有指令后才会看到结果，</strong>完成之后在最后需要填写我们刚刚获取的<code>APP ID</code>和<code>APP Secret</code></p>
+<p><img src="/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/peizhi10.png" srcset="/img/loading.gif" lazyload alt="输入APP ID和Secret"></p>
+</li>
+<li><p>如果遇到问题，可以使用以下命令可以查看问题</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">feishu-plugin-onboard doctor<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>运行<code>fix</code>进行自动修复</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">feishu-plugin-onboard doctor <span class="token parameter variable">--fix</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure></li>
+<li><p>验证是否安装成功</p>
+<p><img src="/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/peizhi11.png" srcset="/img/loading.gif" lazyload alt="控制台输出"></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openclaw plugins list<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/peizhi12.png" srcset="/img/loading.gif" lazyload alt="插件显示"></p>
+</li>
+<li><p><strong>切换为流式回复</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openclaw config <span class="token builtin class-name">set</span> channels.feishu.streaming <span class="token boolean">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/AI/%E9%A3%9E%E4%B9%A6/" class="category-chain-item">飞书</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/openclaw/" class="print-no-link">#openclaw</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/03/07/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B001-%E5%AE%89%E8%A3%85openclaw/" title="养虾日记01-最全本地部署openclaw指南">
+                        <span class="hidden-mobile">养虾日记01-最全本地部署openclaw指南</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script data-pjax src="https://registry.npmmirror.com/oh-my-live2d/latest/files"></script><script>const oml2d = OML2D.loadOml2d({libraryUrls:{"complete":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/complete.js","cubism2":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism2.js","cubism5":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism5.js"},mobileDisplay:true,models:[{"path":"https://fastly.jsdelivr.net/gh/auroraisok/CDN1@1.0/live2d/Murasame.model3.json","mobilePosition":[-10,23],"mobileScale":0.1,"mobileStageStyle":{"width":180,"height":166},"motionPreloadStrategy":"IDLE","position":[-10,35],"scale":0.15,"stageStyle":{"width":250,"height":250}},{"path":"https://fastly.jsdelivr.net/gh/auroraisok/CDN1@1.0/character/model0.json","scale":0.12,"position":[0,0],"stageStyle":{"width":250},"mobileScale":0.08,"mobilePosition":[0,0],"mobileStageStyle":{"width":180}},{"path":"https://fastly.jsdelivr.net/npm/live2d-widget-model-wanko@1.0.5/assets/wanko.model.json","scale":0.12,"position":[0,0],"mobileScale":0.08,"mobilePosition":[0,0],"mobileStageStyle":{"width":180},"stageStyle":{"width":250}}],parentElement:document.body,primaryColor:"var(--btn-bg)",sayHello:false,tips:{style: {"width":230,"height":120,"left":"calc(50% - 20px)","top":"-100px"},mobileStyle: {"width":180,"height":80,"left":"calc(50% - 30px)","top":"-100px"},idleTips:{interval:15000,message:function(){
+  return axios.get('https://v1.hitokoto.cn?c=i')
+    .then(function (response) {
+      return response.data.hitokoto ;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+}
+}}});</script><!-- hexo injector body_end end --></body>
+</html>

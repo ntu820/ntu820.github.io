@@ -1,0 +1,838 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ntu820">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="redis6 集群安装gcc升级安装redis6最主要的一点是要用GCC5以上，而CentOS6.9的GCC版本为4.8.x, 所以安装之前必须升级GCC。 yum -y install gcc tcl yum -y install centos-release-scl yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis6集群安装">
+<meta property="og:url" content="http://example.com/2022/01/29/redis6%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="NTU820的小窝">
+<meta property="og:description" content="redis6 集群安装gcc升级安装redis6最主要的一点是要用GCC5以上，而CentOS6.9的GCC版本为4.8.x, 所以安装之前必须升级GCC。 yum -y install gcc tcl yum -y install centos-release-scl yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/redis6%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/redis.jpg">
+<meta property="article:published_time" content="2022-01-29T08:09:33.000Z">
+<meta property="article:modified_time" content="2025-11-10T06:30:53.455Z">
+<meta property="article:author" content="ntu820">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/redis6%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/redis.jpg">
+  
+  
+  
+  <title>redis6集群安装 - NTU820的小窝</title>
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>NTU820的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="redis6集群安装"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-01-29 16:09" pubdate>
+          2022年1月29日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">redis6集群安装</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="redis6-集群安装"><a href="#redis6-集群安装" class="headerlink" title="redis6 集群安装"></a>redis6 集群安装</h2><h3 id="gcc升级"><a href="#gcc升级" class="headerlink" title="gcc升级"></a>gcc升级</h3><p>安装redis6最主要的一点是要用GCC5以上，而CentOS6.9的GCC版本为4.8.x, 所以安装之前必须升级GCC。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token parameter variable">-y</span> <span class="token function">install</span> gcc tcl
+yum <span class="token parameter variable">-y</span> <span class="token function">install</span> centos-release-scl
+yum <span class="token parameter variable">-y</span> <span class="token function">install</span> devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>启用gcc</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">"source /opt/rh/devtoolset-9/enable"</span> <span class="token operator">>></span> /etc/profile
+<span class="token builtin class-name">source</span> /etc/profile<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="下载、安装"><a href="#下载、安装" class="headerlink" title="下载、安装"></a>下载、安装</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /opt
+<span class="token function">wget</span> https://download.redis.io/releases/redis-6.2.6.tar.gz
+<span class="token function">tar</span> <span class="token parameter variable">-xvf</span> redis-6.2.6.tar.gz
+<span class="token builtin class-name">cd</span> redis-6.2.6
+<span class="token function">make</span> <span class="token assign-left variable">MALLOC</span><span class="token operator">=</span>libc
+<span class="token function">make</span> <span class="token function">install</span> <span class="token assign-left variable">PREFIX</span><span class="token operator">=</span>/usr/local/redis<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /usr/local/redis/run
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /usr/local/redis/log
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /usr/local/redis/data/7000
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /usr/local/redis/conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>设置redis配置文件</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> /opt/redis-6.0.9/redis.conf /usr/local/redis/conf/redis_7000.conf
+<span class="token function">vi</span> /usr/local/redis/conf/redis_7000.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>文件配置内容</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">bind</span> <span class="token number">192.168</span>.146.199   <span class="token comment">#添加本机的ip</span>
+port <span class="token number">7000</span>  <span class="token comment">#端口　　</span>
+pidfile /usr/local/redis/run/redis_7000.pid   <span class="token comment">#pid存储目录</span>
+logfile /usr/local/redis/log/redis_7000.log   <span class="token comment">#日志存储目录</span>
+<span class="token function">dir</span> /usr/local/redis/data/7000                <span class="token comment">#数据存储目录，目录要提前创建好</span>
+cluster-enabled <span class="token function">yes</span>  <span class="token comment">#开启集群</span>
+cluster-config-file nodes-7000.conf   <span class="token comment">#集群节点配置文件，这个文件是不能手动编辑的。确保每一个集群节点的配置文件不通</span>
+cluster-node-timeout <span class="token number">15000</span>   <span class="token comment">#集群节点的超时时间，单位：ms，超时后集群会认为该节点失败</span>
+appendonly <span class="token function">yes</span>  <span class="token comment">#持久化</span>
+daemonize <span class="token function">yes</span>   <span class="token comment">#守护进程</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="建立不通的端口实例"><a href="#建立不通的端口实例" class="headerlink" title="建立不通的端口实例"></a>建立不通的端口实例</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> /usr/local/redis/conf/redis_7000.conf /usr/local/redis/conf/redis_7001.conf
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /usr/local/redis/data/7001
+<span class="token function">vi</span> /usr/local/redis/conf/redis_7001.conf <span class="token comment"># 配置文件和上述一样，只是端口不同</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="制作启动文件"><a href="#制作启动文件" class="headerlink" title="制作启动文件"></a>制作启动文件</h3><p>启动脚本</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> cluster_start.sh
+./redis-server <span class="token punctuation">..</span>/conf/redis_7000.conf
+./redis-server <span class="token punctuation">..</span>/conf/redis_7001.conf
+<span class="token function">chmod</span> +x cluster_start.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>关闭脚本</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> cluster_shutdown.sh
+pgrep redis-server <span class="token operator">|</span> <span class="token function">xargs</span> <span class="token parameter variable">-exec</span> <span class="token function">kill</span> <span class="token parameter variable">-9</span>
+<span class="token function">chmod</span> +x cluster_shutdown.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="创建集群"><a href="#创建集群" class="headerlink" title="创建集群"></a>创建集群</h3><p>建立集群前需先启动各个节点的redis服务，并在其中一个redis服务器中执行以下指令建立集群。在5.0之后，可以直接使用redis-cli直接创建集群。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">redis-cli <span class="token parameter variable">--cluster</span> create <span class="token number">192.168</span>.146.199:7000 <span class="token number">192.168</span>.146.200:7000 <span class="token number">192.168</span>.146.201:7000 <span class="token number">192.168</span>.146.199:7001 <span class="token number">192.168</span>.146.200:7001 <span class="token number">192.168</span>.146.201:7001 --cluster-replicas <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>–cluster-replicas 1 参数表示希望每个主服务器都有一个从服务器，这里则代表3主3从，前3个代表3个master，后3个代表3个slave。</p>
+<p>通过该方式创建的带有从节点的机器不能够自己手动指定主节点，redis集群会尽量把主从服务器分配在不同机器上。</p>
+<h3 id="查看集群状态"><a href="#查看集群状态" class="headerlink" title="查看集群状态"></a>查看集群状态</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">redis-cli <span class="token parameter variable">-c</span> <span class="token parameter variable">-h</span> <span class="token number">192.168</span>.146.199 <span class="token parameter variable">-p</span> <span class="token number">7000</span> cluster info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+
+
+<hr>
+<h3 id="运维"><a href="#运维" class="headerlink" title="运维"></a>运维</h3><h4 id="1-一段时间-Redis-Connection-reset-by-peer-问题"><a href="#1-一段时间-Redis-Connection-reset-by-peer-问题" class="headerlink" title="1. 一段时间 Redis Connection reset by peer 问题"></a>1. 一段时间 Redis Connection reset by peer 问题</h4><p>生产环境线，登录系统，第一次出现redis 连接重置问题，需要刷新页面才能连接redis。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token number">2024</span><span class="token operator">-</span><span class="token number">04</span><span class="token operator">-</span><span class="token number">18</span> <span class="token number">09</span><span class="token operator">:</span><span class="token number">11</span><span class="token operator">:</span><span class="token number">34.754</span> <span class="token constant">ERROR</span> <span class="token number">1</span> <span class="token operator">--</span><span class="token operator">-</span> <span class="token punctuation">[</span> <span class="token constant">XNIO</span><span class="token operator">-</span><span class="token number">1</span> task<span class="token operator">-</span><span class="token number">40</span><span class="token punctuation">]</span> <span class="token class-name"><span class="token namespace">o<span class="token punctuation">.</span>s<span class="token punctuation">.</span>c<span class="token punctuation">.</span>l<span class="token punctuation">.</span>e<span class="token punctuation">.</span></span>BladeRestExceptionTranslator</span>   <span class="token operator">:</span> 服务器异常
+
+<span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span></span>RedisSystemException</span><span class="token operator">:</span> <span class="token class-name">Redis</span> exception<span class="token punctuation">;</span> nested exception is <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>lettuce<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>RedisException</span><span class="token operator">:</span> <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span>IOException</span><span class="token operator">:</span> <span class="token class-name">Connection</span> reset by peer
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>connection<span class="token punctuation">.</span>lettuce<span class="token punctuation">.</span></span>LettuceExceptionConverter</span><span class="token punctuation">.</span><span class="token function">convert</span><span class="token punctuation">(</span><span class="token class-name">LettuceExceptionConverter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">74</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>connection<span class="token punctuation">.</span>lettuce<span class="token punctuation">.</span></span>LettuceExceptionConverter</span><span class="token punctuation">.</span><span class="token function">convert</span><span class="token punctuation">(</span><span class="token class-name">LettuceExceptionConverter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">41</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span></span>PassThroughExceptionTranslationStrategy</span><span class="token punctuation">.</span><span class="token function">translate</span><span class="token punctuation">(</span><span class="token class-name">PassThroughExceptionTranslationStrategy</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">44</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span></span>FallbackExceptionTranslationStrategy</span><span class="token punctuation">.</span><span class="token function">translate</span><span class="token punctuation">(</span><span class="token class-name">FallbackExceptionTranslationStrategy</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">42</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>connection<span class="token punctuation">.</span>lettuce<span class="token punctuation">.</span></span>LettuceConnection</span><span class="token punctuation">.</span><span class="token function">convertLettuceAccessException</span><span class="token punctuation">(</span><span class="token class-name">LettuceConnection</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">270</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>connection<span class="token punctuation">.</span>lettuce<span class="token punctuation">.</span></span>LettuceStringCommands</span><span class="token punctuation">.</span><span class="token function">convertLettuceAccessException</span><span class="token punctuation">(</span><span class="token class-name">LettuceStringCommands</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">799</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>connection<span class="token punctuation">.</span>lettuce<span class="token punctuation">.</span></span>LettuceStringCommands</span><span class="token punctuation">.</span><span class="token function">setEx</span><span class="token punctuation">(</span><span class="token class-name">LettuceStringCommands</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">232</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>connection<span class="token punctuation">.</span></span>DefaultedRedisConnection</span><span class="token punctuation">.</span><span class="token function">setEx</span><span class="token punctuation">(</span><span class="token class-name">DefaultedRedisConnection</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">302</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>DefaultValueOperations</span>$<span class="token number">4.</span><span class="token function">potentiallyUsePsetEx</span><span class="token punctuation">(</span><span class="token class-name">DefaultValueOperations</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">268</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>DefaultValueOperations</span>$<span class="token number">4.</span><span class="token function">doInRedis</span><span class="token punctuation">(</span><span class="token class-name">DefaultValueOperations</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">261</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>RedisTemplate</span><span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token class-name">RedisTemplate</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">228</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>RedisTemplate</span><span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token class-name">RedisTemplate</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">188</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>AbstractOperations</span><span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token class-name">AbstractOperations</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">96</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>DefaultValueOperations</span><span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token class-name">DefaultValueOperations</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">256</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>ValueOperations</span><span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token class-name">ValueOperations</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">75</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springblade<span class="token punctuation">.</span>core<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>cache<span class="token punctuation">.</span></span>BladeRedis</span><span class="token punctuation">.</span><span class="token function">setEx</span><span class="token punctuation">(</span><span class="token class-name">BladeRedis</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">84</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springblade<span class="token punctuation">.</span>modules<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>endpoint<span class="token punctuation">.</span></span>BladeTokenEndPoint</span><span class="token punctuation">.</span><span class="token function">captcha</span><span class="token punctuation">(</span><span class="token class-name">BladeTokenEndPoint</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">114</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springblade<span class="token punctuation">.</span>modules<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>endpoint<span class="token punctuation">.</span></span>BladeTokenEndPoint</span>$$<span class="token class-name">FastClassBySpringCGLIB</span>$$<span class="token number">745</span>b85dd<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token generics"><span class="token punctuation">&lt;</span>generated<span class="token punctuation">></span></span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>cglib<span class="token punctuation">.</span>proxy<span class="token punctuation">.</span></span>MethodProxy</span><span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token class-name">MethodProxy</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">218</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>aop<span class="token punctuation">.</span>framework<span class="token punctuation">.</span></span>CglibAopProxy</span>$<span class="token class-name">CglibMethodInvocation</span><span class="token punctuation">.</span><span class="token function">invokeJoinpoint</span><span class="token punctuation">(</span><span class="token class-name">CglibAopProxy</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">771</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>aop<span class="token punctuation">.</span>framework<span class="token punctuation">.</span></span>ReflectiveMethodInvocation</span><span class="token punctuation">.</span><span class="token function">proceed</span><span class="token punctuation">(</span><span class="token class-name">ReflectiveMethodInvocation</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">163</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>aop<span class="token punctuation">.</span>framework<span class="token punctuation">.</span></span>CglibAopProxy</span>$<span class="token class-name">CglibMethodInvocation</span><span class="token punctuation">.</span><span class="token function">proceed</span><span class="token punctuation">(</span><span class="token class-name">CglibAopProxy</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">749</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>aop<span class="token punctuation">.</span>interceptor<span class="token punctuation">.</span></span>ExposeInvocationInterceptor</span><span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token class-name">ExposeInvocationInterceptor</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">95</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>aop<span class="token punctuation">.</span>framework<span class="token punctuation">.</span></span>ReflectiveMethodInvocation</span><span class="token punctuation">.</span><span class="token function">proceed</span><span class="token punctuation">(</span><span class="token class-name">ReflectiveMethodInvocation</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">186</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>aop<span class="token punctuation">.</span>framework<span class="token punctuation">.</span></span>CglibAopProxy</span>$<span class="token class-name">CglibMethodInvocation</span><span class="token punctuation">.</span><span class="token function">proceed</span><span class="token punctuation">(</span><span class="token class-name">CglibAopProxy</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">749</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>aop<span class="token punctuation">.</span>framework<span class="token punctuation">.</span></span>CglibAopProxy</span>$<span class="token class-name">DynamicAdvisedInterceptor</span><span class="token punctuation">.</span><span class="token function">intercept</span><span class="token punctuation">(</span><span class="token class-name">CglibAopProxy</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">691</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springblade<span class="token punctuation">.</span>modules<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>endpoint<span class="token punctuation">.</span></span>BladeTokenEndPoint</span>$$<span class="token class-name">EnhancerBySpringCGLIB</span>$$d4c0d77f<span class="token punctuation">.</span><span class="token function">captcha</span><span class="token punctuation">(</span><span class="token generics"><span class="token punctuation">&lt;</span>generated<span class="token punctuation">></span></span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">sun<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span></span>NativeMethodAccessorImpl</span><span class="token punctuation">.</span><span class="token function">invoke0</span><span class="token punctuation">(</span><span class="token class-name">Native</span> <span class="token class-name">Method</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">sun<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span></span>NativeMethodAccessorImpl</span><span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token class-name">Unknown</span> <span class="token class-name">Source</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">sun<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span></span>DelegatingMethodAccessorImpl</span><span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token class-name">Unknown</span> <span class="token class-name">Source</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span></span>Method</span><span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token class-name">Unknown</span> <span class="token class-name">Source</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>method<span class="token punctuation">.</span>support<span class="token punctuation">.</span></span>InvocableHandlerMethod</span><span class="token punctuation">.</span><span class="token function">doInvoke</span><span class="token punctuation">(</span><span class="token class-name">InvocableHandlerMethod</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">190</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>method<span class="token punctuation">.</span>support<span class="token punctuation">.</span></span>InvocableHandlerMethod</span><span class="token punctuation">.</span><span class="token function">invokeForRequest</span><span class="token punctuation">(</span><span class="token class-name">InvocableHandlerMethod</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">138</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>mvc<span class="token punctuation">.</span>method<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span>ServletInvocableHandlerMethod</span><span class="token punctuation">.</span><span class="token function">invokeAndHandle</span><span class="token punctuation">(</span><span class="token class-name">ServletInvocableHandlerMethod</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">105</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>mvc<span class="token punctuation">.</span>method<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span>RequestMappingHandlerAdapter</span><span class="token punctuation">.</span><span class="token function">invokeHandlerMethod</span><span class="token punctuation">(</span><span class="token class-name">RequestMappingHandlerAdapter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">878</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>mvc<span class="token punctuation">.</span>method<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span>RequestMappingHandlerAdapter</span><span class="token punctuation">.</span><span class="token function">handleInternal</span><span class="token punctuation">(</span><span class="token class-name">RequestMappingHandlerAdapter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">792</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>mvc<span class="token punctuation">.</span>method<span class="token punctuation">.</span></span>AbstractHandlerMethodAdapter</span><span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span><span class="token class-name">AbstractHandlerMethodAdapter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">87</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span></span>DispatcherServlet</span><span class="token punctuation">.</span><span class="token function">doDispatch</span><span class="token punctuation">(</span><span class="token class-name">DispatcherServlet</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">1040</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span></span>DispatcherServlet</span><span class="token punctuation">.</span><span class="token function">doService</span><span class="token punctuation">(</span><span class="token class-name">DispatcherServlet</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">943</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span></span>FrameworkServlet</span><span class="token punctuation">.</span><span class="token function">processRequest</span><span class="token punctuation">(</span><span class="token class-name">FrameworkServlet</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">1006</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span></span>FrameworkServlet</span><span class="token punctuation">.</span><span class="token function">doGet</span><span class="token punctuation">(</span><span class="token class-name">FrameworkServlet</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">898</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">javax<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>http<span class="token punctuation">.</span></span>HttpServlet</span><span class="token punctuation">.</span><span class="token function">service</span><span class="token punctuation">(</span><span class="token class-name">HttpServlet</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">497</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span></span>FrameworkServlet</span><span class="token punctuation">.</span><span class="token function">service</span><span class="token punctuation">(</span><span class="token class-name">FrameworkServlet</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">883</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">javax<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>http<span class="token punctuation">.</span></span>HttpServlet</span><span class="token punctuation">.</span><span class="token function">service</span><span class="token punctuation">(</span><span class="token class-name">HttpServlet</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">584</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>ServletHandler</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">ServletHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">74</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>FilterHandler</span>$<span class="token class-name">FilterChainImpl</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">FilterHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">129</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">com<span class="token punctuation">.</span>github<span class="token punctuation">.</span>xiaoymin<span class="token punctuation">.</span>knife4j<span class="token punctuation">.</span>spring<span class="token punctuation">.</span>filter<span class="token punctuation">.</span></span>ProductionSecurityFilter</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">ProductionSecurityFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">45</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>ManagedFilter</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">ManagedFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">61</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>FilterHandler</span>$<span class="token class-name">FilterChainImpl</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">FilterHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">131</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springblade<span class="token punctuation">.</span>core<span class="token punctuation">.</span>log<span class="token punctuation">.</span>filter<span class="token punctuation">.</span></span>LogTraceFilter</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">LogTraceFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">39</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>ManagedFilter</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">ManagedFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">61</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>FilterHandler</span>$<span class="token class-name">FilterChainImpl</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">FilterHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">131</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springblade<span class="token punctuation">.</span>core<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>request<span class="token punctuation">.</span></span>BladeRequestFilter</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">BladeRequestFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">49</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>ManagedFilter</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">ManagedFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">61</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>FilterHandler</span>$<span class="token class-name">FilterChainImpl</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">FilterHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">131</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>druid<span class="token punctuation">.</span>support<span class="token punctuation">.</span>http<span class="token punctuation">.</span></span>WebStatFilter</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">WebStatFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">124</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>ManagedFilter</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">ManagedFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">61</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>FilterHandler</span>$<span class="token class-name">FilterChainImpl</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">FilterHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">131</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>filter<span class="token punctuation">.</span></span>RequestContextFilter</span><span class="token punctuation">.</span><span class="token function">doFilterInternal</span><span class="token punctuation">(</span><span class="token class-name">RequestContextFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">100</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>filter<span class="token punctuation">.</span></span>OncePerRequestFilter</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">OncePerRequestFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">119</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>ManagedFilter</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">ManagedFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">61</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>FilterHandler</span>$<span class="token class-name">FilterChainImpl</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">FilterHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">131</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>filter<span class="token punctuation">.</span></span>FormContentFilter</span><span class="token punctuation">.</span><span class="token function">doFilterInternal</span><span class="token punctuation">(</span><span class="token class-name">FormContentFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">93</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>filter<span class="token punctuation">.</span></span>OncePerRequestFilter</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">OncePerRequestFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">119</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>ManagedFilter</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">ManagedFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">61</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>FilterHandler</span>$<span class="token class-name">FilterChainImpl</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">FilterHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">131</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>filter<span class="token punctuation">.</span></span>CharacterEncodingFilter</span><span class="token punctuation">.</span><span class="token function">doFilterInternal</span><span class="token punctuation">(</span><span class="token class-name">CharacterEncodingFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">201</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>filter<span class="token punctuation">.</span></span>OncePerRequestFilter</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">OncePerRequestFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">119</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>ManagedFilter</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">ManagedFilter</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">61</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>FilterHandler</span>$<span class="token class-name">FilterChainImpl</span><span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">FilterHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">131</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>FilterHandler</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">FilterHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">84</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span>security<span class="token punctuation">.</span></span>ServletSecurityRoleHandler</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">ServletSecurityRoleHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">62</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>ServletChain</span>$<span class="token number">1.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">ServletChain</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">68</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>ServletDispatchingHandler</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">ServletDispatchingHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">36</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>RedirectDirHandler</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">RedirectDirHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">68</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span>security<span class="token punctuation">.</span></span>SSLInformationAssociationHandler</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">SSLInformationAssociationHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">132</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span>security<span class="token punctuation">.</span></span>ServletAuthenticationCallHandler</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">ServletAuthenticationCallHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">57</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>server<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>PredicateHandler</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">PredicateHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">43</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>security<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>AbstractConfidentialityHandler</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">AbstractConfidentialityHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">46</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span>security<span class="token punctuation">.</span></span>ServletConfidentialityConstraintHandler</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">ServletConfidentialityConstraintHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">64</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>security<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>AuthenticationMechanismsHandler</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">AuthenticationMechanismsHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">60</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span>security<span class="token punctuation">.</span></span>CachedAuthenticatedSessionHandler</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">CachedAuthenticatedSessionHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">77</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>security<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>AbstractSecurityContextAssociationHandler</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">AbstractSecurityContextAssociationHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">43</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>server<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>PredicateHandler</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">PredicateHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">43</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>server<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>PredicateHandler</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">PredicateHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">43</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>ServletInitialHandler</span><span class="token punctuation">.</span><span class="token function">handleFirstRequest</span><span class="token punctuation">(</span><span class="token class-name">ServletInitialHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">269</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>ServletInitialHandler</span><span class="token punctuation">.</span>access$<span class="token function">100</span><span class="token punctuation">(</span><span class="token class-name">ServletInitialHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">78</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>ServletInitialHandler</span>$<span class="token number">2.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token class-name">ServletInitialHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">133</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>ServletInitialHandler</span>$<span class="token number">2.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token class-name">ServletInitialHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">130</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>ServletRequestContextThreadSetupAction</span>$<span class="token number">1.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token class-name">ServletRequestContextThreadSetupAction</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">48</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>ContextClassLoaderSetupAction</span>$<span class="token number">1.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token class-name">ContextClassLoaderSetupAction</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">43</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>ServletInitialHandler</span><span class="token punctuation">.</span><span class="token function">dispatchRequest</span><span class="token punctuation">(</span><span class="token class-name">ServletInitialHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">249</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>ServletInitialHandler</span><span class="token punctuation">.</span>access$<span class="token function">000</span><span class="token punctuation">(</span><span class="token class-name">ServletInitialHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">78</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>handlers<span class="token punctuation">.</span></span>ServletInitialHandler</span>$<span class="token number">1.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token class-name">ServletInitialHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">99</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>server<span class="token punctuation">.</span></span>Connectors</span><span class="token punctuation">.</span><span class="token function">executeRootHandler</span><span class="token punctuation">(</span><span class="token class-name">Connectors</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">376</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>undertow<span class="token punctuation">.</span>server<span class="token punctuation">.</span></span>HttpServerExchange</span>$<span class="token number">1.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token class-name">HttpServerExchange</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">830</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span></span>ThreadPoolExecutor</span><span class="token punctuation">.</span><span class="token function">runWorker</span><span class="token punctuation">(</span><span class="token class-name">Unknown</span> <span class="token class-name">Source</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span></span>ThreadPoolExecutor</span>$<span class="token class-name">Worker</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token class-name">Unknown</span> <span class="token class-name">Source</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span></span>Thread</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token class-name">Unknown</span> <span class="token class-name">Source</span><span class="token punctuation">)</span>
+<span class="token class-name">Caused</span> by<span class="token operator">:</span> <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>lettuce<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>RedisException</span><span class="token operator">:</span> <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span>IOException</span><span class="token operator">:</span> <span class="token class-name">Connection</span> reset by peer
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>lettuce<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>LettuceFutures</span><span class="token punctuation">.</span><span class="token function">awaitOrCancel</span><span class="token punctuation">(</span><span class="token class-name">LettuceFutures</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">129</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>lettuce<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span>FutureSyncInvocationHandler</span><span class="token punctuation">.</span><span class="token function">handleInvocation</span><span class="token punctuation">(</span><span class="token class-name">FutureSyncInvocationHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">69</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>lettuce<span class="token punctuation">.</span>core<span class="token punctuation">.</span>internal<span class="token punctuation">.</span></span>AbstractInvocationHandler</span><span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token class-name">AbstractInvocationHandler</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">80</span><span class="token punctuation">)</span>
+        at com<span class="token punctuation">.</span>sun<span class="token punctuation">.</span>proxy<span class="token punctuation">.</span>$<span class="token class-name">Proxy287</span><span class="token punctuation">.</span><span class="token function">setex</span><span class="token punctuation">(</span><span class="token class-name">Unknown</span> <span class="token class-name">Source</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>connection<span class="token punctuation">.</span>lettuce<span class="token punctuation">.</span></span>LettuceStringCommands</span><span class="token punctuation">.</span><span class="token function">setEx</span><span class="token punctuation">(</span><span class="token class-name">LettuceStringCommands</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">230</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token number">92</span> common frames omitted
+<span class="token class-name">Caused</span> by<span class="token operator">:</span> <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span>IOException</span><span class="token operator">:</span> <span class="token class-name">Connection</span> reset by peer
+        at <span class="token class-name"><span class="token namespace">sun<span class="token punctuation">.</span>nio<span class="token punctuation">.</span>ch<span class="token punctuation">.</span></span>FileDispatcherImpl</span><span class="token punctuation">.</span><span class="token function">read0</span><span class="token punctuation">(</span><span class="token class-name">Native</span> <span class="token class-name">Method</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">sun<span class="token punctuation">.</span>nio<span class="token punctuation">.</span>ch<span class="token punctuation">.</span></span>SocketDispatcher</span><span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token class-name">Unknown</span> <span class="token class-name">Source</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">sun<span class="token punctuation">.</span>nio<span class="token punctuation">.</span>ch<span class="token punctuation">.</span></span>IOUtil</span><span class="token punctuation">.</span><span class="token function">readIntoNativeBuffer</span><span class="token punctuation">(</span><span class="token class-name">Unknown</span> <span class="token class-name">Source</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">sun<span class="token punctuation">.</span>nio<span class="token punctuation">.</span>ch<span class="token punctuation">.</span></span>IOUtil</span><span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token class-name">Unknown</span> <span class="token class-name">Source</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">sun<span class="token punctuation">.</span>nio<span class="token punctuation">.</span>ch<span class="token punctuation">.</span></span>SocketChannelImpl</span><span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token class-name">Unknown</span> <span class="token class-name">Source</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>netty<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span></span>PooledByteBuf</span><span class="token punctuation">.</span><span class="token function">setBytes</span><span class="token punctuation">(</span><span class="token class-name">PooledByteBuf</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">253</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>netty<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span></span>AbstractByteBuf</span><span class="token punctuation">.</span><span class="token function">writeBytes</span><span class="token punctuation">(</span><span class="token class-name">AbstractByteBuf</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">1134</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>netty<span class="token punctuation">.</span>channel<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>nio<span class="token punctuation">.</span></span>NioSocketChannel</span><span class="token punctuation">.</span><span class="token function">doReadBytes</span><span class="token punctuation">(</span><span class="token class-name">NioSocketChannel</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">350</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>netty<span class="token punctuation">.</span>channel<span class="token punctuation">.</span>nio<span class="token punctuation">.</span></span>AbstractNioByteChannel</span>$<span class="token class-name">NioByteUnsafe</span><span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token class-name">AbstractNioByteChannel</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">151</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>netty<span class="token punctuation">.</span>channel<span class="token punctuation">.</span>nio<span class="token punctuation">.</span></span>NioEventLoop</span><span class="token punctuation">.</span><span class="token function">processSelectedKey</span><span class="token punctuation">(</span><span class="token class-name">NioEventLoop</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">714</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>netty<span class="token punctuation">.</span>channel<span class="token punctuation">.</span>nio<span class="token punctuation">.</span></span>NioEventLoop</span><span class="token punctuation">.</span><span class="token function">processSelectedKeysOptimized</span><span class="token punctuation">(</span><span class="token class-name">NioEventLoop</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">650</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>netty<span class="token punctuation">.</span>channel<span class="token punctuation">.</span>nio<span class="token punctuation">.</span></span>NioEventLoop</span><span class="token punctuation">.</span><span class="token function">processSelectedKeys</span><span class="token punctuation">(</span><span class="token class-name">NioEventLoop</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">576</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>netty<span class="token punctuation">.</span>channel<span class="token punctuation">.</span>nio<span class="token punctuation">.</span></span>NioEventLoop</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token class-name">NioEventLoop</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">493</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>netty<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span></span>SingleThreadEventExecutor</span>$<span class="token number">4.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token class-name">SingleThreadEventExecutor</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">989</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>netty<span class="token punctuation">.</span>util<span class="token punctuation">.</span>internal<span class="token punctuation">.</span></span>ThreadExecutorMap</span>$<span class="token number">2.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token class-name">ThreadExecutorMap</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">74</span><span class="token punctuation">)</span>
+        at <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>netty<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span></span>FastThreadLocalRunnable</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token class-name">FastThreadLocalRunnable</span><span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">30</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token number">1</span> common frames omitted
+
+
+<span class="token number">2024</span><span class="token operator">-</span><span class="token number">04</span><span class="token operator">-</span><span class="token number">18</span> <span class="token number">09</span><span class="token operator">:</span><span class="token number">11</span><span class="token operator">:</span><span class="token number">34.821</span>  <span class="token constant">INFO</span> <span class="token number">1</span> <span class="token operator">--</span><span class="token operator">-</span> <span class="token punctuation">[</span>xecutorLoop<span class="token operator">-</span><span class="token number">1</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token class-name"><span class="token namespace">i<span class="token punctuation">.</span>l<span class="token punctuation">.</span>core<span class="token punctuation">.</span>protocol<span class="token punctuation">.</span></span>ConnectionWatchdog</span>     <span class="token operator">:</span> <span class="token class-name">Reconnecting</span><span class="token punctuation">,</span> last destination was <span class="token operator">/</span><span class="token number">10.0</span><span class="token number">.50</span><span class="token number">.61</span><span class="token operator">:</span><span class="token number">6379</span>
+<span class="token number">2024</span><span class="token operator">-</span><span class="token number">04</span><span class="token operator">-</span><span class="token number">18</span> <span class="token number">09</span><span class="token operator">:</span><span class="token number">11</span><span class="token operator">:</span><span class="token number">34.825</span>  <span class="token constant">INFO</span> <span class="token number">1</span> <span class="token operator">--</span><span class="token operator">-</span> <span class="token punctuation">[</span>ioEventLoop<span class="token operator">-</span><span class="token number">4</span><span class="token operator">-</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token class-name"><span class="token namespace">i<span class="token punctuation">.</span>l<span class="token punctuation">.</span>core<span class="token punctuation">.</span>protocol<span class="token punctuation">.</span></span>ReconnectionHandler</span>    <span class="token operator">:</span> <span class="token class-name">Reconnected</span> <span class="token keyword">to</span> <span class="token number">10.0</span><span class="token number">.50</span><span class="token number">.61</span><span class="token operator">:</span><span class="token number">6379</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>用户目前网络环境无法确认，当时大概了解，从前端到后端，有防火墙。是否是因为防火墙上主动断开链路导致，目前无法确认，是需要进行网络抓包。</p>
+<p>分析后台日志，有个开门狗的动作，连接重置了。目前采用方案后端主动判断连接是否可用，如果不可用，进行再次连接。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span></span><span class="token class-name">InitializingBean</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Autowired</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>connection<span class="token punctuation">.</span></span><span class="token class-name">RedisConnectionFactory</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>connection<span class="token punctuation">.</span>lettuce<span class="token punctuation">.</span></span><span class="token class-name">LettuceConnectionFactory</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span></span><span class="token class-name">Component</span></span><span class="token punctuation">;</span>
+
+
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">InitializinConfig</span>  <span class="token keyword">implements</span> <span class="token class-name">InitializingBean</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">RedisConnectionFactory</span> redisConnectionFactory<span class="token punctuation">;</span>
+    
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterPropertiesSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>redisConnectionFactory <span class="token keyword">instanceof</span> <span class="token class-name">LettuceConnectionFactory</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token class-name">LettuceConnectionFactory</span> lettuceConnectionFactory <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">LettuceConnectionFactory</span><span class="token punctuation">)</span>redisConnectionFactory<span class="token punctuation">;</span>
+            lettuceConnectionFactory<span class="token punctuation">.</span><span class="token function">setValidateConnection</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/redis/" class="category-chain-item">redis</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/linux/" class="print-no-link">#linux</a>
+      
+        <a href="/tags/redis/" class="print-no-link">#redis</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/30/docker-ce%E5%AE%89%E8%A3%85/" title="docker-ce安装">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">docker-ce安装</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/29/centos7%E5%AE%89%E8%A3%85nginx/" title="centos7安装nginx">
+                        <span class="hidden-mobile">centos7安装nginx</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script data-pjax src="https://registry.npmmirror.com/oh-my-live2d/latest/files"></script><script>const oml2d = OML2D.loadOml2d({libraryUrls:{"complete":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/complete.js","cubism2":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism2.js","cubism5":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism5.js"},mobileDisplay:true,models:[{"path":"https://fastly.jsdelivr.net/gh/auroraisok/CDN1@1.0/live2d/Murasame.model3.json","mobilePosition":[-10,23],"mobileScale":0.1,"mobileStageStyle":{"width":180,"height":166},"motionPreloadStrategy":"IDLE","position":[-10,35],"scale":0.15,"stageStyle":{"width":250,"height":250}},{"path":"https://fastly.jsdelivr.net/gh/auroraisok/CDN1@1.0/character/model0.json","scale":0.12,"position":[0,0],"stageStyle":{"width":250},"mobileScale":0.08,"mobilePosition":[0,0],"mobileStageStyle":{"width":180}},{"path":"https://fastly.jsdelivr.net/npm/live2d-widget-model-wanko@1.0.5/assets/wanko.model.json","scale":0.12,"position":[0,0],"mobileScale":0.08,"mobilePosition":[0,0],"mobileStageStyle":{"width":180},"stageStyle":{"width":250}}],parentElement:document.body,primaryColor:"var(--btn-bg)",sayHello:false,tips:{style: {"width":230,"height":120,"left":"calc(50% - 20px)","top":"-100px"},mobileStyle: {"width":180,"height":80,"left":"calc(50% - 30px)","top":"-100px"},idleTips:{interval:15000,message:function(){
+  return axios.get('https://v1.hitokoto.cn?c=i')
+    .then(function (response) {
+      return response.data.hitokoto ;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+}
+}}});</script><!-- hexo injector body_end end --></body>
+</html>

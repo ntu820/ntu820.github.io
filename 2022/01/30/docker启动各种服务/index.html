@@ -1,0 +1,910 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ntu820">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="启动activemqdocker run --name&#x3D;&#39;activemq&#39; -d \ -e &#39;ACTIVEMQ_CONFIG_NAME&#x3D;amqp-srv1&#39; \ -e &#39;ACTIVEMQ_CONFIG_DEFAULTACCOUNT&#x3D;false&#39; \ -e &#39;ACTIVEMQ_ADMIN_LOGIN&#x3D;admin&#39; -e &#39;ACTIVEMQ_ADMIN_PASSWORD&#x3D;your_password&#39;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker启动各种服务">
+<meta property="og:url" content="http://example.com/2022/01/30/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/index.html">
+<meta property="og:site_name" content="NTU820的小窝">
+<meta property="og:description" content="启动activemqdocker run --name&#x3D;&#39;activemq&#39; -d \ -e &#39;ACTIVEMQ_CONFIG_NAME&#x3D;amqp-srv1&#39; \ -e &#39;ACTIVEMQ_CONFIG_DEFAULTACCOUNT&#x3D;false&#39; \ -e &#39;ACTIVEMQ_ADMIN_LOGIN&#x3D;admin&#39; -e &#39;ACTIVEMQ_ADMIN_PASSWORD&#x3D;your_password&#39;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/container.jpg">
+<meta property="article:published_time" content="2022-01-30T01:39:44.000Z">
+<meta property="article:modified_time" content="2025-11-10T06:30:53.453Z">
+<meta property="article:author" content="ntu820">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="container">
+<meta property="article:tag" content="容器">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/container.jpg">
+  
+  
+  
+  <title>docker启动各种服务 - NTU820的小窝</title>
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>NTU820的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="docker启动各种服务"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-01-30 09:39" pubdate>
+          2022年1月30日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          15 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">docker启动各种服务</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="启动activemq"><a href="#启动activemq" class="headerlink" title="启动activemq"></a>启动activemq</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">--name</span><span class="token operator">=</span><span class="token string">'activemq'</span> <span class="token parameter variable">-d</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_CONFIG_NAME=amqp-srv1'</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_CONFIG_DEFAULTACCOUNT=false'</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_ADMIN_LOGIN=admin'</span> <span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_ADMIN_PASSWORD=your_password'</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_USERS_myproducer=producerpassword'</span> <span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_GROUPS_writes=myproducer'</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_USERS_myconsumer=consumerpassword'</span> <span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_GROUPS_reads=myconsumer'</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_JMX_user1_role=readwrite'</span> <span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_JMX_user1_password=jmx_password'</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_JMX_user2_role=read'</span> <span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_JMX_user2_password=jmx2_password'</span>
+<span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_CONFIG_TOPICS_topic1=mytopic1'</span> <span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_CONFIG_TOPICS_topic2=mytopic2'</span>  <span class="token punctuation">\</span>
+<span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_CONFIG_QUEUES_queue1=myqueue1'</span> <span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_CONFIG_QUEUES_queue2=myqueue2'</span>  <span class="token punctuation">\</span>
+<span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_CONFIG_MINMEMORY=1024'</span> <span class="token parameter variable">-e</span>  <span class="token string">'ACTIVEMQ_CONFIG_MAXMEMORY=4096'</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">-e</span> <span class="token string">'ACTIVEMQ_CONFIG_SCHEDULERENABLED=true'</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">-v</span> /data/activemq:/data <span class="token punctuation">\</span>
+<span class="token parameter variable">-v</span> /var/log/activemq:/var/log/activemq <span class="token punctuation">\</span>
+<span class="token parameter variable">-p</span> <span class="token number">8161</span>:8161 <span class="token punctuation">\</span>
+<span class="token parameter variable">-p</span> <span class="token number">61616</span>:61616 <span class="token punctuation">\</span>
+<span class="token parameter variable">-p</span> <span class="token number">61613</span>:61613 <span class="token punctuation">\</span>
+webcenter/activemq:5.14.3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><code>docker run --name activemq-5.14 -d -e ACTIVEMQ_ADMIN_LOGIN=admin -e ACTIVEMQ_ADMIN_PASSWORD=admin@mq -v /home/activemq/data:/data -v /home/activemq/log:/var/log/activemq -p 8161:8161 -p 61616:61616 -p 61613:61613 webcenter/activemq:5.14.3</code></p>
+<hr>
+<h3 id="启动mysql"><a href="#启动mysql" class="headerlink" title="启动mysql"></a>启动mysql</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 简单启动</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-p</span> <span class="token number">3306</span>:3306 <span class="token parameter variable">--name</span> mysql <span class="token parameter variable">-v</span> <span class="token environment constant">$PWD</span>/conf:/etc/mysql/conf.d <span class="token parameter variable">-v</span> <span class="token environment constant">$PWD</span>/logs:/logs <span class="token parameter variable">-v</span> <span class="token environment constant">$PWD</span>/data:/var/lib/mysql <span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span><span class="token number">123456</span> <span class="token parameter variable">-d</span> mysql:5.7.23<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>-p 3306:3306：将容器的 3306 端口映射到主机的 3306 端口。<br>-v $PWD/conf:/etc/mysql/conf.d：将主机当前目录下的 conf/my.cnf 挂载到容器的 /etc/mysql/my.cnf。<br>-v $PWD/logs:/logs：将主机当前目录下的 logs 目录挂载到容器的 /logs。<br>-v $PWD/data:/var/lib/mysql :将主机当前目录下的data目录挂载到容器的 /var/lib/mysql 。<br>-e MYSQL_ROOT_PASSWORD=123456：初始化 root 用户的密码。<br>-d 后台运行</p>
+<hr>
+<h3 id="启动nginx"><a href="#启动nginx" class="headerlink" title="启动nginx"></a>启动nginx</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">--name</span> nginx-1.16.1 <span class="token parameter variable">-v</span> /home/nginxdata/x-springboot-ui:/usr/share/nginx/html <span class="token parameter variable">-v</span> /home/nginxdata/conf/nginx.conf:/etc/nginx/nginx.conf <span class="token parameter variable">-v</span> /home/nginxdata/conf.d:/etc/nginx/conf.d <span class="token parameter variable">-v</span> /home/nginxdata/logs:/var/log/nginx <span class="token parameter variable">-p</span> <span class="token number">80</span>:80 <span class="token parameter variable">-d</span> nginx:1.16.1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>1、配置nginx.conf，设置user为root用户<br>2、配置default.conf，开启目录浏览<br>        autoindex on; # 开启目录显示<br>        autoindex_exact_size off; # 显示出文件的确切大小.关闭详细文件大小统计，让文件大小显示MB，GB单位，默认为b<br>        autoindex_localtime on; # 显示的文件时间为文件的服务器时间<br>        charset utf-8,gbk; # 避免中文乱码</p>
+<hr>
+<h3 id="启动oracle-11g"><a href="#启动oracle-11g" class="headerlink" title="启动oracle 11g"></a>启动oracle 11g</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 一开始无法使用挂载，必须先启动后再使用</span>
+<span class="token number">1</span>、docker run <span class="token parameter variable">--name</span> oracle_11g <span class="token parameter variable">-v</span> /home/oracle:/home/oracle <span class="token parameter variable">-p</span> <span class="token number">1521</span>:1521 <span class="token parameter variable">-d</span> registry.cn-hangzhou.aliyuncs.com/helowin/oracle_11g:latest
+
+<span class="token function">docker</span> run <span class="token parameter variable">--name</span> oracle11g <span class="token parameter variable">-v</span> /root/oracle_data/helowin:/home/oracle/app/oracle/oradata/helowin <span class="token parameter variable">-p</span> <span class="token number">1521</span>:1521 <span class="token parameter variable">-d</span> registry.cn-hangzhou.aliyuncs.com/helowin/oracle_11g:latest
+
+<span class="token number">2</span>、docker <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> oracle_11g <span class="token function">bash</span>
+
+<span class="token number">3</span>、su root 【密码】：helowin
+
+<span class="token number">4</span>、vi /etc/profile
+
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">ORACLE_HOME</span><span class="token operator">=</span>/home/oracle/app/oracle/product/11.2.0/dbhome_2
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">ORACLE_SID</span><span class="token operator">=</span>helowin
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token variable">$ORACLE_HOME</span>/bin:<span class="token environment constant">$PATH</span>
+
+<span class="token builtin class-name">source</span> /etc/profile --加载环境变量
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> <span class="token variable">$ORACLE_HOME</span>/bin/sqlplus /usr/bin -- 软连接
+
+<span class="token number">5</span>、su - oracle
+
+<span class="token number">6</span>、sqlplus /nolog
+
+<span class="token number">7</span>、conn /as sysdba
+
+<span class="token number">8</span>、
+alter user system identified by system<span class="token punctuation">;</span> --修改system用户账号
+
+alter user sys identified by system<span class="token punctuation">;</span> --修改sys用户账号
+
+create user db identified by dbzenith<span class="token punctuation">;</span> --创建内部管理员账号，设备管理系统默认使用db用户
+
+grant connect,resource,dba to db<span class="token punctuation">;</span> --将dba权限授权给内部管理员账号
+
+alter profile default limit password_life_time unlimited<span class="token punctuation">;</span> --修改密码规则策略为密码永不过期
+
+alter system <span class="token builtin class-name">set</span> <span class="token assign-left variable">processes</span><span class="token operator">=</span><span class="token number">1000</span> <span class="token assign-left variable">scope</span><span class="token operator">=</span>spfile<span class="token punctuation">;</span> --修改数据库最大连接数据
+
+<span class="token number">9</span>、重启数据库
+<span class="token builtin class-name">exit</span> 退出当前操作
+sqlplus /nolog
+conn /as sysdba
+<span class="token function">shutdown</span> immediate<span class="token punctuation">;</span> --关闭数据库
+startup<span class="token punctuation">;</span> --启动数据库
+
+<span class="token number">10</span>、退出，查看具体实例
+lsnrctl status
+
+
+<span class="token number">11</span>、删除用户操作
+SELECT SID,SERIAL<span class="token comment"># FROM V$SESSION WHERE USERNAME='DEVUSER';  -- 一定都要大写</span>
+ALTER  SYSTEM  KILL <span class="token environment constant">SESSION</span> <span class="token string">'137,41813'</span><span class="token punctuation">;</span>
+drop  user sstest cascade<span class="token punctuation">;</span>
+
+
+<span class="token comment"># --删除oracle--</span>
+<span class="token function">rm</span> <span class="token parameter variable">-rf</span> /home/oracle/app/oracle/flash_recovery_area/helowin/control02.ctl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<hr>
+<h3 id="启动portainer"><a href="#启动portainer" class="headerlink" title="启动portainer"></a>启动portainer</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">--name</span> portainer <span class="token parameter variable">--restart</span><span class="token operator">=</span>always <span class="token parameter variable">-p</span> <span class="token number">9000</span>:9000 <span class="token parameter variable">-v</span> /root/portainer:/data <span class="token parameter variable">-v</span> /var/run/docker.sock:/var/run/docker.sock <span class="token parameter variable">-d</span> portainer/portainer:linux-amd64<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">–-name <span class="token comment"># 指定运行容器的名称</span>
+<span class="token parameter variable">--restart</span><span class="token operator">=</span>always <span class="token comment"># 自动重启</span>
+<span class="token parameter variable">-p</span> <span class="token number">9000</span>:9000 <span class="token comment"># 宿主机9000端口映射容器中的9000端口</span>
+<span class="token parameter variable">-d</span> <span class="token comment"># 容器在后台运行</span>
+<span class="token parameter variable">-v</span> /root/portainer:/data <span class="token comment"># 把宿主机目录 /root/portainer 挂载到容器 /data 目录</span>
+<span class="token parameter variable">-v</span> /var/run/docker.sock:/var/run/docker.sock <span class="token comment"># 把宿主机的Docker守护进程(docker daemon)默认监听的Unix域套接字挂载到容器中</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>portainer使用tls监控本地、远端docker</strong></p>
+<ol>
+<li><p>生成tls证书</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 产生tls的证书比较复杂，这里提供一个脚本。</span>
+<span class="token comment">#!/bin/bash</span>
+<span class="token comment"># 把$1，$2 换成地址的服务器地址和密码</span>
+<span class="token comment"># 服务器域名或地址</span>
+<span class="token assign-left variable">SERVER</span><span class="token operator">=</span><span class="token variable">$1</span>
+<span class="token comment"># 密码</span>
+<span class="token assign-left variable">PASSWORD</span><span class="token operator">=</span><span class="token variable">$2</span>
+
+<span class="token comment"># 下面描述信息可改可不该</span>
+<span class="token assign-left variable">COUNTRY</span><span class="token operator">=</span><span class="token string">"CN"</span>
+<span class="token assign-left variable">STATE</span><span class="token operator">=</span><span class="token string">"JiangSu"</span>
+<span class="token assign-left variable">CITY</span><span class="token operator">=</span><span class="token string">"ChangZhou"</span>
+<span class="token assign-left variable">ORGANIZATION</span><span class="token operator">=</span><span class="token string">"HMIFO"</span>
+<span class="token assign-left variable">ORGANIZATIONAL_UNIT</span><span class="token operator">=</span><span class="token string">"HMIFO"</span>
+<span class="token assign-left variable">EMAIL</span><span class="token operator">=</span><span class="token string">"hm@example.com"</span>
+
+<span class="token builtin class-name">echo</span> <span class="token string">"开始生成文件..............."</span>
+
+<span class="token function">mkdir</span> tls/
+<span class="token builtin class-name">cd</span> <span class="token variable"><span class="token variable">`</span><span class="token builtin class-name">pwd</span><span class="token variable">`</span></span>/tls
+
+<span class="token comment"># 生成ca私钥 + ca证书</span>
+openssl genrsa <span class="token parameter variable">-aes256</span> <span class="token parameter variable">-passout</span> pass:<span class="token variable">$PASSWORD</span>  <span class="token parameter variable">-out</span> ca-key.pem <span class="token number">2048</span>
+
+openssl req <span class="token parameter variable">-new</span> <span class="token parameter variable">-x509</span> <span class="token parameter variable">-passin</span> <span class="token string">"pass:<span class="token variable">$PASSWORD</span>"</span> <span class="token parameter variable">-days</span> <span class="token number">36500</span> <span class="token parameter variable">-key</span> ca-key.pem <span class="token parameter variable">-sha256</span> <span class="token parameter variable">-out</span> ca.pem <span class="token parameter variable">-subj</span> <span class="token string">"/C=<span class="token variable">$COUNTRY</span>/ST=<span class="token variable">$STATE</span>/L=<span class="token variable">$CITY</span>/O=<span class="token variable">$ORGANIZATION</span>/OU=<span class="token variable">$ORGANIZATIONAL_UNIT</span>/CN=<span class="token variable">$SERVER</span>/emailAddress=<span class="token variable">$EMAIL</span>"</span>
+
+<span class="token comment"># 生成server私钥 + server证书请求文件 + 证书</span>
+openssl genrsa <span class="token parameter variable">-out</span> server-key.pem <span class="token number">2048</span>
+
+openssl req <span class="token parameter variable">-subj</span> <span class="token string">"/CN=<span class="token variable">$SERVER</span>"</span> <span class="token parameter variable">-new</span> <span class="token parameter variable">-key</span> server-key.pem <span class="token parameter variable">-out</span> server.csr
+
+openssl x509 <span class="token parameter variable">-req</span> <span class="token parameter variable">-days</span> <span class="token number">36500</span> <span class="token parameter variable">-in</span> server.csr <span class="token parameter variable">-CA</span> ca.pem <span class="token parameter variable">-CAkey</span> ca-key.pem <span class="token parameter variable">-passin</span> <span class="token string">"pass:<span class="token variable">$PASSWORD</span>"</span> <span class="token parameter variable">-CAcreateserial</span>  <span class="token parameter variable">-out</span> server-cert.pem
+
+<span class="token comment"># 生成client公钥 + client 证书请求文件 + 证书</span>
+openssl genrsa <span class="token parameter variable">-out</span> client-key.pem <span class="token number">2048</span>
+
+openssl req <span class="token parameter variable">-subj</span> <span class="token string">'/CN=client'</span> <span class="token parameter variable">-new</span> <span class="token parameter variable">-key</span> client-key.pem <span class="token parameter variable">-out</span> client.csr
+
+<span class="token function">sh</span> <span class="token parameter variable">-c</span> <span class="token string">'echo "extendedKeyUsage=clientAuth" > extfile.cnf'</span>
+
+openssl x509 <span class="token parameter variable">-req</span> <span class="token parameter variable">-days</span> <span class="token number">36500</span> <span class="token parameter variable">-in</span> client.csr <span class="token parameter variable">-CA</span> ca.pem <span class="token parameter variable">-CAkey</span> ca-key.pem  <span class="token parameter variable">-passin</span> <span class="token string">"pass:<span class="token variable">$PASSWORD</span>"</span> <span class="token parameter variable">-CAcreateserial</span> <span class="token parameter variable">-out</span> client-cert.pem  <span class="token parameter variable">-extfile</span> extfile.cnf
+
+<span class="token comment"># 更改密钥权限</span>
+<span class="token function">chmod</span> 0400 ca-key.pem client-key.pem server-key.pem
+
+<span class="token function">chmod</span> 0444 ca.pem server-cert.pem client-cert.pem
+<span class="token comment"># 删除无用文件</span>
+<span class="token function">rm</span>  *.csr *.cnf *.srl
+
+<span class="token comment"># 将服务器证书和CA证书放到 /etc/docker 目录下</span>
+<span class="token function">cp</span> ca.pem server-cert.pem server-key.pem /etc/docker
+
+<span class="token builtin class-name">echo</span> <span class="token string">"生成文件结束..............."</span>
+
+<span class="token comment"># 将客户端证书和CA证书放到客户机中 ca.pem、client-cert.pem、client-key.pem</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+<li><p>docker开启2375端口</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">find</span> / <span class="token parameter variable">-name</span> docker.service <span class="token comment"># 找到docker的启动配置</span>
+
+<span class="token function">vi</span> /usr/lib/systemd/system/docker.service
+
+<span class="token comment"># 在ExecStart=/usr/bin/dockerd后面追加</span>
+<span class="token comment"># --tlsverify --tlscacert=/etc/docker/ca.pem[CA证书] --tlscert=/etc/docker/server-cert.pem[服务器证书] --tlskey=/etc/docker/server-key.pem[服务端密钥] -H tcp://0.0.0.0:2375[这个端口可以自己定义，只要是机器上没有用到的都行]</span>
+<span class="token comment"># 完整的ExecStart配置</span>
+<span class="token assign-left variable">ExecStart</span><span class="token operator">=</span>/usr/bin/dockerd <span class="token punctuation">\</span>
+	<span class="token parameter variable">--tlsverify</span> <span class="token punctuation">\</span>
+	<span class="token parameter variable">--tlscacert</span><span class="token operator">=</span>/etc/docker/ca.pem <span class="token punctuation">\</span>
+	<span class="token parameter variable">--tlscert</span><span class="token operator">=</span>/etc/docker/server-cert.pem <span class="token punctuation">\</span>
+	<span class="token parameter variable">--tlskey</span><span class="token operator">=</span>/etc/docker/server-key.pem <span class="token punctuation">\</span>
+	<span class="token parameter variable">-H</span> tcp://0.0.0.0:2375 <span class="token punctuation">\</span>
+	<span class="token parameter variable">-H</span> fd:// <span class="token parameter variable">--containerd</span><span class="token operator">=</span>/run/containerd/containerd.sock<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+<li><p>重启docker</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl daemon-reload <span class="token operator">&amp;&amp;</span> systemctl restart <span class="token function">docker</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure></li>
+<li><p>添加远程docker</p>
+<p><img src="/img/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/portainer-1.png" srcset="/img/loading.gif" lazyload alt="portainer-addendpoints"></p>
+<p><img src="/img/docker%E5%90%AF%E5%8A%A8%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1/portainer-2.png" srcset="/img/loading.gif" lazyload alt="portainer-addendpoints2"></p>
+</li>
+</ol>
+<hr>
+<h3 id="启动Redis"><a href="#启动Redis" class="headerlink" title="启动Redis"></a>启动Redis</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 简单启动</span>
+<span class="token function">docker</span> run <span class="token parameter variable">--name</span> redis-5.0.7 <span class="token parameter variable">-p</span> <span class="token number">6379</span>:6379 <span class="token parameter variable">-d</span> redis:5.0.7 <span class="token parameter variable">--requirepass</span> <span class="token string">"admin123"</span>
+<span class="token comment"># 持久化</span>
+<span class="token function">docker</span> run <span class="token parameter variable">--name</span> redis <span class="token parameter variable">-v</span> /home/redis/data:/data <span class="token parameter variable">-p</span> <span class="token number">6379</span>:6379 <span class="token parameter variable">-d</span> redis:5.0.7 <span class="token parameter variable">--requirepass</span> <span class="token string">"admin123"</span> <span class="token parameter variable">--appendonly</span> <span class="token function">yes</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token parameter variable">--name</span> redis-test <span class="token comment">#运行的docker容器名</span>
+<span class="token parameter variable">-p</span> <span class="token number">6379</span>:6379 <span class="token comment">#宿主本地端口:docker端口(容器里的端口)</span>
+<span class="token parameter variable">-d</span> redis <span class="token comment">#daemonize模式运行，完整-d redis:版本号，默认为最新版本</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+<hr>
+<h3 id="启动sonarqube"><a href="#启动sonarqube" class="headerlink" title="启动sonarqube"></a>启动sonarqube</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 采用volume挂载方式，本地文件挂载有权限问题</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> sonarqube <span class="token parameter variable">--restart</span> always <span class="token punctuation">\</span>
+<span class="token parameter variable">-p</span> <span class="token number">9000</span>:9000 <span class="token punctuation">\</span>
+<span class="token parameter variable">-v</span> sonarqube_conf:/opt/sonarqube/conf <span class="token punctuation">\</span>
+<span class="token parameter variable">-v</span> sonarqube_extensions:/opt/sonarqube/extensions <span class="token punctuation">\</span>
+<span class="token parameter variable">-v</span> sonarqube_logs:/opt/sonarqube/logs <span class="token punctuation">\</span>
+<span class="token parameter variable">-v</span> sonarqube_data:/opt/sonarqube/data <span class="token punctuation">\</span>
+sonarqube:7.9.2-community
+
+
+<span class="token comment">#分析项目</span>
+<span class="token comment">#1、需要先将项目打包运行</span>
+<span class="token comment">#2、运行分析代码</span>
+sonar-scanner <span class="token parameter variable">-Dsonar.host.url</span><span class="token operator">=</span>http://192.168.153.150:9000 <span class="token punctuation">\</span>
+              <span class="token parameter variable">-Dsonar.projectKey</span><span class="token operator">=</span>simple-java-maven-app <span class="token punctuation">\</span>
+              <span class="token parameter variable">-Dsonar.projectName</span><span class="token operator">=</span>simple-java-maven-app <span class="token punctuation">\</span>
+              <span class="token parameter variable">-Dsonar.projectVersion</span><span class="token operator">=</span><span class="token number">1.0</span> <span class="token punctuation">\</span>
+              <span class="token parameter variable">-Dsonar.login</span><span class="token operator">=</span>admin <span class="token punctuation">\</span>
+              <span class="token parameter variable">-Dsonar.password</span><span class="token operator">=</span>admin <span class="token punctuation">\</span>
+              <span class="token parameter variable">-Dsonar.ws.timeout</span><span class="token operator">=</span><span class="token number">30</span> <span class="token punctuation">\</span>
+              <span class="token parameter variable">-Dsonar.projectDescription</span><span class="token operator">=</span><span class="token string">"my first project!"</span> <span class="token punctuation">\</span>
+              <span class="token parameter variable">-Dsonar.links.homepage</span><span class="token operator">=</span>http://www.baidu.com <span class="token punctuation">\</span>
+              <span class="token parameter variable">-Dsonar.sources</span><span class="token operator">=</span>src <span class="token punctuation">\</span>
+              <span class="token parameter variable">-Dsonar.sourceEncoding</span><span class="token operator">=</span>UTF-8 <span class="token punctuation">\</span>
+              <span class="token parameter variable">-Dsonar.java.binaries</span><span class="token operator">=</span>target/classes <span class="token punctuation">\</span>
+              <span class="token parameter variable">-Dsonar.java.test.binaries</span><span class="token operator">=</span>target/test-classes <span class="token punctuation">\</span>
+              <span class="token parameter variable">-Dsonar.java.surefire.report</span><span class="token operator">=</span>target/surefire-reports<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<hr>
+<h3 id="启动sqlserver2017"><a href="#启动sqlserver2017" class="headerlink" title="启动sqlserver2017"></a>启动sqlserver2017</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">--name</span> sqlserver_2017 <span class="token parameter variable">-v</span> /home/sqlserver:/var/opt/mssql <span class="token parameter variable">-e</span> <span class="token string">'ACCEPT_EULA=Y'</span> <span class="token parameter variable">-e</span> <span class="token string">'SA_PASSWORD=admin123.X'</span> <span class="token parameter variable">-p</span> <span class="token number">1433</span>:1433 <span class="token parameter variable">-d</span> mcr.microsoft.com/mssql/server:2017-latest<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>使用sqlcmd创建数据库</p>
+<p>进入容器 docker exec -it 容器名称 bash</p>
+<p>创建数据库<br>/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P XXXX</p>
+<hr>
+<h3 id="启动rabbitmq"><a href="#启动rabbitmq" class="headerlink" title="启动rabbitmq"></a>启动rabbitmq</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-p</span> <span class="token number">15672</span>:15672 <span class="token punctuation">\</span>
+<span class="token parameter variable">-p</span> <span class="token number">5672</span>:5672 <span class="token punctuation">\</span>
+<span class="token parameter variable">-p</span> <span class="token number">25672</span>:25672 <span class="token punctuation">\</span>
+<span class="token parameter variable">-p</span> <span class="token number">15674</span>:15674 <span class="token punctuation">\</span>
+<span class="token parameter variable">-p</span> <span class="token number">61613</span>:61613 <span class="token punctuation">\</span>
+<span class="token parameter variable">-v</span> /home/yzh/Documents/Installed/docker/docker_repo/rabbitmq/:/var/lib/rabbitmq/mnesia <span class="token punctuation">\</span>
+<span class="token parameter variable">--name</span> rabbitmq3 <span class="token punctuation">\</span>
+<span class="token parameter variable">--restart</span><span class="token operator">=</span>always <span class="token punctuation">\</span>
+<span class="token parameter variable">-d</span> rabbitmq:3.7.8-management
+
+<span class="token comment"># 启动rabbitmq的mqtt和stomp协议</span>
+<span class="token function">docker</span> run <span class="token parameter variable">--name</span> rabbitmq <span class="token punctuation">\</span>
+<span class="token parameter variable">-p</span> <span class="token number">15672</span>:15672 <span class="token punctuation">\</span>
+<span class="token parameter variable">-p</span> <span class="token number">5672</span>:5672 <span class="token punctuation">\</span>
+<span class="token parameter variable">-p</span> <span class="token number">15674</span>:15674 <span class="token punctuation">\</span>
+<span class="token parameter variable">-p</span> <span class="token number">61613</span>:61613 <span class="token punctuation">\</span>
+<span class="token parameter variable">-p</span> <span class="token number">15675</span>:15675 <span class="token punctuation">\</span>
+<span class="token parameter variable">-p</span> <span class="token number">1883</span>:1883 <span class="token punctuation">\</span>
+<span class="token parameter variable">-d</span> rabbitmq:3.8.14-management
+
+<span class="token comment"># 进入容器内部</span>
+<span class="token comment"># rabbit开启stomp</span>
+rabbitmq-plugins <span class="token builtin class-name">enable</span> rabbitmq_stomp
+rabbitmq-plugins <span class="token builtin class-name">enable</span> rabbitmq_web_stomp
+
+<span class="token comment"># rabbit开启mqtt</span>
+rabbitmq-plugins <span class="token builtin class-name">enable</span> rabbitmq_mqtt
+rabbitmq-plugins <span class="token builtin class-name">enable</span> rabbitmq_web_mqtt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>15672，rabbitmq的web页面端口</p>
+<p>5672，amqp协议端口</p>
+<p>25672，集群使用</p>
+<p>15674，stomp的ws端口</p>
+<p>61613，stomp的tcp端口</p>
+<p>1883，mqtt的tcp协议端口</p>
+<p>15675，mqtt的ws端口</p>
+<hr>
+<h3 id="启动traefik"><a href="#启动traefik" class="headerlink" title="启动traefik"></a>启动traefik</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">--name</span> traefik2 <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">8080</span>:8080 <span class="token parameter variable">-p</span> <span class="token number">80</span>:80 <span class="token parameter variable">-v</span> <span class="token environment constant">$PWD</span>/traefik.yml:/etc/traefik/traefik.yml <span class="token parameter variable">-v</span> /var/run/docker.sock:/var/run/docker.sock traefik:v2.4.8<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h3 id="启动MongoDB"><a href="#启动MongoDB" class="headerlink" title="启动MongoDB"></a>启动MongoDB</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">--name</span> mongo <span class="token parameter variable">-e</span> <span class="token assign-left variable">MONGO_INITDB_ROOT_USERNAME</span><span class="token operator">=</span>admin <span class="token parameter variable">-e</span> <span class="token assign-left variable">MONGO_INITDB_ROOT_PASSWORD</span><span class="token operator">=</span>admin <span class="token parameter variable">-v</span> /data/mongodb:/data/db <span class="token parameter variable">-p</span> <span class="token number">27017</span>:27017 <span class="token parameter variable">-d</span> mongo:5.0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3.1'</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">mongo</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> mongo
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token key atrule">MONGO_INITDB_ROOT_USERNAME</span><span class="token punctuation">:</span> root
+      <span class="token key atrule">MONGO_INITDB_ROOT_PASSWORD</span><span class="token punctuation">:</span> example
+  <span class="token key atrule">mongo-express</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> mongo<span class="token punctuation">-</span>express
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 8081<span class="token punctuation">:</span><span class="token number">8081</span>
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ME_CONFIG_MONGODB_ADMINUSERNAME</span><span class="token punctuation">:</span> root
+      <span class="token key atrule">ME_CONFIG_MONGODB_ADMINPASSWORD</span><span class="token punctuation">:</span> example
+      <span class="token key atrule">ME_CONFIG_MONGODB_URL</span><span class="token punctuation">:</span> mongodb<span class="token punctuation">:</span>//root<span class="token punctuation">:</span>example@mongo<span class="token punctuation">:</span>27017/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+
+
+
+
+
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/docker/" class="category-chain-item">docker</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/docker/" class="print-no-link">#docker</a>
+      
+        <a href="/tags/container/" class="print-no-link">#container</a>
+      
+        <a href="/tags/%E5%AE%B9%E5%99%A8/" class="print-no-link">#容器</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/30/nacos%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" title="nacos集群安装">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">nacos集群安装</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/30/docker-ce%E5%AE%89%E8%A3%85/" title="docker-ce安装">
+                        <span class="hidden-mobile">docker-ce安装</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script data-pjax src="https://registry.npmmirror.com/oh-my-live2d/latest/files"></script><script>const oml2d = OML2D.loadOml2d({libraryUrls:{"complete":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/complete.js","cubism2":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism2.js","cubism5":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism5.js"},mobileDisplay:true,models:[{"path":"https://fastly.jsdelivr.net/gh/auroraisok/CDN1@1.0/live2d/Murasame.model3.json","mobilePosition":[-10,23],"mobileScale":0.1,"mobileStageStyle":{"width":180,"height":166},"motionPreloadStrategy":"IDLE","position":[-10,35],"scale":0.15,"stageStyle":{"width":250,"height":250}},{"path":"https://fastly.jsdelivr.net/gh/auroraisok/CDN1@1.0/character/model0.json","scale":0.12,"position":[0,0],"stageStyle":{"width":250},"mobileScale":0.08,"mobilePosition":[0,0],"mobileStageStyle":{"width":180}},{"path":"https://fastly.jsdelivr.net/npm/live2d-widget-model-wanko@1.0.5/assets/wanko.model.json","scale":0.12,"position":[0,0],"mobileScale":0.08,"mobilePosition":[0,0],"mobileStageStyle":{"width":180},"stageStyle":{"width":250}}],parentElement:document.body,primaryColor:"var(--btn-bg)",sayHello:false,tips:{style: {"width":230,"height":120,"left":"calc(50% - 20px)","top":"-100px"},mobileStyle: {"width":180,"height":80,"left":"calc(50% - 30px)","top":"-100px"},idleTips:{interval:15000,message:function(){
+  return axios.get('https://v1.hitokoto.cn?c=i')
+    .then(function (response) {
+      return response.data.hitokoto ;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+}
+}}});</script><!-- hexo injector body_end end --></body>
+</html>

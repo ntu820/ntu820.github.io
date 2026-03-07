@@ -1,0 +1,841 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ntu820">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 手动续期k8s证书使用kubeadm搭建的k8s集群默认的kubectl只有一年有效期。 步骤 备份当前k8s证书 cp -r &#x2F;etc&#x2F;kubernetes &#x2F;etc&#x2F;kubernetes.bak 查看过期时间 kubeadm alpha certs check-expiration 更新证书 kubeadm alpha certs renew all  systemctl restart">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes运维处理">
+<meta property="og:url" content="http://example.com/2022/01/29/kubernetes%E8%BF%90%E7%BB%B4/index.html">
+<meta property="og:site_name" content="NTU820的小窝">
+<meta property="og:description" content="1. 手动续期k8s证书使用kubeadm搭建的k8s集群默认的kubectl只有一年有效期。 步骤 备份当前k8s证书 cp -r &#x2F;etc&#x2F;kubernetes &#x2F;etc&#x2F;kubernetes.bak 查看过期时间 kubeadm alpha certs check-expiration 更新证书 kubeadm alpha certs renew all  systemctl restart">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/k8s.jpg">
+<meta property="article:published_time" content="2022-01-29T02:07:26.000Z">
+<meta property="article:modified_time" content="2025-11-10T06:30:53.454Z">
+<meta property="article:author" content="ntu820">
+<meta property="article:tag" content="kubernetes">
+<meta property="article:tag" content="kubeadm">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/k8s.jpg">
+  
+  
+  
+  <title>Kubernetes运维处理 - NTU820的小窝</title>
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>NTU820的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E6%9B%B4%E6%96%B0kubeadm%E8%AF%81%E4%B9%A6/kubeadm.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Kubernetes运维处理"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-01-29 10:07" pubdate>
+          2022年1月29日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Kubernetes运维处理</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="1-手动续期k8s证书"><a href="#1-手动续期k8s证书" class="headerlink" title="1. 手动续期k8s证书"></a>1. 手动续期k8s证书</h3><p>使用kubeadm搭建的k8s集群默认的kubectl只有一年有效期。</p>
+<h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><ol>
+<li><p>备份当前k8s证书</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-r</span> /etc/kubernetes /etc/kubernetes.bak<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure></li>
+<li><p>查看过期时间</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubeadm alpha certs check-expiration<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure></li>
+<li><p>更新证书</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubeadm alpha certs renew all
+
+systemctl restart kubelet
+
+<span class="token function">cp</span> <span class="token parameter variable">-a</span> /etc/kubernetes/admin.conf /root/.kube/config<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+<li><p>需要更新的文件</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-latex" data-language="latex"><code class="language-latex">└─etc
+    └─kubernetes
+        │  admin.conf
+        │  config
+        │  controller-manager.conf
+        │  scheduler.conf
+        │  
+        ├─etcd
+        │   healthcheck-client.crt
+        │   healthcheck-client.key
+        │   peer.crt
+        │   peer.key
+        │   server.crt
+        │   server.key
+        │      
+        └─pki
+            apiserver-etcd-client.crt
+            apiserver-etcd-client.key
+            apiserver-kubelet-client.crt
+            apiserver-kubelet-client.key
+            apiserver.crt
+            apiserver.key
+            front-proxy-client.crt
+            front-proxy-client.key<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+<li><p>自动化脚本</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubeadm alpha certs renew all
+<span class="token function">docker</span> <span class="token function">ps</span> <span class="token parameter variable">-af</span> <span class="token string">'name=k8s_POD_(kube-apiserver|kube-controller-manager|kube-scheduler|etcd)-*'</span> <span class="token parameter variable">-q</span> <span class="token operator">|</span> <span class="token function">xargs</span> <span class="token function">docker</span> restart
+<span class="token function">cp</span> /etc/kubernetes/admin.conf /root/.kube/config
+kubeadm alpha certs check-expiration<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ol>
+<h3 id="2-修改源码，证书调整为100年"><a href="#2-修改源码，证书调整为100年" class="headerlink" title="2. 修改源码，证书调整为100年"></a>2. 修改源码，证书调整为100年</h3><ol>
+<li><p>下载源码，解压</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://github.com/kubernetes/kubernetes/archive/refs/tags/v1.19.8.zip
+<span class="token function">unzip</span> kubernetes-v1.19.8.zip
+<span class="token builtin class-name">cd</span> kubernetes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure></li>
+<li><p>修改ca证书时间</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> staging/src/k8s.io/client-go/util/cert/cert.go<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">NewSelfSignedCACert</span><span class="token punctuation">(</span>cfg Config<span class="token punctuation">,</span> key crypto<span class="token punctuation">.</span>Signer<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>x509<span class="token punctuation">.</span>Certificate<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        now <span class="token operator">:=</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        tmpl <span class="token operator">:=</span> x509<span class="token punctuation">.</span>Certificate<span class="token punctuation">&#123;</span>
+                SerialNumber<span class="token punctuation">:</span> <span class="token function">new</span><span class="token punctuation">(</span>big<span class="token punctuation">.</span>Int<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">SetInt64</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                Subject<span class="token punctuation">:</span> pkix<span class="token punctuation">.</span>Name<span class="token punctuation">&#123;</span>
+                        CommonName<span class="token punctuation">:</span>   cfg<span class="token punctuation">.</span>CommonName<span class="token punctuation">,</span>
+                        Organization<span class="token punctuation">:</span> cfg<span class="token punctuation">.</span>Organization<span class="token punctuation">,</span>
+                <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+                NotBefore<span class="token punctuation">:</span>             now<span class="token punctuation">.</span><span class="token function">UTC</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token comment">// NotAfter:              now.Add(duration365d * 10).UTC(), 原本为10年</span>
+                NotAfter<span class="token punctuation">:</span>              now<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>duration365d <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">UTC</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// 调整到100年</span>
+                KeyUsage<span class="token punctuation">:</span>              x509<span class="token punctuation">.</span>KeyUsageKeyEncipherment <span class="token operator">|</span> x509<span class="token punctuation">.</span>KeyUsageDigitalSignature <span class="token operator">|</span> x509<span class="token punctuation">.</span>KeyUsageCertSign<span class="token punctuation">,</span>
+                BasicConstraintsValid<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+                IsCA<span class="token punctuation">:</span>                  <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span>
+
+        certDERBytes<span class="token punctuation">,</span> err <span class="token operator">:=</span> x509<span class="token punctuation">.</span><span class="token function">CreateCertificate</span><span class="token punctuation">(</span>cryptorand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> <span class="token operator">&amp;</span>tmpl<span class="token punctuation">,</span> <span class="token operator">&amp;</span>tmpl<span class="token punctuation">,</span> key<span class="token punctuation">.</span><span class="token function">Public</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> key<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> x509<span class="token punctuation">.</span><span class="token function">ParseCertificate</span><span class="token punctuation">(</span>certDERBytes<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">// ...省略代码</span>
+
+<span class="token keyword">func</span> <span class="token function">GenerateSelfSignedCertKeyWithFixtures</span><span class="token punctuation">(</span>host <span class="token builtin">string</span><span class="token punctuation">,</span> alternateIPs <span class="token punctuation">[</span><span class="token punctuation">]</span>net<span class="token punctuation">.</span>IP<span class="token punctuation">,</span> alternateDNS <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">,</span> fixtureDirectory <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        validFrom <span class="token operator">:=</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token operator">-</span>time<span class="token punctuation">.</span>Hour<span class="token punctuation">)</span> <span class="token comment">// valid an hour earlier to avoid flakes due to clock skew</span>
+        <span class="token comment">// maxAge := time.Hour * 24 * 365          // one year self-signed certs</span>
+        maxAge <span class="token operator">:=</span> time<span class="token punctuation">.</span>Hour <span class="token operator">*</span> <span class="token number">24</span> <span class="token operator">*</span> <span class="token number">365</span> <span class="token operator">*</span> <span class="token number">100</span>    <span class="token comment">// 同样调整到100年</span>
+
+        baseName <span class="token operator">:=</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"%s_%s_%s"</span><span class="token punctuation">,</span> host<span class="token punctuation">,</span> strings<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span><span class="token function">ipsToStrings</span><span class="token punctuation">(</span>alternateIPs<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"-"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> strings<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span>alternateDNS<span class="token punctuation">,</span> <span class="token string">"-"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        certFixturePath <span class="token operator">:=</span> filepath<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span>fixtureDirectory<span class="token punctuation">,</span> baseName<span class="token operator">+</span><span class="token string">".crt"</span><span class="token punctuation">)</span>
+        keyFixturePath <span class="token operator">:=</span> filepath<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span>fixtureDirectory<span class="token punctuation">,</span> baseName<span class="token operator">+</span><span class="token string">".key"</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>fixtureDirectory<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span> <span class="token punctuation">&#123;</span>
+                cert<span class="token punctuation">,</span> err <span class="token operator">:=</span> ioutil<span class="token punctuation">.</span><span class="token function">ReadFile</span><span class="token punctuation">(</span>certFixturePath<span class="token punctuation">)</span>
+                <span class="token keyword">if</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+                        key<span class="token punctuation">,</span> err <span class="token operator">:=</span> ioutil<span class="token punctuation">.</span><span class="token function">ReadFile</span><span class="token punctuation">(</span>keyFixturePath<span class="token punctuation">)</span>
+                        <span class="token keyword">if</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+                                <span class="token keyword">return</span> cert<span class="token punctuation">,</span> key<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+                        <span class="token punctuation">&#125;</span>
+                        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">"cert %s can be read, but key %s cannot: %v"</span><span class="token punctuation">,</span> certFixturePath<span class="token punctuation">,</span> keyFixturePath<span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+                <span class="token punctuation">&#125;</span>
+                maxAge <span class="token operator">=</span> <span class="token number">100</span> <span class="token operator">*</span> time<span class="token punctuation">.</span>Hour <span class="token operator">*</span> <span class="token number">24</span> <span class="token operator">*</span> <span class="token number">365</span> <span class="token comment">// 100 years fixtures</span>
+        <span class="token punctuation">&#125;</span>
+
+        caKey<span class="token punctuation">,</span> err <span class="token operator">:=</span> rsa<span class="token punctuation">.</span><span class="token function">GenerateKey</span><span class="token punctuation">(</span>cryptorand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> <span class="token number">2048</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+        <span class="token punctuation">&#125;</span>
+<span class="token comment">// ...省略代码</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+<li><p>修改普通证书时间</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> cmd/kubeadm/app/constants/constants.go<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// ...省略代码</span>
+<span class="token keyword">const</span> <span class="token punctuation">(</span>
+        <span class="token comment">// KubernetesDir is the directory Kubernetes owns for storing various configuration files</span>
+        KubernetesDir <span class="token operator">=</span> <span class="token string">"/etc/kubernetes"</span>
+        <span class="token comment">// ManifestsSubDirName defines directory name to store manifests</span>
+        ManifestsSubDirName <span class="token operator">=</span> <span class="token string">"manifests"</span>
+        <span class="token comment">// TempDirForKubeadm defines temporary directory for kubeadm</span>
+        <span class="token comment">// should be joined with KubernetesDir.</span>
+        TempDirForKubeadm <span class="token operator">=</span> <span class="token string">"tmp"</span>
+
+        <span class="token comment">// CertificateValidity defines the validity for all the signed certificates generated by kubeadm</span>
+        <span class="token comment">// CertificateValidity = time.Hour * 24 * 365         // 注释掉原来只有1年的认证</span>
+        CertificateValidity <span class="token operator">=</span> time<span class="token punctuation">.</span>Hour <span class="token operator">*</span> <span class="token number">24</span> <span class="token operator">*</span> <span class="token number">365</span> <span class="token operator">*</span> <span class="token number">100</span>  <span class="token comment">// 调整新的认证为100年 </span>
+
+        <span class="token comment">// CACertAndKeyBaseName defines certificate authority base name</span>
+        CACertAndKeyBaseName <span class="token operator">=</span> <span class="token string">"ca"</span>
+        <span class="token comment">// CACertName defines certificate name</span>
+        CACertName <span class="token operator">=</span> <span class="token string">"ca.crt"</span>
+        <span class="token comment">// CAKeyName defines certificate name</span>
+        CAKeyName <span class="token operator">=</span> <span class="token string">"ca.key"</span>
+<span class="token comment">// ...省略代码</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+<li><p>重新编译源码</p>
+<ol>
+<li><p>安装go环境</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查询当前kubernetes所使用的go版本</span>
+<span class="token function">cat</span> ./build/build-image/cross/VERSION  <span class="token comment"># v1.19.8使用 v1.15.8-legacy-1的go版本，直接下载v1.15.8即可。</span>
+<span class="token function">wget</span> https://dl.google.com/go/go1.15.8.linux-amd64.tar.gz  <span class="token comment"># 下载其他版本，更改版本号</span>
+<span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> go1.15.8.linux-amd64.tar.gz  <span class="token parameter variable">-C</span> /usr/local<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+<li><p>配置go</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> /etc/profile
+<span class="token comment"># 写入以下内容</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">GO_HOME</span><span class="token operator">=</span>/usr/local/go
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span><span class="token builtin class-name">:</span><span class="token variable">$GO_HOME</span>/bin
+<span class="token comment"># 生效</span>
+<span class="token builtin class-name">source</span> /etc/profile
+<span class="token comment"># 验证</span>
+go version  <span class="token comment"># go version go1.15.8 linux/amd64  </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+<li><p>安装编译所需组件</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token function">install</span> <span class="token parameter variable">-y</span> gcc <span class="token function">make</span> <span class="token function">rsync</span> jq <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure></li>
+<li><p>重新编译</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 重新编译kubeadm</span>
+<span class="token function">make</span> all <span class="token assign-left variable">WHAT</span><span class="token operator">=</span>cmd/kubeadm <span class="token assign-left variable">GOFLAGS</span><span class="token operator">=</span>-v
+
+<span class="token comment"># 编译kubelet</span>
+<span class="token function">make</span> all <span class="token assign-left variable">WHAT</span><span class="token operator">=</span>cmd/kubelet <span class="token assign-left variable">GOFLAGS</span><span class="token operator">=</span>-v
+
+<span class="token comment"># 编译kubectl</span>
+<span class="token function">make</span> all <span class="token assign-left variable">WHAT</span><span class="token operator">=</span>cmd/kubectl <span class="token assign-left variable">GOFLAGS</span><span class="token operator">=</span>-v
+
+<span class="token comment"># 编译完的kubeadm在 _output/bin/kubeadm 目录下，其中bin是使用了软连接</span>
+<span class="token comment"># 真实路径是_output/local/bin/linux/amd64/kubeadm</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ol>
+</li>
+<li><p>执行证书更换</p>
+<ol>
+<li><p>备份文件</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-r</span> /etc/kubernetes/pki /etc/kubernetes/pki.backup
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /etc/kubernetes/back <span class="token operator">&amp;&amp;</span>  <span class="token function">cp</span> *.conf   /etc/kubernetes/back<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure></li>
+<li><p>按照上面方法进行证书更新</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubeadm alpha certs renew all
+<span class="token function">docker</span> <span class="token function">ps</span> <span class="token parameter variable">-af</span> <span class="token string">'name=k8s_POD_(kube-apiserver|kube-controller-manager|kube-scheduler|etcd)-*'</span> <span class="token parameter variable">-q</span> <span class="token operator">|</span> <span class="token function">xargs</span> <span class="token function">docker</span> restart
+<span class="token function">cp</span> /etc/kubernetes/admin.conf /root/.kube/config
+kubeadm alpha certs check-expiration<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ol>
+</li>
+<li><p>目前存在的问题</p>
+<p><font style='color:red;font-size:20px;font-weight:900;'>替换后可使用命令<code>kubeadm alpha certs renew all</code>续期证书，但无法更改ca证书，集群需重建才可以；<br>后续需继续研究，如何在已经运行的集群中，并且保证不中断业务的情况下续期ca及其他相关证书；</font></p>
+</li>
+</ol>
+<h3 id="3-批量处理pod"><a href="#3-批量处理pod" class="headerlink" title="3. 批量处理pod"></a>3. 批量处理pod</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查询所有不正常的pod</span>
+kubectl get pod -A<span class="token operator">|</span><span class="token function">grep</span> <span class="token punctuation">[</span>Evicted<span class="token punctuation">]</span>
+
+<span class="token comment"># 删除命名空间下不正常的pod</span>
+kubectl get pod <span class="token parameter variable">-n</span> <span class="token punctuation">[</span>NS<span class="token punctuation">]</span><span class="token operator">|</span><span class="token function">grep</span> <span class="token string">'[Evicted]'</span><span class="token operator">|</span><span class="token function">awk</span> <span class="token string">'&#123;print$1&#125;'</span><span class="token operator">|</span><span class="token function">xargs</span> kubectl delete pod <span class="token parameter variable">-n</span> <span class="token punctuation">[</span>NS<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>自动处理不正常的pod</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> opt.sh
+
+<span class="token comment"># opt.sh的内容</span>
+<span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> <span class="token variable"><span class="token variable">$(</span>kubectl get pod -A<span class="token operator">|</span><span class="token function">grep</span> <span class="token punctuation">[</span>Evicted<span class="token punctuation">]</span><span class="token operator">|</span><span class="token function">awk</span> <span class="token string">'!a[$1]++&#123;print&#125;'</span><span class="token operator">|</span><span class="token function">awk</span> <span class="token string">'&#123;print$1&#125;'</span><span class="token variable">)</span></span>
+<span class="token keyword">do</span>
+kubectl get pod <span class="token parameter variable">-n</span> <span class="token variable">$i</span><span class="token operator">|</span><span class="token function">grep</span> <span class="token string">'[Evicted]'</span><span class="token operator">|</span><span class="token function">awk</span> <span class="token string">'&#123;print$1&#125;'</span><span class="token operator">|</span><span class="token function">xargs</span> kubectl delete pod <span class="token parameter variable">-n</span> <span class="token variable">$i</span>
+<span class="token keyword">done</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>强制删除pod</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl delete pod <span class="token punctuation">[</span>pod name<span class="token punctuation">]</span> <span class="token parameter variable">--force</span> --grace-period<span class="token operator">=</span><span class="token number">0</span> <span class="token parameter variable">-n</span> <span class="token punctuation">[</span>namespace<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>强制删除命名空间</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl delete namespace NAMESPACENAME <span class="token parameter variable">--force</span> --grace-period<span class="token operator">=</span><span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+
+<h3 id="4-产生k8s管理源密钥"><a href="#4-产生k8s管理源密钥" class="headerlink" title="4. 产生k8s管理源密钥"></a>4. 产生k8s管理源密钥</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 产生k8s管理员密钥</span>
+<span class="token assign-left variable">adm_account</span><span class="token operator">=</span><span class="token string">"k8s-dash-admin"</span>
+kubectl create serviceaccount <span class="token variable">$&#123;adm_account&#125;</span> <span class="token parameter variable">-n</span> kube-system
+kubectl create clusterrolebinding <span class="token variable">$&#123;adm_account&#125;</span> <span class="token parameter variable">--clusterrole</span><span class="token operator">=</span>cluster-admin <span class="token parameter variable">--serviceaccount</span><span class="token operator">=</span>kube-system:<span class="token variable">$&#123;adm_account&#125;</span>
+kubectl <span class="token parameter variable">-n</span> kube-system describe secrets <span class="token variable"><span class="token variable">$(</span>kubectl <span class="token parameter variable">-n</span> kube-system get secret <span class="token operator">|</span> <span class="token function">grep</span> $<span class="token punctuation">&#123;</span>adm_account<span class="token punctuation">&#125;</span> <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'&#123;print $1&#125;'</span><span class="token variable">)</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="5-kubeadm添加新的工作节点"><a href="#5-kubeadm添加新的工作节点" class="headerlink" title="5. kubeadm添加新的工作节点"></a>5. kubeadm添加新的工作节点</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1、安装docker及kubelet，每次安装都是可能安装的最新版的docker，无法指定版本</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">REGISTRY_MIRROR</span><span class="token operator">=</span>https://registry.cn-hangzhou.aliyuncs.com
+<span class="token function">curl</span> <span class="token parameter variable">-sSL</span> https://kuboard.cn/install-script/v1.17.x/install_kubelet.sh <span class="token operator">|</span> <span class="token function">sh</span> <span class="token parameter variable">-s</span> <span class="token number">1.17</span>.2
+
+<span class="token comment"># 2、导入工作节点中需要的images，如果网络好，可以省略</span>
+<span class="token comment"># 工作节点必要：使用calico网络插件</span>
+<span class="token comment"># calico-cni，calico-node，calico-pod2daemon-flexvol，kube-proxy，pause</span>
+k8s.gcr.io/kube-apiserver:v1.17.2
+k8s.gcr.io/kube-controller-manager:v1.17.2
+k8s.gcr.io/kube-scheduler:v1.17.2
+k8s.gcr.io/kube-proxy:v1.17.2
+k8s.gcr.io/pause:3.1
+k8s.gcr.io/etcd:3.4.3-0
+k8s.gcr.io/coredns:1.6.5
+
+<span class="token function">docker</span> tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-proxy:v1.17.2 k8s.gcr.io/kube-proxy:v1.17.2
+<span class="token function">docker</span> tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiserver:v1.17.2 k8s.gcr.io/kube-apiserver:v1.17.2
+<span class="token function">docker</span> tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-controller-manager:v1.17.2 k8s.gcr.io/kube-controller-manager:v1.17.2
+<span class="token function">docker</span> tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler:v1.17.2 k8s.gcr.io/kube-scheduler:v1.17.2
+<span class="token function">docker</span> tag registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:1.6.5 k8s.gcr.io/coredns:1.6.5
+<span class="token function">docker</span> tag registry.cn-hangzhou.aliyuncs.com/google_containers/etcd:3.4.3-0 k8s.gcr.io/etcd:3.4.3-0
+<span class="token function">docker</span> tag registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.1 k8s.gcr.io/pause:3.1
+
+<span class="token comment"># 3、在master上执行，获取加入token</span>
+kubeadm token create --print-join-command
+
+<span class="token comment"># 4、将上面输出的语句，复制进工作节点运行</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/kubernetes/" class="category-chain-item">kubernetes</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/kubernetes/" class="print-no-link">#kubernetes</a>
+      
+        <a href="/tags/kubeadm/" class="print-no-link">#kubeadm</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/29/centos7%E5%AE%89%E8%A3%85nginx/" title="centos7安装nginx">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">centos7安装nginx</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script data-pjax src="https://registry.npmmirror.com/oh-my-live2d/latest/files"></script><script>const oml2d = OML2D.loadOml2d({libraryUrls:{"complete":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/complete.js","cubism2":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism2.js","cubism5":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism5.js"},mobileDisplay:true,models:[{"path":"https://fastly.jsdelivr.net/gh/auroraisok/CDN1@1.0/live2d/Murasame.model3.json","mobilePosition":[-10,23],"mobileScale":0.1,"mobileStageStyle":{"width":180,"height":166},"motionPreloadStrategy":"IDLE","position":[-10,35],"scale":0.15,"stageStyle":{"width":250,"height":250}},{"path":"https://fastly.jsdelivr.net/gh/auroraisok/CDN1@1.0/character/model0.json","scale":0.12,"position":[0,0],"stageStyle":{"width":250},"mobileScale":0.08,"mobilePosition":[0,0],"mobileStageStyle":{"width":180}},{"path":"https://fastly.jsdelivr.net/npm/live2d-widget-model-wanko@1.0.5/assets/wanko.model.json","scale":0.12,"position":[0,0],"mobileScale":0.08,"mobilePosition":[0,0],"mobileStageStyle":{"width":180},"stageStyle":{"width":250}}],parentElement:document.body,primaryColor:"var(--btn-bg)",sayHello:false,tips:{style: {"width":230,"height":120,"left":"calc(50% - 20px)","top":"-100px"},mobileStyle: {"width":180,"height":80,"left":"calc(50% - 30px)","top":"-100px"},idleTips:{interval:15000,message:function(){
+  return axios.get('https://v1.hitokoto.cn?c=i')
+    .then(function (response) {
+      return response.data.hitokoto ;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+}
+}}});</script><!-- hexo injector body_end end --></body>
+</html>
