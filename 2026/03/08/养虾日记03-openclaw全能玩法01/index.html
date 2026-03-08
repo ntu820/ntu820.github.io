@@ -1,0 +1,773 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ntu820">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="从只能蹲本地电脑用，到随时随地远程撸、换上超顶的大模型、还能嵌到浏览器里，全程保姆级教程，新手也能秒会💪 一：🖥️ 告别本地限制！远程访问 OpenClaw默认的 127.0.0.1 真的拴 Q，搭在服务器上根本摸不着！ 两种方法直接拿捏👇 1. ✅ 懒人 LAN 模式（简单但注意安全）按照默认配置的openclaw，默认只能在当前安装的电脑上进行操作，且使用地址只能是127.0.0.1，这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="养虾日记03-openclaw全能玩法：✨远程 + 换模型 + 浏览器插件">
+<meta property="og:url" content="http://example.com/2026/03/08/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B003-openclaw%E5%85%A8%E8%83%BD%E7%8E%A9%E6%B3%9501/index.html">
+<meta property="og:site_name" content="NTU820的小窝">
+<meta property="og:description" content="从只能蹲本地电脑用，到随时随地远程撸、换上超顶的大模型、还能嵌到浏览器里，全程保姆级教程，新手也能秒会💪 一：🖥️ 告别本地限制！远程访问 OpenClaw默认的 127.0.0.1 真的拴 Q，搭在服务器上根本摸不着！ 两种方法直接拿捏👇 1. ✅ 懒人 LAN 模式（简单但注意安全）按照默认配置的openclaw，默认只能在当前安装的电脑上进行操作，且使用地址只能是127.0.0.1，这">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/banner03.png">
+<meta property="article:published_time" content="2026-03-08T11:50:40.000Z">
+<meta property="article:modified_time" content="2026-03-08T13:35:34.059Z">
+<meta property="article:author" content="ntu820">
+<meta property="article:tag" content="openclaw">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/banner03.png">
+  
+  
+  
+  <title>养虾日记03-openclaw全能玩法：✨远程 + 换模型 + 浏览器插件 - NTU820的小窝</title>
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>NTU820的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="养虾日记03-openclaw全能玩法：✨远程 + 换模型 + 浏览器插件"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-03-08 19:50" pubdate>
+          2026年3月8日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">养虾日记03-openclaw全能玩法：✨远程 + 换模型 + 浏览器插件</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>从只能蹲本地电脑用，到随时随地远程撸、换上超顶的大模型、还能嵌到浏览器里，全程保姆级教程，新手也能秒会💪</p>
+<h3 id="一：🖥️-告别本地限制！远程访问-OpenClaw"><a href="#一：🖥️-告别本地限制！远程访问-OpenClaw" class="headerlink" title="一：🖥️ 告别本地限制！远程访问 OpenClaw"></a>一：🖥️ 告别本地限制！远程访问 OpenClaw</h3><p>默认的 127.0.0.1 真的拴 Q，搭在服务器上根本摸不着！</p>
+<p>两种方法直接拿捏👇</p>
+<h4 id="1-✅-懒人-LAN-模式（简单但注意安全）"><a href="#1-✅-懒人-LAN-模式（简单但注意安全）" class="headerlink" title="1. ✅ 懒人 LAN 模式（简单但注意安全）"></a>1. ✅ 懒人 LAN 模式（简单但注意安全）</h4><p>按照默认配置的openclaw，默认只能在当前安装的电脑上进行操作，且使用地址只能是<code>127.0.0.1</code>，这样对于搭建在服务器侧的龙虾，玩虾体验感很不好，这里介绍几种可以方法。</p>
+<ol>
+<li><p>直接在安装的实时，直接绑定到<code>LAN</code>地址，不要使用<code>loopback</code>。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openclaw config <span class="token builtin class-name">set</span> gateway.bind lan
+
+<span class="token comment"># 部分版本需要</span>
+openclaw config <span class="token builtin class-name">set</span> gateway.controlUi.allowInsecureAuth <span class="token boolean">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>或者手动编辑<code>.openclaw/openclaw.json</code>配置文件</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"gateway"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"port"</span><span class="token operator">:</span> <span class="token number">18789</span><span class="token punctuation">,</span>
+    <span class="token property">"mode"</span><span class="token operator">:</span> <span class="token string">"remote"</span><span class="token punctuation">,</span> <span class="token comment">//  把local改成remote</span>
+    <span class="token property">"bind"</span><span class="token operator">:</span> <span class="token string">"lan"</span><span class="token punctuation">,</span> <span class="token comment">// 把loopback改成lan</span>
+    <span class="token property">"auth"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"mode"</span><span class="token operator">:</span> <span class="token string">"token"</span><span class="token punctuation">,</span>
+      <span class="token property">"token"</span><span class="token operator">:</span> <span class="token string">"xxxx"</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ol>
+<h4 id="2-✅-安全党必冲-SSH-隧道（重点！）"><a href="#2-✅-安全党必冲-SSH-隧道（重点！）" class="headerlink" title="2. ✅ 安全党必冲 SSH 隧道（重点！）"></a>2. ✅ 安全党必冲 SSH 隧道（重点！）</h4><ol>
+<li><p>直接开放LAN容易引起一些安全风险，毕竟龙虾还是在本地”养养“就好了。这里使用SSH隧道技术，首先保证在龙虾的电脑上安装好了SSH服务。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 这里以ubuntu为例</span>
+<span class="token function">apt-get</span> update <span class="token operator">&amp;&amp;</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token parameter variable">-y</span> openssh-server
+
+<span class="token comment"># 启动 SSH 服务</span>
+systemctl start <span class="token function">ssh</span>
+
+<span class="token comment"># 设置开机自启</span>
+systemctl <span class="token builtin class-name">enable</span> <span class="token function">ssh</span>
+
+<span class="token comment"># 检查状态</span>
+systemctl status <span class="token function">ssh</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+<li><p>📋 配置 SSH 访问，如果已经有可以远程的账号，下面可以省略</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1. 修改配置（可选）</span>
+<span class="token function">vim</span> /etc/ssh/sshd_config
+
+<span class="token comment"># 确保以下配置：</span>
+Port <span class="token number">22</span>
+PermitRootLogin <span class="token function">yes</span>
+PasswordAuthentication <span class="token function">yes</span>
+
+<span class="token comment">#2. 重启 SSH</span>
+systemctl restart <span class="token function">ssh</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+<li><p>📋 在你本地电脑连接</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 本地执行 SSH 端口转发</span>
+<span class="token function">ssh</span> <span class="token parameter variable">-L</span> <span class="token number">18789</span>:127.0.0.1:18789 <span class="token operator">&lt;</span>user<span class="token operator">></span>@<span class="token operator">&lt;</span>server_ip<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>这条命令的本质是：<strong>在你的本地电脑和远程服务器（OpenClaw 所在的机器）之间，建立一条加密的 “专属通道”</strong>，把远程服务器上 <code>18789</code> 端口的服务（比如 OpenClaw），映射到你本地电脑的 <code>18789</code> 端口上。</p>
+<p>简单说：你在本地访问 <code>127.0.0.1:18789</code>，就等于直接访问远程服务器的 <code>18789</code> 端口，实现了 “远程访问 OpenClaw” 的核心需求。</p>
+<p>当然如果你有可视化的代理ssh工具，也可以直接在工具中配置，这里以<code>MobaXterm</code>为例</p>
+<p><img src="/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/ssh%E9%9A%A7%E9%81%9301.png" srcset="/img/loading.gif" lazyload alt="ssh隧道配置"></p>
+</li>
+<li><p>到此即可在其他电脑上访问服务器侧的龙虾</p>
+<p><img src="/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/ssh%E9%9A%A7%E9%81%9302.png" srcset="/img/loading.gif" lazyload alt="ssh隧道访问"></p>
+</li>
+</ol>
+<h3 id="二：🧠-大脑升级！一键换超牛模型"><a href="#二：🧠-大脑升级！一键换超牛模型" class="headerlink" title="二：🧠 大脑升级！一键换超牛模型"></a>二：🧠 大脑升级！一键换超牛模型</h3><p>OpenClaw 创始人 Peter Steinberger 公布了一份 32 个模型的真实测试排名。评价维度只有三个：成功率/速度/费用，但都非常关键。简单说就是：能不能做成事、做得多快、花多少钱。</p>
+<p>成功率排名，前五名是：<br><br>1️⃣ google/gemini-3-flash-preview<br><br>2️⃣ minimax/minimax-m2.1<br><br>3️⃣ moonshotai/kimi-k2.5<br><br>4️⃣ anthropic/claude-sonnet-4.5<br><br>5️⃣ google/gemini-3-pro-preview</p>
+<p>速度排名，前五名是：<br><br>1️⃣ minimax/minimax-m2.5<br><br>2️⃣ google/gemini-2.0-flash<br><br>3️⃣ meta-llama/llama-3.1-70b<br><br>4️⃣ google/gemini-1.5-pro<br><br>5️⃣ mistral/mistral-large</p>
+<p>费用排名，最便宜的几个模型是：<br><br>1️⃣ GPT-5 Nano<br><br>2️⃣ gemini-2.5-flash-lite<br><br>3️⃣ mistralai/devstral-2512<br><br>4️⃣ GPT-4o-mini<br><br>5️⃣ minimax-m2.1</p>
+<p>OpenClaw 官方实测 32 个模型，我扒了最优解👇</p>
+<p>✅ 综合性价比：minimax-m2.1（成功率 + 速度 + 费用全在线）</p>
+<p>✅ 体验党：kimi-k2.5（成功率前三！）</p>
+<p>下面我们以更换kimi-k2.5为例</p>
+<ol>
+<li><p>先去注册<code>https://platform.moonshot.cn/</code>，然后创建API Key。</p>
+<p><img src="/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/moonshot-api.png" srcset="/img/loading.gif" lazyload alt="创建api key"></p>
+</li>
+<li><p>使用以下命令进行模型配置</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openclaw config <span class="token builtin class-name">set</span> <span class="token string">'models.providers.moonshot'</span> <span class="token parameter variable">--json</span> <span class="token string">'&#123;
+  "baseUrl": "https://api.moonshot.cn/v1",
+  "apiKey": "你的API Key",
+  "api": "openai-completions",
+  "models": [
+    &#123;
+      "id": "kimi-k2.5",
+      "name": "Kimi k2.5"
+    &#125;,
+    &#123;
+      "id": "kimi-k2-0905-preview",
+      "name": "Kimi K2"
+    &#125;
+  ]
+&#125;'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+<li><p>切换模型</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openclaw models <span class="token builtin class-name">set</span> moonshot/kimi-k2.5<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure></li>
+</ol>
+<p>补课敲黑板！！！使用任意自定义模型，包括本地模型。与上面一致，其实只要配置<code>providers</code>的名称，然后配置好<code>models</code>的名称。</p>
+<p>配置nvidia的免费的模型</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 配置模型供应商</span>
+openclaw config <span class="token builtin class-name">set</span> <span class="token string">'models.providers.nvidia'</span> <span class="token parameter variable">--json</span> <span class="token string">'&#123;
+  "baseUrl": "https://integrate.api.nvidia.com/v1",
+  "apiKey": "API Key",
+  "api": "openai-completions",
+  "models": [
+    &#123;
+      "id": "minimaxai/minimax-m2.1",
+      "name": "minimaxai/minimax-m2.1"
+    &#125;
+  ]
+&#125;'</span>
+
+<span class="token comment"># 切换模型</span>
+openclaw models <span class="token builtin class-name">set</span> nvidia/minimaxai/minimax-m2.1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>配置本地ollama模型</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 这里注意ollama，它本身像openai的那样的api规范，属于原生调用。所以url上不需要加上v1，apiKey也是随意</span>
+<span class="token comment"># openclaw新的版本中已经支持ollama的原生api调用</span>
+openclaw config <span class="token builtin class-name">set</span> <span class="token string">'models.providers.ollama-local'</span> <span class="token parameter variable">--json</span> <span class="token string">'&#123;
+  "baseUrl": "https://192.168.1.237:11434",
+  "apiKey": "11111",
+  "models": [
+    &#123;
+      "id": "qwen2.5:14b",
+      "name": "qwen2.5 14b"
+    &#125;
+  ]
+&#125;'</span>
+
+openclaw models <span class="token builtin class-name">set</span> ollama-local/qwen2.5:14b<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>不难看出，其实需要变得的只有几个：</p>
+<p>1️⃣ 模型供应商名称</p>
+<p>2️⃣ baseUrl的地址，apiKey在注册的时候都会有</p>
+<p>3️⃣ 模型供应商提供的模型的名称</p>
+<p>4️⃣ 切换模型的时候，<code>openclaw models set &lt;provider后面的名字&gt;/&lt;models下的id的名字&gt;</code></p>
+<h3 id="三：🌐-嵌进浏览器！插件搭建超简单"><a href="#三：🌐-嵌进浏览器！插件搭建超简单" class="headerlink" title="三：🌐 嵌进浏览器！插件搭建超简单"></a>三：🌐 嵌进浏览器！插件搭建超简单</h3><h4 id="1-对比：openclaw对比chrome"><a href="#1-对比：openclaw对比chrome" class="headerlink" title="1. 对比：openclaw对比chrome"></a>1. 对比：<code>openclaw</code>对比<code>chrome</code></h4><ul>
+<li><code>openclaw</code>：托管的、独立的浏览器（无需扩展程序）。</li>
+<li><code>chrome</code>：将扩展程序转发到您的<strong>系统浏览器</strong>（需要将 OpenClaw 扩展程序附加到选项卡）。</li>
+</ul>
+<p>设置<code>browser.defaultProfile: &quot;openclaw&quot;</code>是否默认启用管理模式。</p>
+<p>这里设置成<code>chrmoe</code>，使用谷歌浏览器扩展方式。</p>
+<p><strong>终于能看到 OpenClaw 咋操作了！放弃默认的 openclaw 模式，冲 Chrome 插件版👇</strong></p>
+<h4 id="2-安装谷歌浏览器插件"><a href="#2-安装谷歌浏览器插件" class="headerlink" title="2. 安装谷歌浏览器插件"></a>2. 安装谷歌浏览器插件</h4><ol>
+<li><p>将扩展程序安装到本地</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openclaw browser extension <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure></li>
+<li><p>找到已安装扩展程序的目录路径，一般在 <code>~/.openclaw/brower/...</code></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openclaw browser extension path<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure></li>
+<li><p>打开谷歌浏览器 -&gt; <code>chrome://extensions</code></p>
+<ul>
+<li>启用”开发者模式“</li>
+<li>“加载已解压的目录”→ 选择上方显示的目录</li>
+<li>固定扩展程序</li>
+</ul>
+</li>
+</ol>
+<p><img src="/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/brower01.png" srcset="/img/loading.gif" lazyload alt="安装"></p>
+<p><img src="/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/brower02.png" srcset="/img/loading.gif" lazyload alt="配置token"></p>
+<p><img src="/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/brower03.png" srcset="/img/loading.gif" lazyload alt="打开调试"></p>
+<p>总结一下！这波操作直接把 OpenClaw 的体验拉满，远程用、换强模型、嵌浏览器，一套下来香到没朋友😜</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/AI/AI-Agent/" class="category-chain-item">AI Agent</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/openclaw/" class="print-no-link">#openclaw</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/03/07/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B002-%E5%9C%A8%E9%A3%9E%E4%B9%A6%E4%B8%AD%E5%AF%B9%E8%AF%9Dopenclaw/" title="养虾日记02-把openclaw装进飞书">
+                        <span class="hidden-mobile">养虾日记02-把openclaw装进飞书</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script data-pjax src="https://registry.npmmirror.com/oh-my-live2d/latest/files"></script><script>const oml2d = OML2D.loadOml2d({libraryUrls:{"complete":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/complete.js","cubism2":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism2.js","cubism5":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism5.js"},mobileDisplay:true,models:[{"path":"https://fastly.jsdelivr.net/gh/auroraisok/CDN1@1.0/live2d/Murasame.model3.json","mobilePosition":[-10,23],"mobileScale":0.1,"mobileStageStyle":{"width":180,"height":166},"motionPreloadStrategy":"IDLE","position":[-10,35],"scale":0.15,"stageStyle":{"width":250,"height":250}},{"path":"https://fastly.jsdelivr.net/gh/auroraisok/CDN1@1.0/character/model0.json","scale":0.12,"position":[0,0],"stageStyle":{"width":250},"mobileScale":0.08,"mobilePosition":[0,0],"mobileStageStyle":{"width":180}},{"path":"https://fastly.jsdelivr.net/npm/live2d-widget-model-wanko@1.0.5/assets/wanko.model.json","scale":0.12,"position":[0,0],"mobileScale":0.08,"mobilePosition":[0,0],"mobileStageStyle":{"width":180},"stageStyle":{"width":250}}],parentElement:document.body,primaryColor:"var(--btn-bg)",sayHello:false,tips:{style: {"width":230,"height":120,"left":"calc(50% - 20px)","top":"-100px"},mobileStyle: {"width":180,"height":80,"left":"calc(50% - 30px)","top":"-100px"},idleTips:{interval:15000,message:function(){
+  return axios.get('https://v1.hitokoto.cn?c=i')
+    .then(function (response) {
+      return response.data.hitokoto ;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+}
+}}});</script><!-- hexo injector body_end end --></body>
+</html>
