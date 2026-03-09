@@ -1,0 +1,707 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ntu820">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="还在被 Anaconda 的慢、卡、商业限制劝退？ 听劝！火速换成 Miniforge，Windows 用起来丝滑到起飞🚀 ✨为啥甩 Anaconda 十条街？ ❶ 免费无坑：避开 Anaconda 商业收费坑，conda-forge 源纯开源 ❷ 快到离谱：自带 Mamba，C++ 内核解析依赖 + 多线程下载，装包比 conda 快 10 倍⏩ ❸ 轻量不卡：安装包才 50MB，不占内存，告">
+<meta property="og:type" content="article">
+<meta property="og:title" content="救命❗Anaconda 换 Miniforge 香到哭😭">
+<meta property="og:url" content="http://example.com/2026/03/09/Windows%E4%BB%8EAnaconda%E6%8D%A2%E5%88%B0Miniforge/index.html">
+<meta property="og:site_name" content="NTU820的小窝">
+<meta property="og:description" content="还在被 Anaconda 的慢、卡、商业限制劝退？ 听劝！火速换成 Miniforge，Windows 用起来丝滑到起飞🚀 ✨为啥甩 Anaconda 十条街？ ❶ 免费无坑：避开 Anaconda 商业收费坑，conda-forge 源纯开源 ❷ 快到离谱：自带 Mamba，C++ 内核解析依赖 + 多线程下载，装包比 conda 快 10 倍⏩ ❸ 轻量不卡：安装包才 50MB，不占内存，告">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/Windows%E4%BB%8EAnaconda%E6%8D%A2%E5%88%B0Miniforge/banner01.png">
+<meta property="article:published_time" content="2026-03-09T10:40:25.000Z">
+<meta property="article:modified_time" content="2026-03-09T11:27:27.068Z">
+<meta property="article:author" content="ntu820">
+<meta property="article:tag" content="Miniforge">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/Windows%E4%BB%8EAnaconda%E6%8D%A2%E5%88%B0Miniforge/banner01.png">
+  
+  
+  
+  <title>救命❗Anaconda 换 Miniforge 香到哭😭 - NTU820的小窝</title>
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>NTU820的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="救命❗Anaconda 换 Miniforge 香到哭😭"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-03-09 18:40" pubdate>
+          2026年3月9日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          718 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          6 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">救命❗Anaconda 换 Miniforge 香到哭😭</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>还在被 Anaconda 的慢、卡、商业限制劝退？</p>
+<p>听劝！火速换成 Miniforge，Windows 用起来丝滑到起飞🚀</p>
+<p>✨为啥甩 Anaconda 十条街？</p>
+<p>❶ 免费无坑：避开 Anaconda 商业收费坑，conda-forge 源纯开源</p>
+<p>❷ 快到离谱：自带 Mamba，C++ 内核解析依赖 + 多线程下载，装包比 conda 快 10 倍⏩</p>
+<p>❸ 轻量不卡：安装包才 50MB，不占内存，告别 Anaconda 的臃肿</p>
+<p>❹ 国内源适配：配置清华镜像，下载速度直接拉满💨</p>
+<p>👇小白也能会的切换教程</p>
+<blockquote>
+<p><strong>重要说明</strong>：从 2022 年 1 月 1 日起，Anaconda 的 <code>defaults</code> 渠道对商业用户收费，虽然个人和学术用途仍可免费使用，但为了规避潜在的许可风险，推荐使用完全开源免费的 <code>conda-forge</code> 渠道。</p>
+</blockquote>
+<h3 id="第一步：下载-Miniforge"><a href="#第一步：下载-Miniforge" class="headerlink" title="第一步：下载 Miniforge"></a>第一步：下载 Miniforge</h3><blockquote>
+<p>注：以下下载方式选一个就行，<strong>推荐清华大学开源软件镜像站</strong></p>
+</blockquote>
+<ul>
+<li><strong>方式一（推荐）</strong>：<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/github-release/conda-forge/miniforge/LatestRelease/">清华大学开源软件镜像站</a></li>
+<li><strong>方式二</strong>：<a target="_blank" rel="noopener" href="https://github.com/conda-forge/miniforge/releases">GitHub Releases</a>（可能较慢）</li>
+<li><strong>方式三</strong>：<a target="_blank" rel="noopener" href="https://mirror.nju.edu.cn/github-release/conda-forge/miniforge/LatestRelease/">南京大学开源镜像站</a></li>
+</ul>
+<p>找到并下载：  Miniforge3-Windows-x86_64.exe</p>
+<p><strong>安装前准备</strong></p>
+<ul>
+<li>关闭所有正在运行的命令行窗口（CMD、PowerShell）</li>
+<li>临时禁用杀毒软件（某些安全软件会拦截安装过程）</li>
+</ul>
+<h3 id="第二步：安装（重点看！）"><a href="#第二步：安装（重点看！）" class="headerlink" title="第二步：安装（重点看！）"></a>第二步：安装（重点看！）</h3><ol>
+<li><p>运行安装程序：双击下载的 <code>.exe</code> 文件。</p>
+</li>
+<li><p>点击 “Next” → “I Agree”</p>
+</li>
+<li><p>选择 <strong>“Just Me”</strong> → “Next”</p>
+<p><img src="/img/Windows%E4%BB%8EAnaconda%E6%8D%A2%E5%88%B0Miniforge/install01.png" srcset="/img/loading.gif" lazyload alt="安装"></p>
+</li>
+<li><p>安装位置填写：<code>D:\soft\miniforge3</code> → “Next”</p>
+<p><img src="/img/Windows%E4%BB%8EAnaconda%E6%8D%A2%E5%88%B0Miniforge/install02.png" srcset="/img/loading.gif" lazyload alt="安装"></p>
+</li>
+<li><p><strong>勾选以下 3 个选项</strong> → “Install”：</p>
+<ul>
+<li>✅ Create shortcuts (supported packages only)</li>
+<li>✅ Add Miniforge3 to my PATH environment variable</li>
+<li>✅ Register Miniforge3 as my default Python 3.12</li>
+</ul>
+<p><img src="/img/Windows%E4%BB%8EAnaconda%E6%8D%A2%E5%88%B0Miniforge/install03.png" srcset="/img/loading.gif" lazyload alt="安装"></p>
+</li>
+<li><p>完成后点击 “Next” → “Finish”</p>
+</li>
+</ol>
+<h3 id="第三步：配置国内源（关键！）"><a href="#第三步：配置国内源（关键！）" class="headerlink" title="第三步：配置国内源（关键！）"></a>第三步：配置国内源（关键！）</h3><p>在用户目录 <code>C:\Users\&lt;你的用户名&gt;\</code> 下新建文本文档，命名为 <code>.condarc</code>。（别漏小数点❗）</p>
+<blockquote>
+<p><strong>小贴士</strong>：</p>
+<ul>
+<li>如果不知道用户名：桌面右键 → “在终端中打开” → 输入 <code>whoami</code> → 回车，<code>\</code> 后面的就是用户名（如 <code>hsxbk\hsx</code>，则 <code>hsx</code> 是用户名）</li>
+<li>新建文本文档默认扩展名为 <code>.txt</code>，需手动删除 <code>.txt</code></li>
+<li>若看不到扩展名：文件资源管理器 → “查看” → “选项” → 取消勾选 “隐藏已知文件类型的扩展名”</li>
+</ul>
+</blockquote>
+<p>用记事本编辑 <code>.condarc</code>，写入以下内容：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">channels</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> conda<span class="token punctuation">-</span>forge
+  <span class="token punctuation">-</span> pytorch
+  <span class="token punctuation">-</span> bioconda
+  <span class="token punctuation">-</span> menpo
+  <span class="token punctuation">-</span> msys2
+  <span class="token punctuation">-</span> rapidsai
+  <span class="token punctuation">-</span> numba
+  <span class="token punctuation">-</span> pyviz
+  <span class="token punctuation">-</span> dglteam
+  <span class="token punctuation">-</span> deepmodeling
+
+<span class="token key atrule">channel_alias</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//mirrors.tuna.tsinghua.edu.cn/anaconda
+
+<span class="token key atrule">custom_channels</span><span class="token punctuation">:</span>
+  <span class="token key atrule">conda-forge</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  <span class="token key atrule">pytorch</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  <span class="token key atrule">bioconda</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  <span class="token key atrule">menpo</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  <span class="token key atrule">msys2</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  <span class="token key atrule">rapidsai</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  <span class="token key atrule">numba</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  <span class="token key atrule">pyviz</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  <span class="token key atrule">dglteam</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  <span class="token key atrule">deepmodeling</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+
+<span class="token key atrule">show_channel_urls</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+<span class="token key atrule">auto_activate_base</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+<span class="token key atrule">channel_priority</span><span class="token punctuation">:</span> strict<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>复制我整理的清华镜像配置，一键搞定所有常用源。</p>
+<p>从此装包再也不转圈，秒下⚡</p>
+<h3 id="第四步：验证"><a href="#第四步：验证" class="headerlink" title="第四步：验证"></a>第四步：验证</h3><p>打开终端敲命令：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">conda <span class="token parameter variable">--version</span>
+
+conda create <span class="token parameter variable">-n</span> <span class="token builtin class-name">test</span> <span class="token assign-left variable">python</span><span class="token operator">=</span><span class="token number">3.10</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>全程丝滑无报错，直接封神🎉</p>
+<p><strong>真的后悔没早换！告别 Anaconda 的各种糟心事，Miniforge 轻量、高速、无限制，数据科学 / 深度学习党直接冲💪</strong></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Miniforge/" class="print-no-link">#Miniforge</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/03/08/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B003-openclaw%E5%85%A8%E8%83%BD%E7%8E%A9%E6%B3%9501/" title="养虾日记03-openclaw全能玩法：✨远程 + 换模型 + 浏览器插件">
+                        <span class="hidden-mobile">养虾日记03-openclaw全能玩法：✨远程 + 换模型 + 浏览器插件</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script data-pjax src="https://registry.npmmirror.com/oh-my-live2d/latest/files"></script><script>const oml2d = OML2D.loadOml2d({libraryUrls:{"complete":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/complete.js","cubism2":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism2.js","cubism5":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism5.js"},mobileDisplay:true,models:[{"path":"https://fastly.jsdelivr.net/gh/auroraisok/CDN1@1.0/live2d/Murasame.model3.json","mobilePosition":[-10,23],"mobileScale":0.1,"mobileStageStyle":{"width":180,"height":166},"motionPreloadStrategy":"IDLE","position":[-10,35],"scale":0.15,"stageStyle":{"width":250,"height":250}},{"path":"https://fastly.jsdelivr.net/gh/auroraisok/CDN1@1.0/character/model0.json","scale":0.12,"position":[0,0],"stageStyle":{"width":250},"mobileScale":0.08,"mobilePosition":[0,0],"mobileStageStyle":{"width":180}},{"path":"https://fastly.jsdelivr.net/npm/live2d-widget-model-wanko@1.0.5/assets/wanko.model.json","scale":0.12,"position":[0,0],"mobileScale":0.08,"mobilePosition":[0,0],"mobileStageStyle":{"width":180},"stageStyle":{"width":250}}],parentElement:document.body,primaryColor:"var(--btn-bg)",sayHello:false,tips:{style: {"width":230,"height":120,"left":"calc(50% - 20px)","top":"-100px"},mobileStyle: {"width":180,"height":80,"left":"calc(50% - 30px)","top":"-100px"},idleTips:{interval:15000,message:function(){
+  return axios.get('https://v1.hitokoto.cn?c=i')
+    .then(function (response) {
+      return response.data.hitokoto ;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+}
+}}});</script><!-- hexo injector body_end end --></body>
+</html>
