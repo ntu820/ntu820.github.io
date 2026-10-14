@@ -22,18 +22,18 @@
     <meta name="description" content="一：Arduino、ESP01、DH11 Arduino，是一款便捷灵活、方便上手的开源电子原型平台。它构建于开放原始码simple I&#x2F;O介面版，并且具有使用类似Java、C语言的Processing&#x2F;Wiring开发环境。主要包含两个部分：硬件部分是可以用来做电路连接的Arduino电路板；另外一个则是Arduino IDE，计算机中的程序开发环境。你只要在IDE中编写程序代码，将程序上传到A">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Arduino硬件篇一：ESP-01和DH11搭建温湿度数采">
-<meta property="og:url" content="http://example.com/2024/01/03/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:url" content="https://ntu820.github.io/2024/01/03/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="NTU820的小窝">
 <meta property="og:description" content="一：Arduino、ESP01、DH11 Arduino，是一款便捷灵活、方便上手的开源电子原型平台。它构建于开放原始码simple I&#x2F;O介面版，并且具有使用类似Java、C语言的Processing&#x2F;Wiring开发环境。主要包含两个部分：硬件部分是可以用来做电路连接的Arduino电路板；另外一个则是Arduino IDE，计算机中的程序开发环境。你只要在IDE中编写程序代码，将程序上传到A">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/Arduino-Logo.jpg">
+<meta property="og:image" content="https://ntu820.github.io/img/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/Arduino-Logo.jpg">
 <meta property="article:published_time" content="2024-01-03T09:18:50.000Z">
 <meta property="article:modified_time" content="2025-11-10T06:30:53.452Z">
 <meta property="article:author" content="ntu820">
 <meta property="article:tag" content="ESP-01">
 <meta property="article:tag" content="DH11">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/Arduino-Logo.jpg">
+<meta name="twitter:image" content="https://ntu820.github.io/img/ESP8266-01%E5%92%8CDH11%E6%90%AD%E5%BB%BA%E6%B8%A9%E6%B9%BF%E5%BA%A6%E6%95%B0%E9%87%87%E7%B3%BB%E7%BB%9F/Arduino-Logo.jpg">
   
   
   
@@ -77,7 +77,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"ntu820.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -172,6 +172,18 @@
               <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/ai-agent-handbook/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>AI Agent 手册</span>
               </a>
             </li>
           

@@ -22,18 +22,18 @@
     <meta name="description" content="一：介绍是使用Docker 引擎内置的集群管理和编排工具， 是 Docker 官方三剑客项目之一，提供 Docker 容器集群服务，是 Docker 官方对容器云生态进行支持的核心方案。Swarm集群的框架与Hadoop集群或其他分布式系统类似，它也是由节点构成，每一个节点就是一台主机或者虚拟机。工作的机制也是主从模式（master&#x2F;slaver）,节点分为两种，一种是负责管理的Manager另一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker-swarm创建及使用">
-<meta property="og:url" content="http://example.com/2023/12/31/docker-swarm%E5%88%9B%E5%BB%BA%E5%8F%8A%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:url" content="https://ntu820.github.io/2023/12/31/docker-swarm%E5%88%9B%E5%BB%BA%E5%8F%8A%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="NTU820的小窝">
 <meta property="og:description" content="一：介绍是使用Docker 引擎内置的集群管理和编排工具， 是 Docker 官方三剑客项目之一，提供 Docker 容器集群服务，是 Docker 官方对容器云生态进行支持的核心方案。Swarm集群的框架与Hadoop集群或其他分布式系统类似，它也是由节点构成，每一个节点就是一台主机或者虚拟机。工作的机制也是主从模式（master&#x2F;slaver）,节点分为两种，一种是负责管理的Manager另一">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/docker-swarm%E5%88%9B%E5%BB%BA%E5%8F%8A%E4%BD%BF%E7%94%A8/docker-swarm.jpg">
+<meta property="og:image" content="https://ntu820.github.io/img/docker-swarm%E5%88%9B%E5%BB%BA%E5%8F%8A%E4%BD%BF%E7%94%A8/docker-swarm.jpg">
 <meta property="article:published_time" content="2023-12-31T02:54:25.000Z">
 <meta property="article:modified_time" content="2025-11-10T06:30:53.453Z">
 <meta property="article:author" content="ntu820">
 <meta property="article:tag" content="docker">
 <meta property="article:tag" content="docker-swarm">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/docker-swarm%E5%88%9B%E5%BB%BA%E5%8F%8A%E4%BD%BF%E7%94%A8/docker-swarm.jpg">
+<meta name="twitter:image" content="https://ntu820.github.io/img/docker-swarm%E5%88%9B%E5%BB%BA%E5%8F%8A%E4%BD%BF%E7%94%A8/docker-swarm.jpg">
   
   
   
@@ -77,7 +77,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"ntu820.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -172,6 +172,18 @@
               <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/ai-agent-handbook/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>AI Agent 手册</span>
               </a>
             </li>
           

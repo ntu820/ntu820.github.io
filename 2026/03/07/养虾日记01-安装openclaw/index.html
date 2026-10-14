@@ -22,17 +22,17 @@
     <meta name="description" content="家人们谁懂啊！挖到宝了💥能部署在自己电脑上的 AI 代理 OpenClaw，简直是打工人 &#x2F; 程序员的效率神器，但全网教程要么太散要么太绕，今天手把手教你搞定，小白也能冲🐛 一：🦞先唠唠这是啥？OpenClaw（曾用名：Clawdbot、Moltbot），一款可以部署在个人电脑上的AI代理，采用“龙虾”图标设计，slogan是“The AI that actually does things">
 <meta property="og:type" content="article">
 <meta property="og:title" content="养虾日记01-🔥本地部署 OpenClaw 保姆级教程｜AI 代理玩起来">
-<meta property="og:url" content="http://example.com/2026/03/07/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B001-%E5%AE%89%E8%A3%85openclaw/index.html">
+<meta property="og:url" content="https://ntu820.github.io/2026/03/07/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B001-%E5%AE%89%E8%A3%85openclaw/index.html">
 <meta property="og:site_name" content="NTU820的小窝">
 <meta property="og:description" content="家人们谁懂啊！挖到宝了💥能部署在自己电脑上的 AI 代理 OpenClaw，简直是打工人 &#x2F; 程序员的效率神器，但全网教程要么太散要么太绕，今天手把手教你搞定，小白也能冲🐛 一：🦞先唠唠这是啥？OpenClaw（曾用名：Clawdbot、Moltbot），一款可以部署在个人电脑上的AI代理，采用“龙虾”图标设计，slogan是“The AI that actually does things">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/banner01.png">
+<meta property="og:image" content="https://ntu820.github.io/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/banner01.png">
 <meta property="article:published_time" content="2026-03-07T08:42:56.000Z">
 <meta property="article:modified_time" content="2026-03-08T13:45:26.575Z">
 <meta property="article:author" content="ntu820">
 <meta property="article:tag" content="openclaw">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/banner01.png">
+<meta name="twitter:image" content="https://ntu820.github.io/img/%E5%85%BB%E8%99%BE%E6%97%A5%E8%AE%B0/banner01.png">
   
   
   
@@ -76,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"ntu820.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":"12a3171756132afa5f5f7bc08ae8d6c2","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -171,6 +171,18 @@
               <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/ai-agent-handbook/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>AI Agent 手册</span>
               </a>
             </li>
           
